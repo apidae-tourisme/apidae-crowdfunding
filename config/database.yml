@@ -1,0 +1,28 @@
+default: &default
+  adapter: postgresql
+  pool: 10
+  timeout: 5000
+
+local: &local
+  username: pglocal
+  password: pglocal
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: apidae_cf_dev
+  <<: *local
+
+test:
+  <<: *default
+  database: apidae_cf_test
+  <<: *local
+
+production:
+  <<: *default
+  database:
+  username:
+  password:
+  host:
+  port:
