@@ -1,0 +1,55 @@
+// KNACSS variables overrides
+
+$font-family-base      : "Montserrat", "Arial", "Helvetica Neue", sans-serif; // system font stack
+$font-family-headings  : "Montserrat", "Arial", "Helvetica Neue", sans-serif; // font for h1, h2.. h6
+
+// Color names
+$white    : #fff;
+$gray-100 : #fffbf4;
+$gray-200 : #f9f4e2;
+$gray-300 : #e1dcca;
+$gray-400 : #e1dcca;
+$gray-500 : #C1B79F;
+$gray-600 : #A19884;
+$gray-700 : #7F7763;
+$gray-800 : #746A55;
+$gray-900 : #756a55;
+$black    : #000;
+
+$blue-300   : #74C5EA;
+$blue-500   : #00B1C6;
+$green-500  : #BDD07B;
+$orange-500 : #FFC302;
+$red-500    : #F97E7E;
+
+// Semantic colors
+$color-brand    : $green-500;
+$color-primary  : $blue-500;
+$color-success  : $green-500;
+$color-info     : $blue-300;
+$color-warning  : $orange-500;
+$color-danger   : $red-500;
+$color-inverse  : $black;
+$color-ghost    : transparent;
+$color-muted    : $gray-200;
+
+$color-base      : $black;
+$background-base : $white;
+$link-color            : $black;
+$link-color-hover      : $black;
+
+// Components: buttons, badges, alerts color variants list
+// Convention is: name - background-color - color - border
+$variants-list: (
+                (primary,    $color-primary,    $white,    none),
+                (success,    $color-success,    $white,    none),
+                (info,       $color-info,       $black,    none),
+                (warning,    $color-warning,    $black,    none),
+                (danger,     $color-danger,     $white,    none),
+                (inverse,    $color-inverse,    $white,    none),
+                (ghost,      $color-ghost,      $color-inverse, none)
+);
+
+$tabs-color: $color-inverse;
+$tabs-active-border: $color-primary;
+$tabs-active-color: $color-primary;

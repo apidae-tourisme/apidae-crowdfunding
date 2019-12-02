@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ApidaeCrowdfunding</title>
+    <title>Apidae - Souscrivez à la nouvelle structure</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
-    <%= yield %>
+    <header class="w100">
+      <%= render 'shared/header' %>
+    </header>
+    <section id="site_content">
+      <%= yield %>
+    </section>
+    <footer class="bg--primary pam u-txt-center u-uppercase">
+      <a href="/">Mentions légales</a>
+      <a href="/">Qui sommes-nous ?</a>
+      <a href="/">Contact</a>
+      <a href="/">FAQ</a>
+    </footer>
   </body>
 </html>

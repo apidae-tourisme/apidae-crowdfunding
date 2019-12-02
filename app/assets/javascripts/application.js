@@ -11,5 +11,8 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
-//= require_tree .
+//= require promise-polyfill/dist/polyfill
+//= require vanilla-datatables/dist/vanilla-dataTables.min
+//= require accessible-autocomplete/dist/accessible-autocomplete.min
+//= require d3/dist/d3
+//= require site/site
