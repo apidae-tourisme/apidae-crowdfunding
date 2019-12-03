@@ -15,13 +15,10 @@ function initMap(mapWrapper) {
         .scale(2400)
         .translate([width / 2, height / 2]);
     path.projection(projection);
-    console.log('width : ' + width + '- height : ' + height);
 
     var svg = d3.select('#home_map').append("svg")
-        .attr("id", "svg")
         .attr("width", width)
-        .attr("height", height)
-        .attr("class", "Blues");
+        .attr("height", height);
 
     var regions = svg.append("g");
 
@@ -43,16 +40,32 @@ function initMap(mapWrapper) {
             .attr("id", function (d) {
                 return d.properties.reference;
             })
-            .attr("class", function(d) { return subscriptionLevel(d.properties.reference, subscriptionsData.subscriptions);})
-            .attr("d", path);
+            .attr("class", function(d) { return "region_path " + subscriptionLevel(d.properties.reference, subscriptionsData.subscriptions);})
+            .attr("d", path)
+        features.append("text").attr("class", "region_label")
+            .html(function(d) {
+                var count = subscriptionCount(d.properties.reference, subscriptionsData.subscriptions);
+                if (count > 0) {
+                    return '<tspan x="0" y="0">' + (count * 100) + '€</tspan><tspan x="0" dy="1em">souscrits</tspan>';
+                }
+            });
+
+        d3.selectAll("text.region_label").attr("transform", function(d, i) {
+            var bbox = document.querySelector("#" + d.properties.reference).getBBox();
+            return "translate(" + (bbox.x + bbox.width / 2) + " " + (bbox.y + bbox.height / 2) + ")";
+        });
     });
 
-    function subscriptionLevel(ref, subscriptions) {
+    function subscriptionCount(ref, subscriptions) {
         for (var i = 0; i < subscriptions.length; i++) {
             if (subscriptions[i].reference === ref) {
-                return countLevel(subscriptions[i].count);
+                return subscriptions[i].count;
             }
         }
+    }
+
+    function subscriptionLevel(ref, subscriptions) {
+        return countLevel(subscriptionCount(ref, subscriptions));
     }
 
     function countLevel(subscriptionsCount) {
