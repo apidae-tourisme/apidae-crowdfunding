@@ -1,8 +1,125 @@
-<div id="home_data" class="grid-2">
+<section id="home_data" class="grid-2">
   <div class="pam bg--white">
     <div id="home_map"></div>
   </div>
   <div class="pam bg--inverse">
     <div id="home_charts"></div>
   </div>
-</div>
+</section>
+<section id="home_figures" class="bg--primary">
+  <div class="w100 mw1140p center flex-container pam">
+    <div id="ratio_figure" class="w45">
+      <div class="fl"></div>
+      <p>
+        <strong class="u-bigger">275000€</strong><br/>engagés sur un objectif de 500000€
+      </p>
+    </div>
+    <div class="w15">
+      <p><strong class="u-bigger">120</strong><br/>contributeurs</p>
+    </div>
+    <div class="w25">
+      <p class="inbl txtleft mrm countdown"><strong class="u-bigger">10/01/2019</strong><br/>fin de la 1<sup>ère</sup> levée de fonds</p>
+    </div>
+    <div class="w15">
+      <a href="/" class="inbl btn btn--big btn--inverse">J'investis</a>
+    </div>
+  </div>
+</section>
+<section id="home_phases" class="bg--warning">
+  <div class="w100 mw1140p center ptl pbl">
+    <h2 class="txtcenter mbl">Les phases de création de la SCIC Apidae</h2>
+    <div class="grid-4">
+      <div class="pam">
+        <p class="txtcenter w75 center lh pbs">
+          <i class="apidae-icon-news txt--danger"></i><br/>
+          <strong class="txt--danger">étape 1</strong><br/><br/>
+          <strong>Déclarations d'intention</strong><br/><br/>
+          10/12/2019
+        </p>
+      </div>
+      <div class="pam">
+        <p class="txtcenter w75 center lh pbs">
+          <i class="apidae-icon-event txt--danger"></i><br/>
+          <strong class="txt--danger">étape 2</strong><br/><br/>
+          <strong>Souscription</strong><br/><br/>
+          10/01/2020
+        </p>
+      </div>
+      <div class="pam">
+        <p class="txtcenter w75 center lh pbs">
+          <i class="fas fa-donate txt--danger"></i><br/>
+          <strong class="txt--danger">étape 3</strong><br/><br/>
+          <strong>Dépôt de fonds</strong><br/><br/>
+          10/02/2020
+        </p>
+      </div>
+      <div class="pam">
+        <p class="txtcenter w75 center lh pbs">
+          <i class="fas fa-landmark txt--danger"></i><br/>
+          <strong class="txt--danger">étape 4</strong><br/><br/>
+          <strong>Création de la structure</strong><br/><br/>
+          10/03/2020
+        </p>
+      </div>
+    </div>
+    <div class="txtcenter mtm">
+      <a href="/" class="btn btn--big btn--danger">J'investis</a>
+    </div>
+  </div>
+</section>
+<section id="home_why">
+  <div class="w100 mw1140p center ptl pbm">
+    <h2 class="txtcenter mtl">Pourquoi souscrire ?</h2>
+    <div class="grid-3 has-gutter-xl">
+      <a href="/" class="txtcenter pam">
+        <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
+        <h3 class="lh u-uppercase mts mbs">Rejoindre<br/>l'aventure</h3>
+        <i class="u-biggest apidae-action-right txt--danger"></i>
+      </a>
+      <a href="/" class="txtcenter pam">
+        <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
+        <h3 class="lh u-uppercase mts mbs">Devenir<br/>membre</h3>
+        <i class="u-biggest apidae-action-right txt--primary"></i>
+      </a>
+      <a href="/" class="txtcenter pam">
+        <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
+        <h3 class="lh u-uppercase mts mbs">Soutenir<br/>le projet</h3>
+        <i class="u-biggest apidae-action-right txt--warning"></i>
+      </a>
+    </div>
+  </div>
+</section>
+<section id="home_news">
+  <div class="w100 mw1140p center pbl">
+    <h2 class="txtcenter mtl">Actus de la SCIC</h2>
+    <div class="grid-3 has-gutter-l mtm">
+      <a href="/" class="txtleft pas">
+        <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+        <h4 class="mts">Titre news</h4>
+        <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+          eu fugiat nulla pariatur.</p>
+        <p class="txtright u-bigger ma0"><i class="apidae-action-right txt--primary"></i></p>
+      </a>
+      <a href="/" class="txtleft pas">
+        <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+        <h4 class="mts">Titre news</h4>
+        <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+          eu fugiat nulla pariatur.</p>
+        <p class="txtright u-bigger ma0"><i class="apidae-action-right txt--primary"></i></p>
+      </a>
+      <a href="/" class="txtleft pas">
+        <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+        <h4 class="mts">Titre news</h4>
+        <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+          eu fugiat nulla pariatur.</p>
+        <p class="txtright u-bigger ma0"><i class="apidae-action-right txt--primary"></i></p>
+      </a>
+    </div>
+  </div>
+</section>

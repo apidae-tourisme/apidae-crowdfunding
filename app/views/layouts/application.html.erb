@@ -12,14 +12,9 @@
     <header class="w100">
       <%= render 'shared/header' %>
     </header>
-    <section id="site_content">
+    <div id="site_content">
       <%= yield %>
-    </section>
-    <footer class="bg--primary pam u-txt-center u-uppercase">
-      <a href="/">Mentions légales</a>
-      <a href="/">Qui sommes-nous ?</a>
-      <a href="/">Contact</a>
-      <a href="/">FAQ</a>
-    </footer>
+    </div>
+    <%= render 'shared/footer' %>
   </body>
 </html>
