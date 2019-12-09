@@ -11,6 +11,10 @@ gem 'devise-i18n'
 
 gem 'rack-cors'
 
+group :assets do
+  gem 'uglifier'
+end
+
 group :production do
   gem 'lograge'
   gem 'sentry-raven'
