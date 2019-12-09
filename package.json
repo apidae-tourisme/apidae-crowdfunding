@@ -1,7 +1,9 @@
 {
   "name": "apidae-crowdfunding",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "c3": "^0.7.11"
+  },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "accessible-autocomplete": "^1.6.1",

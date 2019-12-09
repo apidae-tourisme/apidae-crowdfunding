@@ -1,0 +1,27 @@
+[
+  {
+    "label": "Auvergne-Rhône-Alpes Tourisme",
+    "value": 12500,
+    "category": "ia"
+  },
+  {
+    "label": "Savoie Mont-Blanc",
+    "value": 9000,
+    "category": "at"
+  },
+  {
+    "label": "Crédit Agricole",
+    "value": 8800,
+    "category": "ip"
+  },
+  {
+    "label": "Région Île-de-France",
+    "value": 7500,
+    "category": "ia"
+  },
+  {
+    "label": "Lyon Tourisme & Congrès",
+    "value": 7200,
+    "category": "at"
+  }
+]

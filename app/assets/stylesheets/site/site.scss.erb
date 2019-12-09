@@ -37,6 +37,12 @@ header {
 
   .countdown {
     vertical-align: bottom;
+    margin-bottom: 1.3rem;
+    line-height: 1.2;
+
+    i {
+      font-size: 2.2rem;
+    }
   }
 
   .btn {
@@ -58,8 +64,25 @@ header {
   background-size: 35% auto;
 
   #home_data {
-    > * {
+    position: relative;
+
+    #data_bg {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+    }
+
+    #data_charts {
+      position: relative;
+      z-index: 1;
+    }
+
+    > * > * {
       height: calc(100vh - 15rem);
+      min-height: 650px;
     }
 
     #home_map, #home_charts {
@@ -68,41 +91,140 @@ header {
   }
 }
 
-#home_map {
-  svg {
-    .map_region:hover {
-      path {
-        cursor: pointer;
-        stroke-width: 3px;
-        filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.4));
+#home_data {
+  #home_map {
+    svg {
+      .map_region:hover {
+        path {
+          cursor: pointer;
+          stroke-width: 3px;
+          filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.4));
+        }
+
+        text {
+          cursor: pointer;
+        }
       }
 
-      text {
-        cursor: pointer;
+      text.region_label {
+        text-anchor: middle;
+
+        tspan:first-child {
+          font-size: 12px;
+        }
+        tspan:last-child {
+          font-size: 8px;
+        }
       }
     }
 
-    text.region_label {
-      text-anchor: middle;
+    path {
+      stroke: $white;
+      stroke-width: 1px;
 
-      tspan:first-child {
-        font-size: 12px;
-      }
-      tspan:last-child {
-        font-size: 8px;
+      $map_levels: (0, 1, 2, 3, 4, 5, 6, 7, 8);
+
+      @each $level in $map_levels {
+        &.level_#{$level} {
+          fill: lighten($color-warning, percentage((8 - $level) / 24));
+        }
       }
     }
   }
 
-  path {
-    stroke: $white;
-    stroke-width: 1px;
+  #home_charts {
+    #rank_chart_wrapper {
+      overflow: hidden;
 
-    $map_levels: (0, 1, 2, 3, 4, 5, 6, 7, 8);
+      #rank_chart {
+        margin-left: -100px;
+      }
 
-    @each $level in $map_levels {
-      &.level_#{$level} {
-        fill: lighten($color-warning, percentage((8 - $level) / 24));
+      a {
+        text-decoration: none;
+        color: $yellow-500;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          color: $color-warning;
+        }
+      }
+    }
+
+    .c3-text {
+      fill: #FFFFFF !important;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: $font-family-base;
+    }
+
+    path.domain {
+      transform: translate(-20px, -1px);
+      fill: none;
+      stroke-width: 2;
+      stroke: #FFF;
+    }
+
+    .c3-axis-x {
+      fill: white;
+      transform: translate(20px, 1px) !important;
+      clip-path: none !important;
+
+      text {
+        font-size: 14px;
+        font-weight: 500;
+        font-family: $font-family-base;
+        text-anchor: revert !important;
+      }
+    }
+
+    .c3-chart-arc {
+      path {
+        stroke-width: 3;
+      }
+      text {
+        font-size: 12px;
+        font-weight: 500;
+        font-family: $font-family-base;
+      }
+    }
+
+    #pie_chart_wrapper {
+      position: relative;
+      max-height: 240px;
+
+      #pie_chart {
+        position: absolute !important;
+        top: 0;
+        left: 33%;
+      }
+
+      .legend_item p {
+        align-content: center;
+        height: 55px;
+        margin: 0;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        span:first-child {
+          font-size: 2rem;
+          padding-right: 5px;
+        }
+
+        span:last-child {
+          font-size: 1.1rem;
+        }
+      }
+
+      .legend_item:nth-child(6),
+      .legend_item:nth-child(7),
+      .legend_item:nth-child(8),
+      .legend_item:nth-child(9) {
+        margin-left: 33%;
+        padding-left: 2rem;
       }
     }
   }
