@@ -44,19 +44,19 @@ function initMap(mapWrapper) {
     var path = d3.geoPath();
     var projection = d3.geoConicConformal() // Lambert-93
         .center([2.454071, 46.279229]) // Center on France
-        .scale(2400)
-        .translate([width / 2, height / 2]);
+        .scale(2600)
+        .translate([width / 2, (height - 60) / 2]);
     path.projection(projection);
 
     var svg = d3.select('#home_map').append("svg")
         .attr("width", width)
         .attr("height", height);
-
     var regions = svg.append("g");
     var promises = [
         d3.json('/data/regions.json'),
         d3.json('/data/regions_subscriptions.json')
     ];
+    var active = d3.select(null);
     var features;
 
     Promise.all(promises).then(function (values) {
@@ -76,14 +76,14 @@ function initMap(mapWrapper) {
                 return "region_path " + subscriptionLevel(d.properties.reference, subscriptionsData);
             })
             .attr("d", path)
-            .on("clicked", focusOnRegion);
+            .on("click", focusOnRegion);
         features.append("text").attr("class", "region_label")
             .html(function (d) {
                 var count = subscriptionCount(d.properties.reference, subscriptionsData);
                 if (count > 0) {
                     return '<tspan x="0" y="0">' + (count * 100) + '€</tspan><tspan x="0" dy="1em">souscrits</tspan>';
                 }
-            });
+            }).on("click", focusOnRegion);
 
         d3.selectAll("text.region_label").attr("transform", function (d, i) {
             var bbox = document.querySelector("#" + d.properties.reference).getBBox();
@@ -92,10 +92,10 @@ function initMap(mapWrapper) {
     });
 
     function focusOnRegion(d) {
-        console.log('focusOnRegion');
-        if (active.node() === this) return reset();
+        if (active.node() === this.parentElement) return reset();
+        mapWrapper.classList.add('zoomed');
         active.classed("active", false);
-        active = d3.select(this).classed("active", true);
+        active = d3.select(this.parentElement).classed("active", true);
 
         var bounds = path.bounds(d),
             dx = bounds[1][0] - bounds[0][0],
@@ -107,17 +107,18 @@ function initMap(mapWrapper) {
 
         features.transition()
             .duration(750)
-            .style("stroke-width", 1.5 / scale + "px")
+            .style("opacity", function(feat) { return feat.properties.reference === d.properties.reference ? 1 : 0; })
             .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
     }
 
     function reset() {
         active.classed("active", false);
         active = d3.select(null);
+        mapWrapper.classList.remove('zoomed');
 
         features.transition()
             .duration(750)
-            .style("stroke-width", "1.5px")
+            .style("opacity", 1)
             .attr("transform", "");
     }
 
