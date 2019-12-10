@@ -10,11 +10,6 @@
     "category": "at"
   },
   {
-    "label": "Crédit Agricole",
-    "value": 8800,
-    "category": "ip"
-  },
-  {
     "label": "Région Île-de-France",
     "value": 7500,
     "category": "ia"
@@ -27,21 +22,6 @@
   {
     "label": "Ain Tourisme",
     "value": 4500,
-    "category": "at"
-  },
-  {
-    "label": "OT Saumur",
-    "value": 4200,
-    "category": "at"
-  },
-  {
-    "label": "IRIS Interactive",
-    "value": 2400,
-    "category": "fs"
-  },
-  {
-    "label": "OT du Lac d'Annecy",
-    "value": 5400,
     "category": "at"
   }
 ]

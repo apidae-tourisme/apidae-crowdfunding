@@ -136,8 +136,36 @@ header {
     #rank_chart_wrapper {
       overflow: hidden;
 
+      #rank_filters {
+        button {
+          border: 1px solid #777;
+          font-weight: 300;
+
+          &.active {
+            font-weight: 500;
+          }
+
+          &:hover, &.active {
+            border: 1px solid #FFF;
+          }
+        }
+      }
+
       #rank_chart {
         margin-left: -100px;
+
+        & + button {
+          background-color: transparent;
+          color: $yellow-500;
+          display: flex;
+          margin: 1rem auto;
+          align-items: center;
+          font-weight: normal;
+
+          &:hover {
+            color: $color-warning;
+          }
+        }
       }
 
       a {
@@ -204,9 +232,11 @@ header {
         align-content: center;
         height: 55px;
         margin: 0;
+        padding: 5px;
 
         &:hover {
           cursor: pointer;
+          background-color: rgba(255, 255, 255, 0.2);
         }
 
         span:first-child {

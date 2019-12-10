@@ -11,10 +11,20 @@
       <div id="home_charts">
         <div id="rank_chart_wrapper" class="txtcenter">
           <p class="u-uppercase txt--white u-big"><strong>TOP 5</strong> des donateurs</p>
+          <div id="rank_filters" class="txtcenter mbs">
+            <button type="button" class="btn btn--ghost btn--small active" onclick="toggleRankFilter('all', this)">Tous les donateurs</button>
+            <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('public', this)">Acteurs institutionnels</button>
+            <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('private', this)">Acteurs privés</button>
+          </div>
           <div id="rank_chart"></div>
-          <a href="/" class="u-small flex-container--row mtm"><i class="u-bigger apidae-action-right prs"></i><span>Visualiser tous les donateurs</span></a>
+          <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
+                  data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
+                  data-modal-title="Tous les donateurs" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
+                  aria-haspopup="dialog">
+            <i class="u-bigger apidae-action-right prs"></i><span>Visualiser tous les donateurs</span>
+          </button>
         </div>
-        <div class="txtcenter mtl">
+        <div class="txtcenter mtm">
           <p class="u-uppercase txt--white u-big w100"><strong>DONS</strong> par catégorie</p>
           <div id="pie_chart_wrapper" class="flex-container--column">
             <div id="pie_chart" class="w33"></div>
@@ -137,3 +147,16 @@
     </div>
   </div>
 </section>
+<div id="all_subscriptions" class="is-hidden">
+  <table id="subscriptions_table" class="data_table table--zebra">
+    <thead class="bg--primary">
+    <tr class="txtcenter">
+      <th>Nom</th>
+      <th>Montant de la souscription</th>
+      <th>Communauté</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

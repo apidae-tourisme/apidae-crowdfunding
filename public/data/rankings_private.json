@@ -1,0 +1,27 @@
+[
+  {
+    "label": "Crédit Agricole",
+    "value": 8800,
+    "category": "ip"
+  },
+  {
+    "label": "BP Auvergne-Rhône-Alpes",
+    "value": 5200,
+    "category": "ip"
+  },
+  {
+    "label": "IRIS Interactive",
+    "value": 3600,
+    "category": "fs"
+  },
+  {
+    "label": "Hôtentic",
+    "value": 3000,
+    "category": "fs"
+  },
+  {
+    "label": "Ed'it Yourself",
+    "value": 3000,
+    "category": "fs"
+  }
+]

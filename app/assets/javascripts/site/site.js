@@ -20,6 +20,8 @@ const labelsByCategory = {
     sp: "Socio-professionnels"
 };
 
+var rankingsChart, rankingsData;
+
 document.addEventListener("DOMContentLoaded", function (event) {
     var mapWrapper = document.querySelector("#home_map");
     if (mapWrapper) {
@@ -27,8 +29,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     var chartsWrapper = document.querySelector("#home_charts");
     if (chartsWrapper) {
-        initRankingsChart();
+        initRankingsChart("rankings");
         initPieChart();
+    }
+    var subscriptionsWrapper = document.querySelector("#all_subscriptions");
+    if (subscriptionsWrapper) {
+        loadSubscriptions(subscriptionsWrapper);
     }
 });
 
@@ -47,17 +53,17 @@ function initMap(mapWrapper) {
         .attr("height", height);
 
     var regions = svg.append("g");
-
     var promises = [
         d3.json('/data/regions.json'),
-        d3.json('/data/subscriptions.json')
+        d3.json('/data/regions_subscriptions.json')
     ];
+    var features;
 
     Promise.all(promises).then(function (values) {
         var regionsData = values[0];
         var subscriptionsData = values[1];
 
-        var features = regions
+        features = regions
             .selectAll("path")
             .data(regionsData.features)
             .enter().append("g").attr("class", "map_region");
@@ -67,12 +73,13 @@ function initMap(mapWrapper) {
                 return d.properties.reference;
             })
             .attr("class", function (d) {
-                return "region_path " + subscriptionLevel(d.properties.reference, subscriptionsData.subscriptions);
+                return "region_path " + subscriptionLevel(d.properties.reference, subscriptionsData);
             })
             .attr("d", path)
+            .on("clicked", focusOnRegion);
         features.append("text").attr("class", "region_label")
             .html(function (d) {
-                var count = subscriptionCount(d.properties.reference, subscriptionsData.subscriptions);
+                var count = subscriptionCount(d.properties.reference, subscriptionsData);
                 if (count > 0) {
                     return '<tspan x="0" y="0">' + (count * 100) + '€</tspan><tspan x="0" dy="1em">souscrits</tspan>';
                 }
@@ -83,6 +90,37 @@ function initMap(mapWrapper) {
             return "translate(" + (bbox.x + bbox.width / 2) + " " + (bbox.y + bbox.height / 2) + ")";
         });
     });
+
+    function focusOnRegion(d) {
+        console.log('focusOnRegion');
+        if (active.node() === this) return reset();
+        active.classed("active", false);
+        active = d3.select(this).classed("active", true);
+
+        var bounds = path.bounds(d),
+            dx = bounds[1][0] - bounds[0][0],
+            dy = bounds[1][1] - bounds[0][1],
+            x = (bounds[0][0] + bounds[1][0]) / 2,
+            y = (bounds[0][1] + bounds[1][1]) / 2,
+            scale = .9 / Math.max(dx / width, dy / height),
+            translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+        features.transition()
+            .duration(750)
+            .style("stroke-width", 1.5 / scale + "px")
+            .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+    }
+
+    function reset() {
+        active.classed("active", false);
+        active = d3.select(null);
+
+        features.transition()
+            .duration(750)
+            .style("stroke-width", "1.5px")
+            .attr("transform", "");
+    }
+
 
     function subscriptionCount(ref, subscriptions) {
         for (var i = 0; i < subscriptions.length; i++) {
@@ -106,48 +144,76 @@ function initMap(mapWrapper) {
     }
 }
 
-function initRankingsChart() {
-    var containerElt = document.querySelector('#rank_chart');
+function toggleRankFilter(filter, btn) {
+    if (!btn.classList.contains('active')) {
+        if (filter === 'all') {
+            initRankingsChart("rankings");
+        } else if (filter === 'public') {
+            initRankingsChart("rankings_public");
+        } else if (filter === 'private') {
+            initRankingsChart("rankings_private");
+        }
+        document.querySelector('#rank_filters button.active').classList.remove('active');
+        btn.classList.add('active');
+    }
+}
+
+function initRankingsChart(rankingType) {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/data/rankings.json", true);
+    ajax.open("GET", "/data/" + rankingType + ".json", true);
     ajax.onload = function () {
         var resp = ajax.responseText;
-        var rankingsData = JSON.parse(resp);
-        var chart = c3.generate({
-            bindto: '#rank_chart',
-            size: {
-                height: 150,
-                width: containerElt.innerWidth + 100
-            },
-            data: {
+        rankingsData = JSON.parse(resp);
+        if (rankingsChart) {
+            rankingsChart.load({
                 json: rankingsData,
-                type: 'bar',
-                labels: {format: function (v) { return v + '€'; }},
                 keys: {
                     x: 'label',
                     value: ['value']
-                },
-                color: function(color, d) {
-                    return (typeof d === 'object') ? colorsByCategory[rankingsData[d.index].category] : color;
                 }
-            },
-            axis: {
-                rotated: true,
-                x: {
-                    type: 'category',
-                    tick: {multiline: false}
+            });
+        } else {
+            var containerElt = document.querySelector('#rank_chart');
+            rankingsChart = c3.generate({
+                bindto: '#rank_chart',
+                size: {
+                    height: 150,
+                    width: containerElt.innerWidth + 100
                 },
-                y: {show: false}
-            },
-            legend: {show: false},
-            interaction: {enabled: false},
-            bar: {
-                width: {
-                    ratio: 0.7
+                data: {
+                    json: rankingsData,
+                    type: 'bar',
+                    labels: {
+                        format: function (v) {
+                            return v + '€';
+                        }
+                    },
+                    keys: {
+                        x: 'label',
+                        value: ['value']
+                    },
+                    color: function (color, d) {
+                        return (typeof d === 'object') ? colorsByCategory[rankingsData[d.index].category] : color;
+                    }
                 },
-                space: 0.1
-            }
-        });
+                axis: {
+                    rotated: true,
+                    x: {
+                        type: 'category',
+                        tick: {multiline: false}
+                    },
+                    y: {show: false}
+                },
+                legend: {show: false},
+                interaction: {enabled: false},
+                bar: {
+                    width: {
+                        ratio: 0.7
+                    },
+                    space: 0.1
+                }
+            });
+        }
     };
     ajax.send();
 }
@@ -199,6 +265,24 @@ function initPieChart() {
             .on('click', function (id) {
                 chart.toggle(id);
             });
+    };
+    ajax.send();
+}
+
+function loadSubscriptions(container) {
+    var rowsContainer = container.querySelector('tbody');
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", "/data/subscriptions.json", true);
+    ajax.onload = function () {
+        var resp = ajax.responseText;
+        var subscriptionsData = JSON.parse(resp);
+        for (var i = 0; i < subscriptionsData.length; i++) {
+            rowsContainer.innerHTML += '<tr class="txtcenter">' +
+                '<td>' + subscriptionsData[i].label + '</td>' +
+                '<td>' + subscriptionsData[i].value + '€</td>' +
+                '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +
+            '</tr>'
+        }
     };
     ajax.send();
 }

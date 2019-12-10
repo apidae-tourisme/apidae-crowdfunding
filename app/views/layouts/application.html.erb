@@ -3,9 +3,9 @@
   <head>
     <title>Apidae - Souscrivez à la nouvelle structure</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= yield :page_styles %>
   </head>
 
   <body>
@@ -16,5 +16,6 @@
       <%= yield %>
     </div>
     <%= render 'shared/footer' %>
+    <%= yield :page_scripts %>
   </body>
 </html>

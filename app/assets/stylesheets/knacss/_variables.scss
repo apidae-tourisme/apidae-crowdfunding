@@ -48,7 +48,7 @@ $variants-list: (
                 (warning,    $color-warning,    $black,    none),
                 (danger,     $color-danger,     $white,    none),
                 (inverse,    $color-inverse,    $white,    none),
-                (ghost,      $color-ghost,      $color-inverse, none)
+                (ghost,      $color-ghost,      $white, $white)
 );
 
 $tabs-color: $color-inverse;
