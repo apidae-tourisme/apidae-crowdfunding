@@ -80,8 +80,11 @@ function initMap(mapWrapper) {
         features.append("text").attr("class", "region_label")
             .html(function (d) {
                 var count = subscriptionCount(d.properties.reference, subscriptionsData);
+                var zoomedText = '<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>';
                 if (count > 0) {
-                    return '<tspan x="0" y="0">' + (count * 100) + '€</tspan><tspan x="0" dy="1em">souscrits</tspan>';
+                    return zoomedText + '<tspan class="map_text" x="0" y="0">' + (count * 100) + '€</tspan><tspan class="map_text" x="0" dy="1em">souscrits</tspan>';
+                } else {
+                    return zoomedText;
                 }
             }).on("click", focusOnRegion);
 
@@ -93,7 +96,6 @@ function initMap(mapWrapper) {
 
     function focusOnRegion(d) {
         if (active.node() === this.parentElement) return reset();
-        mapWrapper.classList.add('zoomed');
         active.classed("active", false);
         active = d3.select(this.parentElement).classed("active", true);
 
@@ -109,6 +111,9 @@ function initMap(mapWrapper) {
             .duration(750)
             .style("opacity", function(feat) { return feat.properties.reference === d.properties.reference ? 1 : 0; })
             .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+        setTimeout(function() {
+            mapWrapper.classList.add('zoomed');
+        }, 750);
     }
 
     function reset() {

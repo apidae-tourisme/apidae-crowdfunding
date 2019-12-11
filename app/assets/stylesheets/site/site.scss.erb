@@ -109,11 +109,12 @@ header {
       text.region_label {
         text-anchor: middle;
 
-        tspan:first-child {
+        tspan {
           font-size: 12px;
-        }
-        tspan:last-child {
-          font-size: 8px;
+
+          &:last-child {
+            font-size: 8px;
+          }
         }
       }
     }
@@ -129,6 +130,15 @@ header {
           fill: lighten($color-warning, percentage((8 - $level) / 24));
         }
       }
+    }
+
+    .zoomed_text {
+      display: none;
+      font-size: 8px !important;
+    }
+
+    &.zoomed .zoomed_text {
+      display: initial;
     }
   }
 
