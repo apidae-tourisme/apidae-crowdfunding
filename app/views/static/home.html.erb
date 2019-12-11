@@ -1,152 +1,154 @@
-<section id="home_data">
-  <div id="data_bg" class="w100 grid-2">
-    <div class="bg--white"></div>
-    <div class="bg--inverse"></div>
-  </div>
-  <div id="data_charts" class="w100 mw1140p center grid-2">
-    <div class="plm prm">
-      <div id="home_map"></div>
+<div id="home_content">
+  <section id="home_data">
+    <div id="data_bg" class="w100 grid-2">
+      <div class="bg--white"></div>
+      <div class="bg--inverse"></div>
     </div>
-    <div class="pam">
-      <div id="home_charts">
-        <div id="rank_chart_wrapper" class="txtcenter">
-          <p class="u-uppercase txt--white u-big"><strong>TOP 5</strong> des donateurs</p>
-          <div id="rank_filters" class="txtcenter mbs">
-            <button type="button" class="btn btn--ghost btn--small active" onclick="toggleRankFilter('all', this)">Tous les donateurs</button>
-            <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('public', this)">Acteurs institutionnels</button>
-            <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('private', this)">Acteurs privés</button>
+    <div id="data_charts" class="w100 mw1140p center grid-2">
+      <div class="plm prm">
+        <div id="home_map"></div>
+      </div>
+      <div class="pam">
+        <div id="home_charts">
+          <div id="rank_chart_wrapper" class="txtcenter">
+            <p class="u-uppercase txt--white u-big"><strong>TOP 5</strong> des donateurs</p>
+            <div id="rank_filters" class="txtcenter mbs">
+              <button type="button" class="btn btn--ghost btn--small active" onclick="toggleRankFilter('all', this)">Tous les donateurs</button>
+              <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('public', this)">Acteurs institutionnels</button>
+              <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('private', this)">Acteurs privés</button>
+            </div>
+            <div id="rank_chart"></div>
+            <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
+                    data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
+                    data-modal-title="Tous les donateurs" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
+                    aria-haspopup="dialog">
+              <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Visualiser tous les donateurs</span>
+            </button>
           </div>
-          <div id="rank_chart"></div>
-          <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
-                  data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
-                  data-modal-title="Tous les donateurs" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
-                  aria-haspopup="dialog">
-            <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Visualiser tous les donateurs</span>
-          </button>
-        </div>
-        <div class="txtcenter mtm">
-          <p class="u-uppercase txt--white u-big w100"><strong>DONS</strong> par catégorie</p>
-          <div id="pie_chart_wrapper" class="flex-container--column">
-            <div id="pie_chart" class="w33"></div>
+          <div class="txtcenter mtm">
+            <p class="u-uppercase txt--white u-big w100"><strong>DONS</strong> par catégorie</p>
+            <div id="pie_chart_wrapper" class="flex-container--column">
+              <div id="pie_chart" class="w33"></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
-<section id="home_figures" class="bg--primary">
-  <div class="w100 mw1140p center flex-container pam">
-    <div id="ratio_figure" class="w45">
-      <div class="fl"></div>
-      <p>
-        <strong class="u-bigger">275000€</strong><br/>engagés sur un objectif de 500000€
-      </p>
-    </div>
-    <div class="w15">
-      <p><strong class="u-bigger">120</strong><br/>sociétaires</p>
-    </div>
-    <div class="w25">
-      <p class="inbl txtleft mrm countdown"><strong class="u-bigger">10/03/2020</strong><br/>fin de la 1<sup>ère</sup> levée de fonds</p>
-    </div>
-    <div class="w15">
-      <a href="/" class="inbl btn btn--big btn--inverse">Je souscris</a>
-    </div>
-  </div>
-</section>
-<section id="home_phases" class="bg--warning">
-  <div class="w100 mw1140p center ptl pbl">
-    <h2 class="txtcenter mbl">Je deviens sociétaire Apidae</h2>
-    <div class="grid-4">
-      <div class="pam">
-        <p class="txtcenter w75 center lh plm prm pbs">
-          <i class="apidae-icon-news txt--danger"></i><br/>
-          <strong class="txt--danger">étape 1</strong><br/><br/>
-          <strong>Je remplis la déclaration d'intention</strong>
+  </section>
+  <section id="home_figures" class="bg--primary">
+    <div class="w100 mw1140p center flex-container pam">
+      <div id="ratio_figure" class="w45">
+        <div class="fl"></div>
+        <p>
+          <strong class="u-bigger">275000€</strong><br/>engagés sur un objectif de 500000€
         </p>
       </div>
-      <div class="pam">
-        <p class="txtcenter w75 center lh plm prm pbs">
-          <i class="apidae-icon-event txt--danger"></i><br/>
-          <strong class="txt--danger">étape 2</strong><br/><br/>
-          <strong>Je valide le bulletin de souscription</strong>
-        </p>
+      <div class="w15">
+        <p><strong class="u-bigger">120</strong><br/>sociétaires</p>
       </div>
-      <div class="pam">
-        <p class="txtcenter w75 center lh plm prm pbs">
-          <i class="fas fa-donate txt--danger"></i><br/>
-          <strong class="txt--danger">étape 3</strong><br/><br/>
-          <strong>Je dépose les fonds sur le compte de la SCIC SA</strong>
-        </p>
+      <div class="w25">
+        <p class="inbl txtleft mrm countdown"><strong class="u-bigger">10/03/2020</strong><br/>fin de la 1<sup>ère</sup> levée de fonds</p>
       </div>
-      <div class="pam">
-        <p class="txtcenter w75 center lh plm prm pbs">
-          <i class="fas fa-landmark txt--danger"></i><br/>
-          <strong class="txt--danger">étape 4</strong><br/><br/>
-          <strong>Je suis admis en tant que sociétaire de la SCIC</strong>
-        </p>
+      <div class="w15">
+        <a href="/" class="inbl btn btn--big btn--inverse">Je souscris</a>
       </div>
     </div>
-    <div class="txtcenter mtm">
-      <a href="/" class="btn btn--big btn--danger">Je souscris</a>
+  </section>
+  <section id="home_phases" class="bg--warning">
+    <div class="w100 mw1140p center ptl pbl">
+      <h2 class="txtcenter mbl">Je deviens sociétaire Apidae</h2>
+      <div class="grid-4">
+        <div class="pam">
+          <p class="txtcenter w75 center lh plm prm pbs">
+            <i class="apidae-icon-news txt--danger"></i><br/>
+            <strong class="txt--danger">étape 1</strong><br/><br/>
+            <strong>Je remplis la déclaration d'intention</strong>
+          </p>
+        </div>
+        <div class="pam">
+          <p class="txtcenter w75 center lh plm prm pbs">
+            <i class="apidae-icon-event txt--danger"></i><br/>
+            <strong class="txt--danger">étape 2</strong><br/><br/>
+            <strong>Je valide le bulletin de souscription</strong>
+          </p>
+        </div>
+        <div class="pam">
+          <p class="txtcenter w75 center lh plm prm pbs">
+            <i class="fas fa-donate txt--danger"></i><br/>
+            <strong class="txt--danger">étape 3</strong><br/><br/>
+            <strong>Je dépose les fonds sur le compte de la SCIC SA</strong>
+          </p>
+        </div>
+        <div class="pam">
+          <p class="txtcenter w75 center lh plm prm pbs">
+            <i class="fas fa-landmark txt--danger"></i><br/>
+            <strong class="txt--danger">étape 4</strong><br/><br/>
+            <strong>Je suis admis en tant que sociétaire de la SCIC</strong>
+          </p>
+        </div>
+      </div>
+      <div class="txtcenter mtm">
+        <a href="/" class="btn btn--big btn--danger">Je souscris</a>
+      </div>
     </div>
-  </div>
-</section>
-<section id="home_why">
-  <div class="w100 mw1140p center ptl pbm">
-    <h2 class="txtcenter mtl">Pourquoi souscrire ?</h2>
-    <div class="grid-3 has-gutter-xl">
-      <a href="/" class="txtcenter pam">
-        <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
-        <h3 class="lh u-uppercase mts mbs">Rejoindre<br/>l'aventure</h3>
-        <i class="u-biggest apidae-icon-chevronrightfilled txt--danger"></i>
-      </a>
-      <a href="/" class="txtcenter pam">
-        <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
-        <h3 class="lh u-uppercase mts mbs">Devenir<br/>membre</h3>
-        <i class="u-biggest apidae-icon-chevronrightfilled txt--primary"></i>
-      </a>
-      <a href="/" class="txtcenter pam">
-        <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
-        <h3 class="lh u-uppercase mts mbs">Soutenir<br/>le projet</h3>
-        <i class="u-biggest apidae-icon-chevronrightfilled txt--warning"></i>
-      </a>
+  </section>
+  <section id="home_why">
+    <div class="w100 mw1140p center ptl pbm">
+      <h2 class="txtcenter mtl">Pourquoi souscrire ?</h2>
+      <div class="grid-3 has-gutter-xl">
+        <a href="/" class="txtcenter pam">
+          <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
+          <h3 class="lh u-uppercase mts mbs">Rejoindre<br/>l'aventure</h3>
+          <i class="u-biggest apidae-icon-chevronrightfilled txt--danger"></i>
+        </a>
+        <a href="/" class="txtcenter pam">
+          <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
+          <h3 class="lh u-uppercase mts mbs">Devenir<br/>membre</h3>
+          <i class="u-biggest apidae-icon-chevronrightfilled txt--primary"></i>
+        </a>
+        <a href="/" class="txtcenter pam">
+          <%= render 'shared/hexa_img', image: 'abeille_dahlia_square.jpg', width: '80%' %>
+          <h3 class="lh u-uppercase mts mbs">Soutenir<br/>le projet</h3>
+          <i class="u-biggest apidae-icon-chevronrightfilled txt--warning"></i>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
-<section id="home_news">
-  <div class="w100 mw1140p center pbl">
-    <h2 class="txtcenter mtl">Actus de la SCIC</h2>
-    <div class="grid-3 has-gutter-l mtm">
-      <a href="/" class="txtleft pas">
-        <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-        <h4 class="mts">Titre news</h4>
-        <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-          eu fugiat nulla pariatur.</p>
-        <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
-      </a>
-      <a href="/" class="txtleft pas">
-        <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-        <h4 class="mts">Titre news</h4>
-        <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-          eu fugiat nulla pariatur.</p>
-        <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
-      </a>
-      <a href="/" class="txtleft pas">
-        <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-        <h4 class="mts">Titre news</h4>
-        <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-          eu fugiat nulla pariatur.</p>
-        <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
-      </a>
+  </section>
+  <section id="home_news">
+    <div class="w100 mw1140p center pbl">
+      <h2 class="txtcenter mtl">Actus de la SCIC</h2>
+      <div class="grid-3 has-gutter-l mtm">
+        <a href="/" class="txtleft pas">
+          <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+          <h4 class="mts">Titre news</h4>
+          <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur.</p>
+          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+        </a>
+        <a href="/" class="txtleft pas">
+          <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+          <h4 class="mts">Titre news</h4>
+          <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur.</p>
+          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+        </a>
+        <a href="/" class="txtleft pas">
+          <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+          <h4 class="mts">Titre news</h4>
+          <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+            eu fugiat nulla pariatur.</p>
+          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 <div id="all_subscriptions" class="is-hidden">
   <table id="subscriptions_table" class="data_table table--zebra">
     <thead class="bg--primary">

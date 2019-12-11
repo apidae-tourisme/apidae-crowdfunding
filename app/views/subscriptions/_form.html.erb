@@ -1,0 +1,69 @@
+<% content_for :page_styles do %>
+  <%= stylesheet_link_tag 'subscription', media: 'all' %>
+<% end %>
+
+<%= form_for(@subscription, html: {id: 'subscription_form'}) do |f| %>
+  <div class="js-tabs">
+    <ul class="js-tablist" data-existing-hx="h3">
+      <li class="js-tablist__item">
+        <a href="#type" class="js-tablist__link" data-selected="1"><span>1</span>Type de sociétaire</a>
+      </li>
+      <li class="js-tablist__item">
+        <a href="#montant" class="js-tablist__link"><span>2</span>Déclaration du montant</a>
+      </li>
+      <li class="js-tablist__item">
+        <a href="#infos" class="js-tablist__link"><span>3</span>Mes informations</a>
+      </li>
+      <li class="js-tablist__item">
+        <a href="#validation" class="js-tablist__link"><span>4</span>Validation de ma déclaration</a>
+      </li>
+    </ul>
+    <div id="type" class="js-tabcontent bg--white">
+      <h3 class="flex-container--row">
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Type de sociétaire</span>
+      </h3>
+      <div class="flex-container">
+
+      </div>
+    </div>
+    <div id="montant" class="js-tabcontent bg--white">
+      <h3 class="flex-container--row">
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Déclaration du montant</span>
+      </h3>
+      <div class="flex-container">
+
+      </div>
+    </div>
+    <div id="infos" class="js-tabcontent bg--white">
+      <h3 class="flex-container--row">
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Mes informations</span>
+      </h3>
+      <div class="flex-container">
+
+      </div>
+    </div>
+    <div id="validation" class="js-tabcontent bg--white">
+      <h3 class="flex-container--row">
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma déclaration</span>
+      </h3>
+      <div class="flex-container">
+
+      </div>
+      <div class="mtm mbs txtcenter">
+        <%= link_to 'Précédent', '#', class: 'btn btn--primary mll' %>
+        <%= f.submit "Confirmer", class: 'btn btn--warning mrl', onclick: 'return false;' %>
+      </div>
+    </div>
+  </div>
+
+
+<% end %>
+
+<% content_for :page_scripts do %>
+  <%= javascript_include_tag 'subscription' %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function(event) {
+
+      });
+  </script>
+<% end %>

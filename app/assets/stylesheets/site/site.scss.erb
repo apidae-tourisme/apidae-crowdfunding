@@ -57,11 +57,14 @@ header {
 
 #site_content {
   margin-top: 9rem;
-  padding-bottom: 5rem;
-  background-image: url(<%= asset_path('hexa_bg.svg') %>);
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: 35% auto;
+
+  #home_content {
+    padding-bottom: 5rem;
+    background-image: url(<%= asset_path('hexa_bg.svg') %>);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 35% auto;
+  }
 
   #home_data {
     position: relative;
@@ -339,6 +342,16 @@ header {
     height: 240px;
     object-fit: cover;
     object-position: center;
+  }
+}
+
+#new_subscription {
+
+  #form_wrapper {
+    background-image: url(<%= asset_path('bee_bg.svg') %>);
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: 100% auto;
   }
 }
 
