@@ -37,13 +37,21 @@
     transition: .25s;
     transition-property: color, background-color, opacity;
 
-    &:focus {
+    &:hover {
+      cursor: not-allowed;
+    }
+
+    &.js-tablist__link:focus {
       color: $tabs-active-color;
       outline: 0;
 
       span {
         border-color:  $tabs-active-color;
       }
+    }
+
+    &.js-tablist__link:hover {
+      cursor: pointer;
     }
 
     span {
@@ -69,10 +77,12 @@
   }
 
   .tabs__content {
-    padding: 3rem;
+    padding: 5rem 10rem;
+    min-height: 60vh;
 
     h3 {
       align-items: center;
+      text-transform: uppercase;
     }
   }
 
@@ -85,49 +95,20 @@
     font-size: 16px;
   }
 
+  .category_desc {
+    p:last-child {
+      padding-left: 2rem;
+      border-left: 1px solid $color-primary;
+    }
+  }
+
   input[type=checkbox] + label {
     font-weight: normal;
   }
 
-  #template_fields {
-    input[type=checkbox] + label {
-      font-size: 14px;
-      line-height: 1;
-      max-width: calc(100% - 30px);
-      vertical-align: middle;
-    }
-  }
 
   #apidae_form_errors {
     color: $color-danger;
-  }
-
-  .excluded_wrapper {
-    box-shadow: 0 0 0 1px #333 inset;
-    padding-top: 5px;
-  }
-
-  .excluded_select {
-    border-radius: 4px;
-    background-color: #dedede;
-    margin: 0 0 5px 8px;
-    &:last-child {
-      background-color: #fff;
-      border: 1px solid #dedede;
-      .autocomplete__input--default {
-        margin-right: 10px;
-      }
-    }
-  }
-
-  .clear_excluded {
-    button {
-      vertical-align: baseline;
-      padding: 4px 8px;
-      i {
-        font-size: 2rem;
-      }
-    }
   }
 
   ul.autocomplete__menu {

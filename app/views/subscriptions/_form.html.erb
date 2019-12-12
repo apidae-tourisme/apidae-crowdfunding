@@ -6,32 +6,61 @@
   <div class="js-tabs">
     <ul class="js-tablist" data-existing-hx="h3">
       <li class="js-tablist__item">
-        <a href="#type" class="js-tablist__link" data-selected="1"><span>1</span>Type de sociétaire</a>
+        <a href="#type" class="js-tablist__link tab_type"><span>1</span>Type de sociétaire</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#montant" class="js-tablist__link"><span>2</span>Déclaration du montant</a>
+        <a href="#montant" class="js-tablist__link tab_montant"><span>2</span>Déclaration du montant</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#infos" class="js-tablist__link"><span>3</span>Mes informations</a>
+        <a href="#infos" class="js-tablist__link tab_infos"><span>3</span>Mes informations</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#validation" class="js-tablist__link"><span>4</span>Validation de ma déclaration</a>
+        <a href="#validation" class="js-tablist__link tab_validation"><span>4</span>Validation de ma déclaration</a>
       </li>
     </ul>
     <div id="type" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Type de sociétaire</span>
       </h3>
-      <div class="flex-container">
-
+      <div class="flex-container mtl">
+        <div class="txtright item-center u-big w15 prs">Je suis</div>
+        <div class="item-fluid txtleft">
+          <%= f.select(:category, subscription_categories, {prompt: 'Sélectionnez une catégorie'}, required: true,
+                       id: 'category_selector', class: 'w100') %>
+        </div>
+      </div>
+      <div id="category_descs" class="mtl">
+        <% CATEGORIES.each_pair do |ref, cat| %>
+          <div class="category_desc <%= ref %> is-hidden">
+            <h4 class="u-uppercase txt--primary"><%= cat[:name] %></h4>
+            <p class="pre mtm"><%= cat[:desc] %></p>
+            <p class="fw500 pre mtm"><%= cat[:min] %></p>
+          </div>
+        <% end %>
+      </div>
+      <div class="txtright mtl">
+        <button type="button" class="btn btn--warning" onclick="nextStep('type')">Suivant</button>
       </div>
     </div>
     <div id="montant" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Déclaration du montant</span>
       </h3>
-      <div class="flex-container">
-
+      <div class="flex-container mtl aic">
+        <div class="txtright item-center u-big w40 prs">
+          <%= f.number_field :amount, min: 100, required: true, class: 'w100', placeholder: 'Montant de la souscription' %>
+        </div>
+        <div id="amount_desc" class="item-fluid txtleft fw500"></div>
+      </div>
+      <p class="mtm">1 part = 100 €</p>
+      <p id="category_min" class="pre"></p>
+      <p class="mtm bg--danger pas lh">
+        <i class="fas fa-exclamation-circle prvs"></i>En tant que SPL, vous n’êtes pas autorisé à prendre des parts dans une Scic SA mais la collectivité territoriale
+        dont vous dépendez peut devenir sociétaire si elle le souhaite.
+      </p>
+      <div class="txtright mtl">
+        <%= link_to 'Précédent', '#type', class: 'btn btn--primary mrm' %>
+        <button type="button" class="btn btn--warning" onclick="nextStep('montant')">Suivant</button>
       </div>
     </div>
     <div id="infos" class="js-tabcontent bg--white">
@@ -55,15 +84,8 @@
       </div>
     </div>
   </div>
-
-
 <% end %>
 
 <% content_for :page_scripts do %>
   <%= javascript_include_tag 'subscription' %>
-  <script>
-      document.addEventListener("DOMContentLoaded", function(event) {
-
-      });
-  </script>
 <% end %>

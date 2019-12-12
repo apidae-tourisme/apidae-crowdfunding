@@ -46,10 +46,26 @@
   font-weight: 500;
 }
 
+.pre {
+  white-space: pre-line;
+}
+
+.aic {
+  align-items: center;
+}
+
 button:focus {
   outline:0;
 }
 
 input.checkbox {
   -webkit-appearance: inherit;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  &::-ms-expand {
+    display: none;
+  }
 }
