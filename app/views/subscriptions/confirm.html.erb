@@ -1,0 +1,57 @@
+<% content_for :page_styles do %>
+  <%= stylesheet_link_tag 'subscription', media: 'all' %>
+<% end %>
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v5.0"></script>
+<script src="https://platform.linkedin.com/in.js" type="text/javascript">lang: fr_FR</script>
+
+<section id="confirm_subscription" class="bg--primary">
+  <div id="confirmation_wrapper">
+    <div class="w100 mw1140p center pam">
+      <h1 class="txtcenter txt--white mtl mbl h2-like">Merci pour votre déclaration</h1>
+      <div id="confirmation_content" class="bg--white">
+        <h3 class="flex-container--row">
+          <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Confirmation de ma déclaration d'intention</span>
+        </h3>
+        <p class="txtcenter mtl">
+          Merci pour votre déclaration. Une confirmation vous a été envoyée par email.<br/><br/>
+          Partagez cette bonne nouvelle sur les réseaux sociaux !
+        </p>
+        <div class="flex-container--row mtm jcc">
+          <a class="twitter-share-button" target="_blank"
+             href="https://twitter.com/intent/tweet?text=Je%20soutiens%20Apidae%20Tourisme"
+             data-size="large">
+            Partager sur Twitter</a>
+          <div class="fb-share-button mls" data-href="https://souscription.apidae-tourisme.com/" data-layout="button" data-size="large">
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fsouscription.apidae-tourisme.com%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager sur Facebook</a>
+          </div>
+          <div class="mls">
+            <script type="IN/Share" data-url="https://souscription.apidae-tourisme.com"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :page_scripts do %>
+  <script>
+      window.twttr = (function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0],
+              t = window.twttr || {};
+          if (d.getElementById(id)) return t;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "https://platform.twitter.com/widgets.js";
+          fjs.parentNode.insertBefore(js, fjs);
+
+          t._e = [];
+          t.ready = function (f) {
+              t._e.push(f);
+          };
+
+          return t;
+      }(document, "script", "twitter-wjs"));
+  </script>
+<% end %>

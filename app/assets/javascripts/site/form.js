@@ -1,7 +1,10 @@
+var steps = ['type', 'montant', 'infos', 'validation'];
+
 document.addEventListener("DOMContentLoaded", function(event) {
     disableNextSteps();
     bindCategorySelector();
     bindAmountDesc();
+    bindLegalTypeSelector();
 });
 
 function disableNextSteps() {
@@ -14,9 +17,9 @@ function disableNextSteps() {
 function bindCategorySelector() {
     var categorySelect = document.querySelector("#category_selector");
     if (categorySelect) {
-        categorySelect.onchange = function() {updateCategoryDesc(categorySelect)};
+        categorySelect.onchange = function() {updateCategoryFields(categorySelect)};
         if (categorySelect.value) {
-            updateCategoryDesc(categorySelect);
+            updateCategoryFields(categorySelect);
         }
     }
 }
@@ -40,37 +43,120 @@ function setAmountDesc(field) {
     }
 }
 
-function updateCategoryDesc(categorySelect) {
+function updateCategoryFields(categorySelect) {
     var prevCategory = document.querySelector(".category_desc:not(.is-hidden)");
     if (prevCategory) {
         prevCategory.classList.add('is-hidden');
     }
     var newCategory = document.querySelector(".category_desc." + categorySelect.value);
     newCategory.classList.remove('is-hidden');
-    document.querySelector("#category_min").innerHTML = newCategory.querySelector("p:last-child").innerHTML;
-}
+    var newAmount = newCategory.querySelector(".min_amount").innerHTML;
+    document.querySelector("#subscription_amount").setAttribute('min', newAmount);
 
-function nextStep(step) {
-    if (step === 'type' && document.querySelector("#category_selector").checkValidity()) {
-        var nextTab = document.querySelector("a.tab_montant");
-        nextTab.classList.add('js-tablist__link');
-        nextTab.click();
+    document.querySelector("#category_min").innerHTML = newCategory.querySelector("p:last-child").innerHTML;
+    if (categorySelect.value === 'at' || categorySelect.value === 'ct') {
+        document.querySelector("#spl_alert").classList.remove('is-hidden');
+    } else {
+        document.querySelector("#spl_alert").classList.add('is-hidden');
+    }
+
+    var structureFields = document.querySelectorAll("#infos .structure_only"), inputs;
+    if (categorySelect.value === 'sr' || categorySelect.value === 'sa') {
+        for (var i = 0; i < structureFields.length; i++) {
+            structureFields[i].classList.add('is-hidden');
+            inputs = structureFields[i].querySelectorAll('input, select');
+            for (var k = 0; k < inputs.length; k++) {
+                inputs[k].setAttribute('disabled', 'disabled');
+            }
+        }
+    } else {
+        for (var j = 0; j < structureFields.length; j++) {
+            structureFields[j].classList.remove('is-hidden');
+            inputs = structureFields[j].querySelectorAll('input, select');
+            for (var l = 0; l < inputs.length; l++) {
+                inputs[l].removeAttribute('disabled');
+            }
+        }
     }
 }
 
-function checkFormValidity(formWrapper) {
-    if (formWrapper.checkValidity()) {
-        document.querySelector("#submit_mode").value = "submit";
-    } else {
-        var invalidFields = formWrapper.querySelectorAll("input:invalid, select:invalid");
-        for (var i = 0; i < invalidFields.length; i++) {
-            invalidFields[i].parentElement.previousElementSibling.classList.add('invalid_field');
+function bindLegalTypeSelector() {
+    var legalTypeSelect = document.querySelector("#subscription_legal_type");
+    if (legalTypeSelect) {
+        legalTypeSelect.onchange = function() { toggleLegalTypeDesc(legalTypeSelect); };
+        if (legalTypeSelect.value) {
+            toggleLegalTypeDesc(legalTypeSelect);
         }
-        var tabs = formWrapper.querySelectorAll(".js-tabcontent"), tabsEntries = formWrapper.querySelectorAll(".js-tablist__item");
-        for (var i = 0; i < tabs.length; i++) {
-            if (tabs[i].querySelector(".invalid_field")) {
-                tabsEntries[i].classList.add('invalid_tab');
+    }
+}
+
+function toggleLegalTypeDesc(legalTypeSelect) {
+    var typeDesc = document.querySelector("#subscription_legal_type_desc");
+    if (legalTypeSelect.value === 'autre') {
+        typeDesc.classList.remove('is-hidden');
+        typeDesc.removeAttribute('disabled');
+    } else {
+        typeDesc.classList.add('is-hidden');
+        typeDesc.setAttribute('disabled', 'disabled');
+    }
+}
+
+function nextStep(step) {
+    var stepIdx = steps.indexOf(step);
+    if (checkStepValidity(step)) {
+        var nextStep = steps[stepIdx + 1];
+        var nextTab = document.querySelector("a.tab_" + nextStep);
+        nextTab.classList.add('js-tablist__link');
+        nextTab.click();
+        if (nextStep === 'validation') {
+            generateValidationMsg();
+        }
+    }
+}
+
+function prevStep(step) {
+    var stepIdx = steps.indexOf(step);
+    var prevTab = document.querySelector("a.tab_" + steps[stepIdx - 1]);
+    prevTab.click();
+}
+
+function checkStepValidity(step) {
+    var isValid = true;
+    var formWrapper = document.querySelector("#subscription_form"),
+        formSection = document.querySelector("#subscription_form #" + step);
+    var formElts = formSection.querySelectorAll("input, select, textarea");
+    formSection.classList.add('submitted');
+    for (var i = 0; i < formElts.length; i++) {
+        isValid = isValid && formElts[i].checkValidity();
+    }
+    if (!isValid) {
+        var invalidFields = formSection.querySelectorAll("*:invalid");
+        for (var j = 0; j < invalidFields.length; j++) {
+            invalidFields[j].parentElement.previousElementSibling.classList.add('invalid_field');
+        }
+        var tabs = formWrapper.querySelectorAll(".js-tabcontent"),
+            tabsEntries = formWrapper.querySelectorAll(".js-tablist__item");
+        for (var k = 0; k < tabs.length; k++) {
+            if (tabs[k].querySelector(".invalid_field")) {
+                tabsEntries[k].classList.add('invalid_tab');
             }
         }
+    }
+    return isValid;
+}
+
+function generateValidationMsg() {
+    var categorySelect = document.querySelector("#category_selector");
+    var msgWrapper = document.querySelector("#validation_msg");
+    var amount = document.querySelector("#subscription_amount").value;
+    if (categorySelect.value === 'sr' || categorySelect.value === 'sa') {
+        var title = document.querySelector("#subscription_title").value, firstName = document.querySelector("#subscription_first_name").value,
+            lastName = document.querySelector("#subscription_last_name").value, address = document.querySelector("#subscription_address").value,
+            postalCode = document.querySelector("#subscription_postal_code").value, town = document.querySelector("#subscription_town").value;
+        msgWrapper.innerHTML = "Je déclare " + [title, firstName, lastName].join(" ") + " domicilié(e) à " +
+            [address, postalCode, town].join(" ") + "<br/>m'engage à investir " + amount + " € soit " + (parseInt(amount) / 100) + " parts de 100 €."
+    } else {
+        var structureName = document.querySelector("#subscription_structure_name").value;
+        msgWrapper.innerHTML = structureName + "<br/>s'engage à investir " + amount + " € soit " + (parseInt(amount) / 100) + " parts de 100 €."
     }
 }

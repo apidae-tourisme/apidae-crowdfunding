@@ -8,4 +8,10 @@ class StaticController < ApplicationController
 
   def fonts
   end
+
+  def legal
+  end
+
+  def contact
+  end
 end

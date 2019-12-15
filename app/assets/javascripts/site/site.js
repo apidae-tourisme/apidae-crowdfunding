@@ -1,6 +1,6 @@
 const colorsByCategory = {
-    ia: '#F97E7E',
-    ip: '#FFC302',
+    mo: '#F97E7E',
+    fi: '#FFC302',
     ct: '#74C5EA',
     at: '#F7E337',
     sr: '#FB71A7',
@@ -10,13 +10,13 @@ const colorsByCategory = {
 };
 
 const labelsByCategory = {
-    ia: "Investisseurs actifs",
-    ip: "Investisseurs passifs",
+    mo: "Moteurs de l’économie territoriale",
+    fi: "Financeurs",
     ct: "Coordinateurs territoriaux",
     at: "Acteurs territoriaux",
-    sr: "Soutiens du réseau",
+    sr: "Soutiens",
     fs: "Fournisseurs de services",
-    sa: "Salariés de la SCIC",
+    sa: "Salariés",
     sp: "Socio-professionnels"
 };
 
@@ -82,7 +82,7 @@ function initMap(mapWrapper) {
                 var count = subscriptionCount(d.properties.reference, subscriptionsData);
                 var zoomedText = '<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>';
                 if (count > 0) {
-                    return zoomedText + '<tspan class="map_text" x="0" y="0">' + (count * 100) + '€</tspan><tspan class="map_text" x="0" dy="1em">souscrits</tspan>';
+                    return zoomedText + '<tspan class="map_text" x="0" y="0">' + (count * 100) + '€</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>';
                 } else {
                     return zoomedText;
                 }

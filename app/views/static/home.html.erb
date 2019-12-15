@@ -11,22 +11,22 @@
       <div class="pam">
         <div id="home_charts">
           <div id="rank_chart_wrapper" class="txtcenter">
-            <p class="u-uppercase txt--white u-big"><strong>TOP 5</strong> des donateurs</p>
-            <div id="rank_filters" class="txtcenter mbs">
-              <button type="button" class="btn btn--ghost btn--small active" onclick="toggleRankFilter('all', this)">Tous les donateurs</button>
-              <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('public', this)">Acteurs institutionnels</button>
-              <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('private', this)">Acteurs privés</button>
-            </div>
+            <p class="u-uppercase txt--white u-big"><strong>TOP 5</strong> des déclarations d'intention</p>
+<!--            <div id="rank_filters" class="txtcenter mbs">-->
+<!--              <button type="button" class="btn btn--ghost btn--small active" onclick="toggleRankFilter('all', this)">Tous les donateurs</button>-->
+<!--              <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('public', this)">Acteurs institutionnels</button>-->
+<!--              <button type="button" class="btn btn--ghost btn--small" onclick="toggleRankFilter('private', this)">Acteurs privés</button>-->
+<!--            </div>-->
             <div id="rank_chart"></div>
             <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
                     data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
-                    data-modal-title="Tous les donateurs" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
+                    data-modal-title="Toutes les déclarations d'intention" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
                     aria-haspopup="dialog">
-              <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Visualiser tous les donateurs</span>
+              <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Visualiser toutes les déclarations d'intention</span>
             </button>
           </div>
           <div class="txtcenter mtm">
-            <p class="u-uppercase txt--white u-big w100"><strong>DONS</strong> par catégorie</p>
+            <p class="u-uppercase txt--white u-big w100"><strong>Déclarations d'intention</strong> par catégorie</p>
             <div id="pie_chart_wrapper" class="flex-container--column">
               <div id="pie_chart" class="w33"></div>
             </div>
@@ -44,10 +44,10 @@
         </p>
       </div>
       <div class="w15">
-        <p><strong class="u-bigger">120</strong><br/>sociétaires</p>
+        <p><strong class="u-bigger">180</strong><br/>sociétaires</p>
       </div>
       <div class="w25">
-        <p class="inbl txtleft mrm countdown"><strong class="u-bigger">10/03/2020</strong><br/>fin de la 1<sup>ère</sup> levée de fonds</p>
+        <p class="inbl txtleft mrm countdown"><strong class="u-bigger">15/03/2020</strong><br/>fin de la 1<sup>ère</sup> levée de fonds</p>
       </div>
       <div class="w15">
         <a href="/souscrire" class="inbl btn btn--big btn--inverse">Je souscris</a>
@@ -57,7 +57,7 @@
   <section id="home_phases" class="bg--warning">
     <div class="w100 mw1140p center ptl pbl">
       <h2 class="txtcenter mbl">Je deviens sociétaire Apidae</h2>
-      <div class="grid-4">
+      <div class="grid-4 txt--inverse">
         <div class="pam">
           <p class="txtcenter w75 center lh plm prm pbs">
             <i class="apidae-icon-news txt--danger"></i><br/>
@@ -65,25 +65,25 @@
             <strong>Je remplis la déclaration d'intention</strong>
           </p>
         </div>
-        <div class="pam">
+        <div class="pam home_phase">
           <p class="txtcenter w75 center lh plm prm pbs">
             <i class="apidae-icon-event txt--danger"></i><br/>
             <strong class="txt--danger">étape 2</strong><br/><br/>
             <strong>Je valide le bulletin de souscription</strong>
           </p>
         </div>
-        <div class="pam">
+        <div class="pam home_phase">
           <p class="txtcenter w75 center lh plm prm pbs">
             <i class="fas fa-donate txt--danger"></i><br/>
             <strong class="txt--danger">étape 3</strong><br/><br/>
-            <strong>Je dépose les fonds sur le compte de la SCIC SA</strong>
+            <strong>Je dépose les fonds sur le compte de la Scic SA</strong>
           </p>
         </div>
-        <div class="pam">
+        <div class="pam home_phase">
           <p class="txtcenter w75 center lh plm prm pbs">
             <i class="fas fa-landmark txt--danger"></i><br/>
             <strong class="txt--danger">étape 4</strong><br/><br/>
-            <strong>Je suis admis en tant que sociétaire de la SCIC</strong>
+            <strong>Je suis admis en tant que sociétaire de la Scic</strong>
           </p>
         </div>
       </div>
@@ -116,33 +116,37 @@
   </section>
   <section id="home_news">
     <div class="w100 mw1140p center pbl">
-      <h2 class="txtcenter mtl">Actus de la SCIC</h2>
+      <h2 class="txtcenter mtl">Actus de la Scic</h2>
       <div class="grid-3 has-gutter-l mtm">
-        <a href="/" class="txtleft pas">
-          <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-          <h4 class="mts">Titre news</h4>
-          <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-            eu fugiat nulla pariatur.</p>
+        <a href="https://www.apidae-tourisme.com/replay-deuxieme-webconference-strategie/" class="txtleft pas" target="_blank">
+          <img src="https://www.apidae-tourisme.com/wp-content/uploads/2019/12/hotline-webconference-e1576139877310.jpg" class="w100" alt=""/>
+          <h4 class="mts lh">Top départ pour la SCIC SA Apidae Tourisme : revivez le replay de la webconférence réseau</h4>
+          <p class="u-small lh">
+            Cette fois-ci, c'était la troisième ! la troisième webconférence réseau depuis le mois d'octobre. Elle avait pour objectif
+            clôturer ce cycle d'information sur la nouvelle structure qui portera le réseau Apidae Tourisme à compter du printemps 2020.
+            Pour cette édition, l'équipe de la coordination globale avait pris les choses en main : Karine, Virginie et &#8230;
+          </p>
           <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
         </a>
-        <a href="/" class="txtleft pas">
+        <a href="https://www.apidae-tourisme.com/replay-deuxieme-webconference-strategie/" class="txtleft pas" target="_blank">
           <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-          <h4 class="mts">Titre news</h4>
-          <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-            eu fugiat nulla pariatur.</p>
+          <h4 class="mts lh">Nouvelle structure Apidae 2020 : revivez le replay de la webconférence réseau</h4>
+          <p class="u-small lh">
+            Ce mercredi matin, ça bourdonne fort au sein de la ruche Apidae ! La seconde webconférence se prépare. Pour cette séance, nous
+            serons accompagnés par trois fournisseurs de services : Philippe Chemla, Directeur général d&#8217;Edit-Yourself, Thierry Tavakelian,
+            Président d&#8217;ABAQUE Hybrid Language Services et François Veauléger, Directeur de l&#8217;Agence Alps &#8211; Tourisme &#38;
+            Innovation. Gestion des micros, &#8230;
+          </p>
           <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
         </a>
-        <a href="/" class="txtleft pas">
-          <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-          <h4 class="mts">Titre news</h4>
-          <p class="u-small lh">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-            eu fugiat nulla pariatur.</p>
+        <a href="https://www.apidae-tourisme.com/fondements-statuts-scic/" class="txtleft pas" target="_blank">
+          <img src="https://www.apidae-tourisme.com/wp-content/uploads/2019/09/planning-1024x461.jpg" class="w100" alt=""/>
+          <h4 class="mts lh">24 volontaires pour poser les fondements de la nouvelle structure Apidae</h4>
+          <p class="u-small lh">
+            Comme annoncé il y a un mois, la réflexion autour de la nouvelle structure juridique dédiée au portage du réseau,
+            la SCIC (Société Coopérative d&#8217;Intérêt Collectif), est enclenchée. La création de la SCIC Apidae est prévue au
+            printemps 2020.  &#160; Le 22 octobre dernier un Comité exécutif élargi s&#8217;est réuni à Lyon. 24 volontaires, issus &#8230;
+          </p>
           <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
         </a>
       </div>

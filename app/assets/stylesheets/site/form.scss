@@ -1,3 +1,11 @@
+@media (max-width: 640px) {
+  #subscription_form {
+    #infos_fields {
+      max-width: none !important;
+    }
+  }
+}
+
 #subscription_form {
   .tabs__list {
     margin: 0;
@@ -10,17 +18,17 @@
       text-decoration: none;
     }
 
-    &.invalid_tab {
-      > .tabs__link {
-        color: $color-danger;
-        &:focus, &[aria-selected="true"] {
-          border-bottom-color: $color-danger;
-        }
-        &:after {
-          content: '*';
-        }
-      }
-    }
+    //&.invalid_tab {
+    //  > .tabs__link {
+    //    color: $color-danger;
+    //    &:focus, &[aria-selected="true"] {
+    //      border-bottom-color: $color-danger;
+    //    }
+    //    &:after {
+    //      content: '*';
+    //    }
+    //  }
+    //}
   }
 
   .tabs__link {
@@ -84,6 +92,33 @@
       align-items: center;
       text-transform: uppercase;
     }
+
+    &.submitted {
+      [type="color"],
+      [type="date"],
+      [type="datetime-local"],
+      [type="email"],
+      [type="month"],
+      [type="number"],
+      [type="password"],
+      [type="search"],
+      [type="submit"],
+      [type="tel"],
+      [type="text"],
+      [type="time"],
+      [type="url"],
+      [type="week"],
+      select,
+      textarea {
+        &:invalid {
+          box-shadow: 0 0 0 2px $color-danger inset;
+        }
+      }
+
+      .invalid_field sup {
+        color: $color-danger;
+      }
+    }
   }
 
   [aria-hidden="true"].tabs__content {
@@ -91,14 +126,31 @@
   }
 
   label {
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
   }
 
   .category_desc {
     p:last-child {
       padding-left: 2rem;
       border-left: 1px solid $color-primary;
+    }
+  }
+
+  #infos_fields {
+    max-height: 400px;
+
+    > .flex-container {
+      max-width: 50%;
+    }
+
+    #subscription_legal_type_desc {
+      margin-top: 5px;
+    }
+
+    input, select {
+      font-size: 14px;
     }
   }
 
@@ -137,5 +189,16 @@
         outline: none;
       }
     }
+  }
+}
+
+#confirmation_content {
+  padding: 5rem 10rem;
+  min-height: 60vh;
+
+  h3 {
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
   }
 }

@@ -33,8 +33,15 @@
         <% CATEGORIES.each_pair do |ref, cat| %>
           <div class="category_desc <%= ref %> is-hidden">
             <h4 class="u-uppercase txt--primary"><%= cat[:name] %></h4>
+            <span class="min_amount is-hidden"><%= cat[:amount] || 100 %></span>
             <p class="pre mtm"><%= cat[:desc] %></p>
-            <p class="fw500 pre mtm"><%= cat[:min] %></p>
+            <p class="fw500 mtm">
+              <% if cat[:shares] %>
+                Le nombre de prises de parts minimal au capital pour <em><%= cat[:name] %></em> est de <%= pluralize(cat[:shares], 'part', 'parts') %> soit un montant de <%= cat[:amount] %> €.
+              <% else %>
+                Nombre de prises de parts minimal au capital : négociations en cours
+              <% end %>
+            </p>
           </div>
         <% end %>
       </div>
@@ -53,34 +60,141 @@
         <div id="amount_desc" class="item-fluid txtleft fw500"></div>
       </div>
       <p class="mtm">1 part = 100 €</p>
-      <p id="category_min" class="pre"></p>
-      <p class="mtm bg--danger pas lh">
-        <i class="fas fa-exclamation-circle prvs"></i>En tant que SPL, vous n’êtes pas autorisé à prendre des parts dans une Scic SA mais la collectivité territoriale
+      <p id="category_min"></p>
+      <p id="spl_alert" class="mtm bg--danger pas lh is-hidden">
+        <i class="fas fa-exclamation-circle prvs"></i>En tant que SPL, vous n’êtes pas autorisé à prendre des parts dans
+        une Scic SA mais la collectivité territoriale
         dont vous dépendez peut devenir sociétaire si elle le souhaite.
       </p>
       <div class="txtright mtl">
-        <%= link_to 'Précédent', '#type', class: 'btn btn--primary mrm' %>
+        <button type="button" class="btn btn--primary mrm" onclick="prevStep('montant')">Précédent</button>
         <button type="button" class="btn btn--warning" onclick="nextStep('montant')">Suivant</button>
       </div>
     </div>
+
     <div id="infos" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Mes informations</span>
       </h3>
-      <div class="flex-container">
-
+      <div id="infos_fields" class="flex-container--column mtl">
+        <div class="flex-container mbs structure_only">
+          <div class="txtright item-center w40 prs pls"><%= f.label :structure_name, 'Nom de la structure<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :structure_name, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs structure_only">
+          <div class="txtright item-center w40 prs pls"><%= f.label :siret, 'SIRET<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :siret, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs structure_only">
+          <div class="txtright item-center w40 prs pls"><%= f.label :legal_type, 'Statut<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.select(:legal_type, legal_types, {prompt: 'Sélectionnez un statut'}, required: true, class: 'w100') %><br/>
+            <%= f.text_field :legal_type_desc, class: 'w100 is-hidden', placeholder: 'Précisez le statut', required: true, disabled: 'disabled' %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :title, 'Civilité<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.select(:title, subscription_titles, {prompt: 'Sélectionnez une civilité'}, required: true, class: 'w100') %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :last_name, 'Nom<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :last_name, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :first_name, 'Prénom<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :first_name, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :role, 'Fonction<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :role, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :address, 'Adresse<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :address, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :postal_code, 'Code postal<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :postal_code, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :town, 'Ville<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :town, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :country, 'Pays<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.select(:country, subscription_countries, {prompt: 'Sélectionnez un pays'}, required: true, class: 'w100') %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :telephone, 'Téléphone<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.text_field :telephone, class: 'w100', required: true, placeholder: 'portable de préférence' %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :email, 'Email<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.email_field :email, class: 'w100', required: true %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :website, 'Site web' %></div>
+          <div class="w60">
+            <%= f.text_field :website, class: 'w100' %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :sponsor, 'Parrain' %></div>
+          <div class="w60">
+            <%= f.select(:sponsor_id, subscription_sponsors, {prompt: 'Facultatif'}, class: 'w100') %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :comments, 'Remarques / questions' %></div>
+          <div class="w60">
+            <%= f.text_area :comments, class: 'w100', rows: 3 %>
+          </div>
+        </div>
+      </div>
+      <div class="flex-container mtl">
+        <div class="txtright item-center u-big w15 prs"><%= f.check_box :com_enabled, {class: 'checkbox'} %></div>
+        <div class="item-fluid item-center txtleft lh">
+          J'autorise Apidae Tourisme à communiquer ma déclaration d'intention sur l'ensemble de ses supports de communication (facultatif)
+        </div>
+      </div>
+      <div class="txtright mtl">
+        <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
+        <button type="button" class="btn btn--warning" onclick="nextStep('infos')">Suivant</button>
       </div>
     </div>
     <div id="validation" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma déclaration</span>
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma déclaration d'intention</span>
       </h3>
-      <div class="flex-container">
-
+      <div id="validation_msg" class="mtl txtcenter">
       </div>
       <div class="mtm mbs txtcenter">
-        <%= link_to 'Précédent', '#', class: 'btn btn--primary mll' %>
-        <%= f.submit "Confirmer", class: 'btn btn--warning mrl', onclick: 'return false;' %>
+        <button type="button" class="btn btn--primary mrm" onclick="prevStep('validation')">Précédent</button>
+        <%= f.submit "Confirmer", class: 'btn btn--warning', data: { confirm: "Transmettre la déclaration ?", disable_with: "Transmission..." } %>
       </div>
     </div>
   </div>

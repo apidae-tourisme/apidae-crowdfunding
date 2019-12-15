@@ -115,6 +115,10 @@ header {
         tspan {
           font-size: 12px;
 
+          &.map_text:not(:last-child) {
+            font-weight: 500;
+          }
+
           &:last-child {
             font-size: 8px;
           }
@@ -345,9 +349,9 @@ header {
   }
 }
 
-#new_subscription {
+#new_subscription, #confirm_subscription, #static_section {
 
-  #form_wrapper {
+  #form_wrapper, #confirmation_wrapper {
     background-image: url(<%= asset_path('bee_bg.svg') %>);
     background-repeat: no-repeat;
     background-position: left 20px;
