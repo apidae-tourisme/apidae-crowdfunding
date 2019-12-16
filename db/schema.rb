@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_15_214155) do
+ActiveRecord::Schema.define(version: 2019_12_16_140958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
+
+  create_table "apidae_members", force: :cascade do |t|
+    t.integer "apidae_id"
+    t.string "name"
+    t.integer "legal_entity_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "subscriptions", force: :cascade do |t|
     t.string "category"

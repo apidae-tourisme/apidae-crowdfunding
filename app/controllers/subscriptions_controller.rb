@@ -16,6 +16,13 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def members
+    @members = []
+    unless params[:pattern].blank?
+      @members = ApidaeMember.lookup_by_name(params[:pattern])
+    end
+  end
+
   def confirm
   end
 

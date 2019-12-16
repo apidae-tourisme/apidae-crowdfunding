@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     bindCategorySelector();
     bindAmountDesc();
     bindLegalTypeSelector();
+    initMemberSelector();
 });
 
 function disableNextSteps() {
@@ -159,4 +160,41 @@ function generateValidationMsg() {
         var structureName = document.querySelector("#subscription_structure_name").value;
         msgWrapper.innerHTML = structureName + "<br/>s'engage à investir " + amount + " € soit " + (parseInt(amount) / 100) + " parts de 100 €."
     }
+}
+
+function initMemberSelector() {
+    accessibleAutocomplete({
+        element: document.querySelector(".lookup_container"),
+        id: 'member_autocomplete',
+        source: function suggest(query, populateResults) {
+            searchMembers(query, populateResults);
+        },
+        templates: {
+            inputValue: function(res) {return res ? res.text : '';},
+            suggestion: function(res) {return res ? res.text : '';}
+        },
+        onConfirm: function(res) {
+            if (res && res.id) {
+                document.querySelector('#subscription_apidae_member_id').setAttribute('value', res.id);
+                document.querySelector('#subscription_structure_name').setAttribute('value', res.text);
+            }
+        },
+        placeholder: 'Rechercher un membre Apidae...',
+        displayMenu: 'overlay',
+        minLength: 2,
+        tNoResults: function() {return 'Aucun résultat.';},
+        tStatusQueryTooShort: function(l) {return 'Veuillez saisir au moins ' + l + ' caractères.';},
+        tStatusNoResults: function() {return 'Aucun résultat.';},
+        tStatusSelectedOption: function(selected, length, idx) {return 'Option ' + selected.text + ' (' + (idx + 1) + ' sur ' + length + ') sélectionnée.';},
+        tStatusResults: function(length, selectedMsg) {return length + ' résultat(s). ' + selectedMsg;}
+    })
+}
+
+function searchMembers(query, callback) {
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", "/souscriptions/members.json?pattern=" + query, true);
+    ajax.onload = function() {
+        callback(JSON.parse(ajax.responseText).members);
+    };
+    ajax.send();
 }

@@ -171,19 +171,21 @@
   .autocomplete__hint,
   .autocomplete__input,
   .autocomplete__option {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .autocomplete__input {
     color: #333;
-    border: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px solid #CCC;
     box-shadow: none;
 
     &.autocomplete__input--default {
       text-overflow: ellipsis;
       padding: 5px;
-      margin-left: 5px;
-      width: 200px;
+      width: 100%;
 
       &.autocomplete__input--focused {
         outline: none;

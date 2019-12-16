@@ -76,6 +76,11 @@
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Mes informations</span>
       </h3>
+      <div class="flex-container mtm structure_only u-bigger">
+        <div class="txtright item-center w20 prs pls"><i class="apidae-icon-search txt--warning u-bigger"></i></div>
+        <div class="lookup_container item-fluid"></div>
+        <%= f.hidden_field :apidae_member_id %>
+      </div>
       <div id="infos_fields" class="flex-container--column mtl">
         <div class="flex-container mbs structure_only">
           <div class="txtright item-center w40 prs pls"><%= f.label :structure_name, 'Nom de la structure<sup>*</sup>'.html_safe %></div>
