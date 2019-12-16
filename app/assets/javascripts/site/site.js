@@ -136,7 +136,7 @@ function initMap(mapWrapper) {
     }
 
     function countLevel(subscriptionsCount) {
-        var levels = [0, 5, 10, 25, 50, 100, 150, 200, 300, 1000];
+        var levels = [0, 5, 10, 25, 50, 100, 150, 200, 300, 10000];
         for (var i = 0; i < levels.length - 1; i++) {
             if (subscriptionsCount >= levels[i] && subscriptionsCount < levels[i + 1]) {
                 return "level_" + i;
