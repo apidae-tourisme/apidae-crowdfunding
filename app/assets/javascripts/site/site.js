@@ -16,7 +16,7 @@ const labelsByCategory = {
     at: "Acteurs territoriaux",
     sr: "Soutiens",
     fs: "Fournisseurs de services",
-    sa: "Salariés",
+    sa: "Salariés de la Scic",
     sp: "Socio-professionnels"
 };
 

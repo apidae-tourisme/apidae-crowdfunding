@@ -5,7 +5,7 @@ CATEGORIES = {
     at: {name: 'Acteurs territoriaux', desc: "Personnes morales en charge du développement de l’économie locale, d’une marque ou d’une destination touristique, et qui utilisent les services de la plateforme via un abonnement. Ex : Offices de Tourisme, Communautés de Communes.", shares: 10, amount: 1000},
     sr: {name: 'Soutiens', desc: "Personnes physiques ou morales souhaitant apporter un soutien au réseau (financier, expertise, apport de données …) et s’impliquer dans la gouvernance. Ex : greeters, ambassadeurs.", shares:1, amount: 100},
     fs: {name: 'Fournisseurs de services', desc: "Personnes morales et personnes physiques, opérateurs économiques variés, qui proposent des services à destination des autres communautés, et qui utilisent les services de la plateforme via unabonnement. Ex : agences web, éditeurs de logiciels, start-ups.", shares: 10, amount: 1000},
-    sa: {name: 'Salariés', desc: "Personnes physiques ayant un contrat de travail avec la Scic.", shares: 1, amount: 100},
+    sa: {name: 'Salariés de la Scic', desc: "Personnes physiques ayant un contrat de travail avec la Scic.", shares: 1, amount: 100},
     sp: {name: 'Socio-professionnels', desc: "Personnes morales et personnes physiques, professionnels de l’économie touristique, qui commercialisent des biens et des services, à destination des touristes ou des habitants, et qui utilisent les services de la plateforme via un abonnement. Ex : hébergeurs, prestataires d’activités.", shares: 5, amount: 500}
 }
 

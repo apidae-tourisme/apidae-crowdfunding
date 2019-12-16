@@ -14,4 +14,16 @@ class StaticController < ApplicationController
 
   def contact
   end
+
+  def territories
+  end
+
+  def companies
+  end
+
+  def supporters
+  end
+
+  def howto
+  end
 end

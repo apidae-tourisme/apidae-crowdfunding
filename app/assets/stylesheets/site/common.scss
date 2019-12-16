@@ -76,4 +76,10 @@ select {
 
 video {
   display: block;
+  max-height: calc(100vh - 90px);
+  margin: 0 auto;
+}
+
+a.no_udl {
+  text-decoration: none;
 }
