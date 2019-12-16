@@ -1,7 +1,7 @@
 @media (max-width: 640px) {
   #subscription_form {
     #infos_fields {
-      max-width: none !important;
+      max-height: none !important;
     }
   }
 }
@@ -139,7 +139,7 @@
   }
 
   #infos_fields {
-    max-height: 400px;
+    max-height: 410px;
 
     > .flex-container {
       max-width: 50%;

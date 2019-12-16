@@ -4,7 +4,7 @@ class Subscription < ApplicationRecord
 
   store_accessor :structure_data, :structure_name, :siret, :legal_type, :legal_type_desc, :apidae_member_id
   store_accessor :person_data, :title, :first_name, :last_name, :role, :address, :postal_code, :town, :country,
-                 :telephone, :email, :website
+                 :telephone, :email, :website, :fund_deposit
 
   def label
     is_structure? ? structure_name : "#{title} #{first_name} #{last_name}"

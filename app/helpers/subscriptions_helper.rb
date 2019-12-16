@@ -21,4 +21,12 @@ module SubscriptionsHelper
   def subscription_sponsors
     Subscription.all.select(:id, :category, :structure_data, :person_data).map {|s| [s.label, s.id]}
   end
+
+  def deposit_choices
+    [
+        ['Avant le 16/03/2020', 'before'],
+        ['Après le 16/03/2020', 'after'],
+        ['Ne sait pas', 'unavailable']
+    ]
+  end
 end

@@ -55,7 +55,7 @@
       </h3>
       <div class="flex-container mtl aic">
         <div class="txtright item-center u-big w40 prs">
-          <%= f.number_field :amount, min: 100, required: true, class: 'w100', placeholder: 'Montant de la souscription' %>
+          <%= f.number_field :amount, min: 100, step: 100, required: true, class: 'w100', placeholder: 'Montant de la souscription' %>
         </div>
         <div id="amount_desc" class="item-fluid txtleft fw500"></div>
       </div>
@@ -165,6 +165,12 @@
           <div class="txtright item-center w40 prs pls"><%= f.label :website, 'Site web' %></div>
           <div class="w60">
             <%= f.text_field :website, class: 'w100' %>
+          </div>
+        </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :fund_deposit, 'Dépôt des fonds' %></div>
+          <div class="w60">
+            <%= f.select(:fund_deposit, deposit_choices, {}, class: 'w100') %>
           </div>
         </div>
         <div class="flex-container mbs">
