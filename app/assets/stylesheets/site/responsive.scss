@@ -1,0 +1,83 @@
+@media (max-width: 575px) {
+  div#site_header {
+    padding: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    > a {
+      width: 25% !important;
+      margin: auto !important;
+    }
+
+    .btn {
+      padding: 1rem;
+      font-size: 12px;
+    }
+  }
+
+  #site_content #home_data > * > :first-child {
+    height: calc(80vh - 15rem) !important;
+    min-height: auto;
+  }
+
+  #site_content #home_data > * > :last-child {
+    height: calc(120vh - 15rem) !important;
+    min-height: auto;
+  }
+
+  #home_figures > div {
+    align-items: center !important;
+    > * {
+      width: auto !important;
+    }
+    #ratio_figure div.fl {
+      width: 90px;
+    }
+  }
+
+  section#home_phases {
+    .grid-4 > div {
+      margin-bottom: 2rem;
+
+      &:not(:last-child):after {
+        display: none;
+      }
+    }
+  }
+
+  section#home_news .grid-3 {
+    padding: 1rem;
+
+    > a {
+      padding: 0;
+    }
+  }
+
+  #footer_links a {
+    display: block;
+  }
+
+  #subscription_form {
+    li.tabs__item, a.tabs__link {
+      width: 100%;
+    }
+
+    div .tabs__content {
+      padding: 2rem;
+    }
+
+    .w15, .w40, .w60 {
+      width: 100% !important;
+      text-align: left !important;
+    }
+
+    div#infos_fields > .flex-container {
+      max-width: none;
+    }
+  }
+
+  div#confirmation_content {
+    padding: 2rem;
+  }
+}

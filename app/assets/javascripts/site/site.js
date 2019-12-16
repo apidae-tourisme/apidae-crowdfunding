@@ -39,10 +39,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 function initMap(mapWrapper) {
     var wrapperRect = mapWrapper.getBoundingClientRect();
     var width = wrapperRect.width, height = wrapperRect.height;
+    var scale = width > 480 ? 2600 : 1600;
     var path = d3.geoPath();
     var projection = d3.geoConicConformal() // Lambert-93
         .center([2.454071, 46.279229]) // Center on France
-        .scale(2600)
+        .scale(scale)
         .translate([width / 2, (height - 60) / 2]);
     path.projection(projection);
 

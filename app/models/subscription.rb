@@ -14,9 +14,11 @@ class Subscription < ApplicationRecord
 
   def compute_fields
     self.label = is_structure? ? structure_name : "#{title} #{first_name} #{last_name}"
-    code = country == 'ch' ? ('CH' + postal_code) : lpad(postal_code)
-    REGIONS.each_pair do |r, codes|
-      self.region = r if codes.any? {|c| code.start_with?(c)}
+    unless postal_code.blank?
+      code = country == 'ch' ? ('CH' + postal_code) : lpad(postal_code)
+      REGIONS.each_pair do |r, codes|
+        self.region = r if codes.any? {|c| code.start_with?(c)}
+      end
     end
   end
 
