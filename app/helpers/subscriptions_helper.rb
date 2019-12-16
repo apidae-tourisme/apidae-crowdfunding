@@ -19,7 +19,7 @@ module SubscriptionsHelper
   end
 
   def subscription_sponsors
-    Subscription.all.select(:id, :category, :structure_data, :person_data).map {|s| [s.label, s.id]}
+    Subscription.all.select(:id, :label).map {|s| [s.label, s.id]}
   end
 
   def deposit_choices

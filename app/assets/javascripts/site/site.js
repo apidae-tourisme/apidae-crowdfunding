@@ -52,7 +52,7 @@ function initMap(mapWrapper) {
     var regions = svg.append("g");
     var promises = [
         d3.json('/data/regions.json'),
-        d3.json('/data/regions_subscriptions.json')
+        d3.json('/souscriptions/regions.json')
     ];
     var active = d3.select(null);
     var features;
@@ -127,11 +127,7 @@ function initMap(mapWrapper) {
 
 
     function subscriptionCount(ref, subscriptions) {
-        for (var i = 0; i < subscriptions.length; i++) {
-            if (subscriptions[i].reference === ref) {
-                return subscriptions[i].count;
-            }
-        }
+        return (subscriptions[ref] || 0) / 100;
     }
 
     function subscriptionLevel(ref, subscriptions) {
@@ -164,59 +160,65 @@ function toggleRankFilter(filter, btn) {
 
 function initRankingsChart(rankingType) {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/data/" + rankingType + ".json", true);
+    ajax.open("GET", "/souscriptions/" + rankingType + ".json", true);
     ajax.onload = function () {
         var resp = ajax.responseText;
         rankingsData = JSON.parse(resp);
-        if (rankingsChart) {
-            rankingsChart.load({
-                json: rankingsData,
-                keys: {
-                    x: 'label',
-                    value: ['value']
-                }
-            });
-        } else {
-            var containerElt = document.querySelector('#rank_chart');
-            rankingsChart = c3.generate({
-                bindto: '#rank_chart',
-                size: {
-                    height: 150,
-                    width: containerElt.innerWidth + 100
-                },
-                data: {
+        if (rankingsData.length) {
+            document.querySelector("#rank_chart").classList.remove('empty_chart');
+            if (rankingsChart) {
+                rankingsChart.load({
                     json: rankingsData,
-                    type: 'bar',
-                    labels: {
-                        format: function (v) {
-                            return v + '€';
-                        }
-                    },
                     keys: {
                         x: 'label',
-                        value: ['value']
-                    },
-                    color: function (color, d) {
-                        return (typeof d === 'object') ? colorsByCategory[rankingsData[d.index].category] : color;
+                        value: ['amount']
                     }
-                },
-                axis: {
-                    rotated: true,
-                    x: {
-                        type: 'category',
-                        tick: {multiline: false}
+                });
+            } else {
+                var containerElt = document.querySelector('#rank_chart');
+                rankingsChart = c3.generate({
+                    bindto: '#rank_chart',
+                    size: {
+                        height: 150,
+                        width: containerElt.innerWidth + 100
                     },
-                    y: {show: false}
-                },
-                legend: {show: false},
-                interaction: {enabled: false},
-                bar: {
-                    width: {
-                        ratio: 0.7
+                    data: {
+                        json: rankingsData,
+                        type: 'bar',
+                        labels: {
+                            format: function (v) {
+                                return v + '€';
+                            }
+                        },
+                        keys: {
+                            x: 'label',
+                            value: ['amount']
+                        },
+                        color: function (color, d) {
+                            return (typeof d === 'object') ? colorsByCategory[rankingsData[d.index].category] : color;
+                        }
                     },
-                    space: 0.1
-                }
-            });
+                    axis: {
+                        rotated: true,
+                        x: {
+                            type: 'category',
+                            tick: {multiline: false}
+                        },
+                        y: {show: false}
+                    },
+                    legend: {show: false},
+                    interaction: {enabled: false},
+                    bar: {
+                        width: {
+                            ratio: 0.7
+                        },
+                        space: 0.1
+                    }
+                });
+            }
+        } else {
+            document.querySelector("#rank_chart").classList.add('empty_chart');
+            document.querySelector("#rank_chart").innerHTML = '<p class="txtcenter txt--white">Aucune donnée à l\'heure actuelle.</p>';
         }
     };
     ajax.send();
@@ -224,51 +226,55 @@ function initRankingsChart(rankingType) {
 
 function initPieChart() {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/data/proportions.json", true);
+    ajax.open("GET", "/souscriptions/proportions.json", true);
     ajax.onload = function () {
         var resp = ajax.responseText;
         var proportionsData = JSON.parse(resp);
-        var chart = c3.generate({
-            bindto: '#pie_chart',
-            size: {
-                height: 240
-            },
-            data: {
-                json: proportionsData,
-                type: 'pie',
-                color: function(color, d) {
-                    return (typeof d === 'string') ? colorsByCategory[d] : color;
-                }
-            },
-            legend: {show: false},
-            interaction: {enabled: false},
-            pie: {
-                label: {
-                    format: function (value, ratio, id) {
-                        return value / 100;
+        if (Object.keys(proportionsData).length) {
+            var chart = c3.generate({
+                bindto: '#pie_chart',
+                size: {
+                    height: 240
+                },
+                data: {
+                    json: proportionsData,
+                    type: 'pie',
+                    color: function(color, d) {
+                        return (typeof d === 'string') ? colorsByCategory[d] : color;
+                    }
+                },
+                legend: {show: false},
+                interaction: {enabled: false},
+                pie: {
+                    label: {
+                        format: function (value, ratio, id) {
+                            return value / 100;
+                        }
                     }
                 }
-            }
-        });
-
-        d3.select('#pie_chart_wrapper').selectAll('div.legend_item')
-            .data(Object.keys(proportionsData))
-            .enter().append('div')
-            .attr('class', 'legend_item w33')
-            .attr('data-id', function (id) { return id; })
-            .html(function (id) {
-                return '<p class="txtleft flex-container--row lh"><span class="fw500" style="color: ' + colorsByCategory[id] + ';">' + proportionsData[id] + '€</span>' +
-                    '<span class="txt--white item-fluid">' + labelsByCategory[id] + '</span></p>';
-            })
-            .on('mouseover', function (id) {
-                chart.focus(id);
-            })
-            .on('mouseout', function (id) {
-                chart.revert();
-            })
-            .on('click', function (id) {
-                chart.toggle(id);
             });
+
+            d3.select('#pie_chart_wrapper').selectAll('div.legend_item')
+                .data(Object.keys(proportionsData))
+                .enter().append('div')
+                .attr('class', 'legend_item w33')
+                .attr('data-id', function (id) { return id; })
+                .html(function (id) {
+                    return '<p class="txtleft flex-container--row lh"><span class="fw500" style="color: ' + colorsByCategory[id] + ';">' + proportionsData[id] + '€</span>' +
+                        '<span class="txt--white item-fluid">' + labelsByCategory[id] + '</span></p>';
+                })
+                .on('mouseover', function (id) {
+                    chart.focus(id);
+                })
+                .on('mouseout', function (id) {
+                    chart.revert();
+                })
+                .on('click', function (id) {
+                    chart.toggle(id);
+                });
+        } else {
+            document.querySelector("#pie_chart").innerHTML = '<p class="txtcenter txt--white">Aucune donnée à l\'heure actuelle.</p>';
+        }
     };
     ajax.send();
 }
@@ -276,14 +282,14 @@ function initPieChart() {
 function loadSubscriptions(container) {
     var rowsContainer = container.querySelector('tbody');
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/data/subscriptions.json", true);
+    ajax.open("GET", "/souscriptions.json", true);
     ajax.onload = function () {
         var resp = ajax.responseText;
         var subscriptionsData = JSON.parse(resp);
         for (var i = 0; i < subscriptionsData.length; i++) {
             rowsContainer.innerHTML += '<tr class="txtcenter">' +
                 '<td>' + subscriptionsData[i].label + '</td>' +
-                '<td>' + subscriptionsData[i].value + '€</td>' +
+                '<td>' + subscriptionsData[i].amount + '€</td>' +
                 '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +
             '</tr>'
         }

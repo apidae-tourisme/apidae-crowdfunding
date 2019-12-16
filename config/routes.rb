@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :subscriptions, only: [:index, :new, :create], path: 'souscriptions' do
     get :confirm, on: :collection, path: 'confirmation'
     get :members, on: :collection
+    get :rankings, on: :collection
+    get :proportions, on: :collection
+    get :regions, on: :collection
   end
 
   get 'static/fonts'

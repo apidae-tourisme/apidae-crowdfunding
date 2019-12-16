@@ -76,7 +76,8 @@ select {
 
 video {
   display: block;
-  max-height: calc(100vh - 90px);
+  max-height: calc(90vh - 90px);
+  max-width: 100%;
   margin: 0 auto;
 }
 

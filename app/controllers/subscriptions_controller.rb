@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
   def index
+    @subscriptions = Subscription.all.select(:label, :amount, :category)
   end
 
   def new
@@ -28,9 +29,19 @@ class SubscriptionsController < ApplicationController
   end
 
   def rankings
+    @subscriptions = Subscription.all.select(:label, :amount, :category).order(amount: :desc).limit(5)
   end
 
   def proportions
+    @amounts_by_category = Hash[Subscription.all.select("category, SUM(amount) AS total").group(:category)
+                                    .map {|s| [s.category, s.total]}]
+    render json: @amounts_by_category
+  end
+
+  def regions
+    @amounts_by_region = Hash[Subscription.all.select("region, SUM(amount) AS total").group(:region)
+                                    .map {|s| [s.region, s.total]}]
+    render json: @amounts_by_region
   end
 
   private
