@@ -9,7 +9,6 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = Subscription.new(subscription_params)
     if @subscription.save
-      # email
       redirect_to confirm_subscriptions_url
     else
       flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
@@ -18,6 +17,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def confirm
+  end
+
+  def rankings
+  end
+
+  def proportions
   end
 
   private
