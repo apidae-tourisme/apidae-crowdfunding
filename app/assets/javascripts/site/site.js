@@ -1,6 +1,5 @@
 const colorsByCategory = {
     mo: '#F97E7E',
-    fi: '#FFC302',
     ct: '#74C5EA',
     at: '#F7E337',
     sr: '#FB71A7',
@@ -11,7 +10,6 @@ const colorsByCategory = {
 
 const labelsByCategory = {
     mo: "Moteurs de l’économie territoriale",
-    fi: "Financeurs",
     ct: "Coordinateurs territoriaux",
     at: "Acteurs territoriaux",
     sr: "Soutiens",
