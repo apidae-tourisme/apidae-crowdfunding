@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'accueil', to: 'static#home'
   get 'souscrire', to: 'subscriptions#new'
   get 'comment-souscrire', to: 'static#howto'
   get 'acteurs-coordinateurs-territoriaux', to: 'static#territories'
@@ -6,8 +7,6 @@ Rails.application.routes.draw do
   get 'soutiens-du-reseau', to: 'static#supporters'
   get 'contact', to: 'static#contact'
   get 'mentions-legales', to: 'static#legal'
-
-  get 'static/home'
 
   resources :subscriptions, only: [:index, :new, :create], path: 'souscriptions' do
     get :confirm, on: :collection, path: 'confirmation'
@@ -19,6 +18,5 @@ Rails.application.routes.draw do
 
   get 'static/fonts'
 
-  # root to: 'static#home'
-  root to: 'static#temp'
+  root to: 'static#home'
 end
