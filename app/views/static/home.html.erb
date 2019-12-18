@@ -11,7 +11,7 @@
       <div class="pam">
         <div id="home_charts">
           <div id="rank_chart_wrapper" class="txtcenter">
-            <p class="u-uppercase txt--white u-big ma0"><strong>TOP 5</strong> des déclarations d'intention</p>
+            <p class="u-uppercase txt--white u-big ma0 lh"><strong>TOP 5</strong> des déclarations d'intention</p>
             <p class="u-smaller txt--white"><em>Classement selon une échelle non-linéaire</em></p>
 <!--            <div id="rank_filters" class="txtcenter mbs">-->
 <!--              <button type="button" class="btn btn--ghost btn--small active" onclick="toggleRankFilter('all', this)">Tous les donateurs</button>-->
@@ -26,10 +26,13 @@
               <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Voir toutes les déclarations d'intention</span>
             </button>
           </div>
-          <div class="txtcenter mtm">
-            <p class="u-uppercase txt--white u-big w100"><strong>Déclarations d'intention</strong> par catégorie</p>
-            <div id="pie_chart_wrapper" class="flex-container--column">
-              <div id="pie_chart" class="w33"></div>
+          <div class="txtcenter mts">
+            <p class="u-uppercase txt--white u-big w100 lh"><strong>Déclarations d'intention</strong> par catégorie</p>
+            <div id="pie_chart_wrapper" class="flex-container pts pbs">
+              <div id="pie_legend" class="flex-container--column w40 pls"></div>
+              <div class="w60 pas pll">
+                <div id="pie_chart"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -56,8 +59,8 @@
     </div>
   </section>
   <section id="home_video" class="bg--white">
-    <video playsinline controls src="/apidae-souscription.mp4" poster="/apidae-souscription-preview.png">
-      <source src="/apidae-souscription.mp4" type="video/mp4">
+    <video playsinline controls poster="https://static.souscription.apidae-tourisme.com/apidae-souscription-preview.png">
+      <source src="https://static.souscription.apidae-tourisme.com/apidae-souscription.mp4" type="video/mp4">
     </video>
   </section>
   <section id="home_phases" class="bg--warning">
@@ -101,57 +104,69 @@
   <section id="home_why">
     <div class="w100 mw1140p center ptl pbm">
       <h2 class="txtcenter mtl">Pourquoi souscrire ?</h2>
-      <div class="grid-3 has-gutter-xl">
-        <a href="/acteurs-coordinateurs-territoriaux" class="txtcenter pam">
-          <%= render 'shared/hexa_img', image: 'ot.jpg', width: '80%' %>
-          <h3 class="lh u-uppercase mts mbs h4-like">Acteurs et coordinateurs territoriaux</h3>
-          <i class="u-biggest apidae-icon-chevronrightfilled txt--danger tiny-hidden small-hidden"></i>
-        </a>
-        <a href="/professionnels-prives" class="txtcenter pam">
-          <%= render 'shared/hexa_img', image: 'seminar.jpg', width: '80%' %>
-          <h3 class="lh u-uppercase mts mbs h4-like">Fournisseurs de services et socio-professionnels</h3>
-          <i class="u-biggest apidae-icon-chevronrightfilled txt--primary tiny-hidden small-hidden"></i>
-        </a>
-        <a href="/soutiens-du-reseau" class="txtcenter pam">
-          <%= render 'shared/hexa_img', image: 'hands.jpg', width: '80%' %>
-          <h3 class="lh u-uppercase mts mbs h4-like">Soutiens du réseau</h3>
-          <i class="u-biggest apidae-icon-chevronrightfilled txt--warning tiny-hidden small-hidden"></i>
-        </a>
+      <div class="grid has-gutter-xl">
+        <div>
+          <a href="/acteurs-coordinateurs-territoriaux" class="txtcenter pam">
+            <%= render 'shared/hexa_img', image: 'ot.jpg', width: '80%' %>
+            <h3 class="lh u-uppercase mts mbs h4-like">Acteurs et coordinateurs territoriaux</h3>
+            <i class="u-biggest apidae-icon-chevronrightfilled txt--danger tiny-hidden small-hidden"></i>
+          </a>
+        </div>
+        <div>
+          <a href="/professionnels-prives" class="txtcenter pam">
+            <%= render 'shared/hexa_img', image: 'seminar.jpg', width: '80%' %>
+            <h3 class="lh u-uppercase mts mbs h4-like">Fournisseurs de services et socio-professionnels</h3>
+            <i class="u-biggest apidae-icon-chevronrightfilled txt--primary tiny-hidden small-hidden"></i>
+          </a>
+        </div>
+        <div>
+          <a href="/soutiens-du-reseau" class="txtcenter pam">
+            <%= render 'shared/hexa_img', image: 'hands.jpg', width: '80%' %>
+            <h3 class="lh u-uppercase mts mbs h4-like">Soutiens du réseau</h3>
+            <i class="u-biggest apidae-icon-chevronrightfilled txt--warning tiny-hidden small-hidden"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
   <section id="home_news">
     <div class="w100 mw1140p center pbl">
       <h2 class="txtcenter mtl">Actus de la Scic</h2>
-      <div class="grid-3 has-gutter-l mtm">
-        <a href="https://www.apidae-tourisme.com/replay-troisieme-webconference/" class="txtleft pas" target="_blank">
-          <img src="https://www.apidae-tourisme.com/wp-content/uploads/2019/12/hotline-webconference-e1576139877310.jpg" class="w100" alt=""/>
-          <h4 class="mts lh">Top départ pour la SCIC SA Apidae Tourisme : revivez le replay de la webconférence réseau</h4>
-          <p class="u-small lh">
-            Cette fois-ci, c'était la troisième ! la troisième webconférence réseau depuis le mois d'octobre. Elle avait pour objectif
-            clôturer ce cycle d'information sur la nouvelle structure qui portera le réseau Apidae&#8230;
-          </p>
-          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
-        </a>
-        <a href="https://www.apidae-tourisme.com/replay-deuxieme-webconference-strategie/" class="txtleft pas" target="_blank">
-          <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
-          <h4 class="mts lh">Nouvelle structure Apidae 2020 : revivez le replay de la webconférence réseau</h4>
-          <p class="u-small lh">
-            Ce mercredi matin, ça bourdonne fort au sein de la ruche Apidae ! La seconde webconférence se prépare. Pour cette séance, nous
-            serons accompagnés par trois fournisseurs de services : Philippe Chemla, Directeur général d&#8217;Edit-Yourself, Thierry Tavakelian&#8230;
-          </p>
-          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
-        </a>
-        <a href="https://www.apidae-tourisme.com/fondements-statuts-scic/" class="txtleft pas" target="_blank">
-          <img src="https://www.apidae-tourisme.com/wp-content/uploads/2019/09/planning-1024x461.jpg" class="w100" alt=""/>
-          <h4 class="mts lh">24 volontaires pour poser les fondements de la nouvelle structure Apidae</h4>
-          <p class="u-small lh">
-            Comme annoncé il y a un mois, la réflexion autour de la nouvelle structure juridique dédiée au portage du réseau,
-            la SCIC (Société Coopérative d&#8217;Intérêt Collectif), est enclenchée. La création de la SCIC Apidae est prévue au
-            printemps 2020&#8230;
-          </p>
-          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
-        </a>
+      <div class="grid has-gutter mtm">
+        <div>
+          <a href="https://www.apidae-tourisme.com/replay-troisieme-webconference/" class="txtleft pas" target="_blank">
+            <img src="https://www.apidae-tourisme.com/wp-content/uploads/2019/12/hotline-webconference-e1576139877310.jpg" class="w100" alt=""/>
+            <h4 class="mts lh">Top départ pour la SCIC SA Apidae Tourisme : revivez le replay de la webconférence réseau</h4>
+            <p class="u-small lh">
+              Cette fois-ci, c'était la troisième ! la troisième webconférence réseau depuis le mois d'octobre. Elle avait pour objectif
+              clôturer ce cycle d'information sur la nouvelle structure qui portera le réseau Apidae&#8230;
+            </p>
+            <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+          </a>
+        </div>
+        <div>
+          <a href="https://www.apidae-tourisme.com/replay-deuxieme-webconference-strategie/" class="txtleft pas" target="_blank">
+            <%= image_tag 'abeille_dahlia.jpg', class: 'w100' %>
+            <h4 class="mts lh">Nouvelle structure Apidae 2020 : revivez le replay de la webconférence réseau</h4>
+            <p class="u-small lh">
+              Ce mercredi matin, ça bourdonne fort au sein de la ruche Apidae ! La seconde webconférence se prépare. Pour cette séance, nous
+              serons accompagnés par trois fournisseurs de services : Philippe Chemla, Directeur général d&#8217;Edit-Yourself, Thierry Tavakelian&#8230;
+            </p>
+            <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+          </a>
+        </div>
+        <div>
+          <a href="https://www.apidae-tourisme.com/fondements-statuts-scic/" class="txtleft pas" target="_blank">
+            <img src="https://www.apidae-tourisme.com/wp-content/uploads/2019/09/planning-1024x461.jpg" class="w100" alt=""/>
+            <h4 class="mts lh">24 volontaires pour poser les fondements de la nouvelle structure Apidae</h4>
+            <p class="u-small lh">
+              Comme annoncé il y a un mois, la réflexion autour de la nouvelle structure juridique dédiée au portage du réseau,
+              la SCIC (Société Coopérative d&#8217;Intérêt Collectif), est enclenchée. La création de la SCIC Apidae est prévue au
+              printemps 2020&#8230;
+            </p>
+            <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+          </a>
+        </div>
       </div>
     </div>
   </section>

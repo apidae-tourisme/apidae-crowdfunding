@@ -86,7 +86,7 @@ header {
 
     > * > * {
       height: calc(100vh - 15rem);
-      min-height: 650px;
+      min-height: 680px;
     }
 
     #home_map, #home_charts {
@@ -170,7 +170,11 @@ header {
       }
 
       #rank_chart {
-        margin-left: -100px;
+        margin-bottom: -30px;
+
+        > svg:first-child {
+          display: block;
+        }
 
         &.empty_chart {
           margin-left: 0;
@@ -187,6 +191,10 @@ header {
           &:hover {
             color: $color-warning;
           }
+        }
+
+        .c3-axis.c3-axis-y {
+          display: none;
         }
       }
 
@@ -241,42 +249,53 @@ header {
     }
 
     #pie_chart_wrapper {
-      position: relative;
-      max-height: 240px;
 
-      #pie_chart {
-        position: absolute !important;
-        top: 0;
-        left: 33%;
-      }
+      #pie_legend {
+        .legend_item {
+          max-width: 100%;
 
-      .legend_item p {
-        align-content: center;
-        height: 55px;
-        margin: 0;
-        padding: 5px;
+          button {
+            align-content: center;
+            align-items: center;
+            display: flex;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.15);
+            border-bottom: none;
+            border-top: none;
+            border-right: none;
+            border-left: 3px solid;
+            margin-bottom: 5px;
+            padding: 5px;
 
-        &:hover {
-          cursor: pointer;
-          background-color: rgba(255, 255, 255, 0.2);
+            &:hover {
+              cursor: pointer;
+              background-color: rgba(255, 255, 255, 0.3);
+            }
+
+            &.active {
+              &.mo { background-color: #F97E7E; }
+              &.ct { background-color: #74C5EA; }
+              &.at { background-color: #FFC302; }
+              &.sr { background-color: #FB71A7; }
+              &.fs { background-color: #9D9D9C; }
+              &.sa { background-color: #BDD07B; }
+              &.sp { background-color: #00B1C6; }
+
+              span:first-child {
+                color: white !important;
+              }
+            }
+
+            span:first-child {
+              font-size: 2rem;
+              padding-right: 5px;
+            }
+
+            span:last-child {
+              font-size: 1.1rem;
+            }
+          }
         }
-
-        span:first-child {
-          font-size: 2rem;
-          padding-right: 5px;
-        }
-
-        span:last-child {
-          font-size: 1.1rem;
-        }
-      }
-
-      .legend_item:nth-child(6),
-      .legend_item:nth-child(7),
-      .legend_item:nth-child(8),
-      .legend_item:nth-child(9) {
-        margin-left: 33%;
-        padding-left: 2rem;
       }
     }
   }
@@ -339,6 +358,7 @@ header {
 #home_why, #home_news {
   a {
     text-decoration: none;
+    display: block;
 
     &:hover {
       background-color: #efefef;

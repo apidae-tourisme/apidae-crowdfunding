@@ -1,1 +1,1 @@
-json.array! @subscriptions, :label, :value, :category, :shares
+json.array! @subscriptions, :label, :value, :category, :amount

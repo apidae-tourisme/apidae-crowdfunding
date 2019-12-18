@@ -1,7 +1,7 @@
 const colorsByCategory = {
     mo: '#F97E7E',
     ct: '#74C5EA',
-    at: '#F7E337',
+    at: '#FFC302',
     sr: '#FB71A7',
     fs: '#9D9D9C',
     sa: '#BDD07B',
@@ -18,7 +18,9 @@ const labelsByCategory = {
     sp: "Socio-professionnels"
 };
 
-var rankingsChart, rankingsData;
+var rankingsChart, rankingsData, pieChart, pieData;
+var mapFeatures, activeRegion;
+var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', '€']}).format('$,');
 
 document.addEventListener("DOMContentLoaded", function (event) {
     var mapWrapper = document.querySelector("#home_map");
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     var chartsWrapper = document.querySelector("#home_charts");
     if (chartsWrapper) {
-        initRankingsChart("rankings");
+        initRankingsChart();
         initPieChart();
     }
     var subscriptionsWrapper = document.querySelector("#all_subscriptions");
@@ -55,19 +57,18 @@ function initMap(mapWrapper) {
         d3.json('/data/regions.json'),
         d3.json('/souscriptions/regions.json')
     ];
-    var active = d3.select(null);
-    var features;
+    activeRegion = d3.select(null);
 
     Promise.all(promises).then(function (values) {
         var regionsData = values[0];
         var subscriptionsData = values[1];
 
-        features = regions
+        mapFeatures = regions
             .selectAll("path")
             .data(regionsData.features)
             .enter().append("g").attr("class", "map_region");
 
-        features.append("path")
+        mapFeatures.append("path")
             .attr("id", function (d) {
                 return d.properties.reference;
             })
@@ -76,12 +77,12 @@ function initMap(mapWrapper) {
             })
             .attr("d", path)
             .on("click", focusOnRegion);
-        features.append("text").attr("class", "region_label")
+        mapFeatures.append("text").attr("class", "region_label")
             .html(function (d) {
                 var count = subscriptionCount(d.properties.reference, subscriptionsData);
                 var zoomedText = '<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>';
                 if (count > 0) {
-                    return zoomedText + '<tspan class="map_text" x="0" y="0">' + (count * 100) + '€</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>';
+                    return zoomedText + '<tspan class="map_text" x="0" y="0">' + formatAmount(count * 100) + '</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>';
                 } else {
                     return zoomedText;
                 }
@@ -94,9 +95,9 @@ function initMap(mapWrapper) {
     });
 
     function focusOnRegion(d) {
-        if (active.node() === this.parentElement) return reset();
-        active.classed("active", false);
-        active = d3.select(this.parentElement).classed("active", true);
+        if (activeRegion.node() === this.parentElement) return resetMapZoom();
+        activeRegion.classed("active", false);
+        activeRegion = d3.select(this.parentElement).classed("active", true);
 
         var bounds = path.bounds(d),
             dx = bounds[1][0] - bounds[0][0],
@@ -106,26 +107,17 @@ function initMap(mapWrapper) {
             scale = .9 / Math.max(dx / width, dy / height),
             translate = [width / 2 - scale * x, height / 2 - scale * y];
 
-        features.transition()
+        mapFeatures.transition()
             .duration(750)
             .style("opacity", function(feat) { return feat.properties.reference === d.properties.reference ? 1 : 0; })
             .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
         setTimeout(function() {
             mapWrapper.classList.add('zoomed');
+            clearActiveCategory();
+            initPieChart(d.properties.reference);
+            initRankingsChart(d.properties.reference);
         }, 750);
     }
-
-    function reset() {
-        active.classed("active", false);
-        active = d3.select(null);
-        mapWrapper.classList.remove('zoomed');
-
-        features.transition()
-            .duration(750)
-            .style("opacity", 1)
-            .attr("transform", "");
-    }
-
 
     function subscriptionCount(ref, subscriptions) {
         return (subscriptions[ref] || 0) / 100;
@@ -145,46 +137,59 @@ function initMap(mapWrapper) {
     }
 }
 
+function resetMapZoom(filter) {
+    activeRegion.classed("active", false);
+    activeRegion = d3.select(null);
+    document.querySelector("#home_map").classList.remove('zoomed');
+
+    mapFeatures.transition()
+        .duration(750)
+        .style("opacity", 1)
+        .attr("transform", "");
+
+    setTimeout(function() {
+        initPieChart(filter);
+        initRankingsChart(filter);
+    }, 750);
+}
+
 function toggleRankFilter(filter, btn) {
     if (!btn.classList.contains('active')) {
-        if (filter === 'all') {
-            initRankingsChart("rankings");
-        } else if (filter === 'public') {
-            initRankingsChart("rankings_public");
-        } else if (filter === 'private') {
-            initRankingsChart("rankings_private");
+        if (document.querySelector("#home_map").classList.contains('zoomed')) {
+            resetMapZoom(filter);
+        } else {
+            initRankingsChart(filter);
+            initPieChart(filter);
         }
-        document.querySelector('#rank_filters button.active').classList.remove('active');
+        clearActiveCategory();
         btn.classList.add('active');
+    } else {
+        initRankingsChart();
+        initPieChart();
+        btn.classList.remove('active');
     }
 }
 
-function initRankingsChart(rankingType) {
+function initRankingsChart(filter) {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/souscriptions/" + rankingType + ".json", true);
+    ajax.open("GET", "/souscriptions/rankings.json" + (filter ? ("?filter=" + filter) : ""), true);
     ajax.onload = function () {
+        var containerElt = document.querySelector('#rank_chart');
         var resp = ajax.responseText;
         rankingsData = JSON.parse(resp);
         if (rankingsData.length) {
-            document.querySelector("#rank_chart").classList.remove('empty_chart');
+            containerElt.classList.remove('empty_chart');
             if (rankingsChart) {
-                rankingsChart.load({
-                    json: rankingsData,
-                    keys: {
-                        x: 'label',
-                        value: ['value']
-                    }
-                });
+                loadRankingsData(rankingsChart, rankingsData);
             } else {
-                var containerElt = document.querySelector('#rank_chart');
                 rankingsChart = c3.generate({
                     bindto: '#rank_chart',
                     size: {
-                        height: 150,
-                        width: containerElt.innerWidth + 100
+                        height: 170,
+                        width: containerElt.innerWidth
                     },
                     data: {
-                        json: rankingsData,
+                        json: [],
                         type: 'bar',
                         labels: {
                             format: function (v, id, i, j) {
@@ -206,11 +211,15 @@ function initRankingsChart(rankingType) {
                             tick: {
                                 multiline: false,
                                 format: function (x) {
-                                    return rankingsData[x] ? (rankingsData[x].label + ' - ' + rankingsData[x].shares + ' parts') : '';
+                                    return rankingsData[x] ? (rankingsData[x].label + ' - ' + formatAmount(rankingsData[x].amount)) : '';
                                 }
                             }
                         },
-                        y: {show: false}
+                        y: {
+                            min: 0,
+                            max: 5,
+                            padding: 0
+                        }
                     },
                     legend: {show: false},
                     interaction: {enabled: false},
@@ -219,70 +228,110 @@ function initRankingsChart(rankingType) {
                             ratio: 0.7
                         },
                         space: 0.1
-                    }
+                    },
+                    onresize: alignLeftAxis,
+                    onrendered: alignLeftAxis
                 });
+                loadRankingsData(rankingsChart, rankingsData);
             }
         } else {
-            document.querySelector("#rank_chart").classList.add('empty_chart');
-            document.querySelector("#rank_chart").innerHTML = '<p class="txtcenter txt--white">Aucune donnée à l\'heure actuelle.</p>';
+            containerElt.classList.add('empty_chart');
+            containerElt.innerHTML = '<p class="txtcenter txt--white">Aucune donnée à l\'heure actuelle.</p>';
+            rankingsChart = null;
         }
     };
     ajax.send();
 }
 
-function initPieChart() {
+function loadRankingsData(chart, data) {
+    chart.load({
+        json: data,
+        keys: {
+            x: 'label',
+            value: ['value']
+        },
+        // Note : this is to fix the rotated x axis on the left
+        done: alignLeftAxis
+    });
+}
+
+function clearActiveCategory() {
+    var catBtn = document.querySelector('#pie_legend button.active');
+    if (catBtn) {
+        catBtn.classList.remove('active');
+    }
+}
+
+function alignLeftAxis() {
+    var grp = document.querySelector("#rank_chart svg > g");
+    if (grp) {
+        grp.setAttribute("transform", "translate(100.5,5.5)");
+    }
+}
+
+function initPieChart(filter) {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/souscriptions/proportions.json", true);
+    ajax.open("GET", "/souscriptions/proportions.json" + (filter ? ("?filter=" + filter) : ""), true);
     ajax.onload = function () {
         var resp = ajax.responseText;
-        var proportionsData = JSON.parse(resp);
-        if (Object.keys(proportionsData).length) {
-            var chart = c3.generate({
-                bindto: '#pie_chart',
-                size: {
-                    height: 240
-                },
-                data: {
-                    json: proportionsData,
-                    type: 'pie',
-                    color: function(color, d) {
-                        return (typeof d === 'string') ? colorsByCategory[d] : color;
-                    }
-                },
-                legend: {show: false},
-                interaction: {enabled: false},
-                pie: {
-                    label: {
-                        format: function (value, ratio, id) {
-                            return value / 100;
+        pieData = JSON.parse(resp);
+        if (Object.keys(pieData).length && Object.keys(pieData.subscriptions).length) {
+            if (pieChart) {
+                loadPieData(pieChart, pieData.subscriptions);
+                var pieLegend = d3.select('#pie_legend').selectAll('div.legend_item').data(Object.keys(pieData.subscriptions));
+                pieLegend.select("button > span:first-child").text(function(d) {
+                    return formatAmount(pieData.amounts[d]);
+                });
+            } else {
+                pieChart = c3.generate({
+                    bindto: '#pie_chart',
+                    size: {
+                        height: 280
+                    },
+                    data: {
+                        json: pieData.subscriptions,
+                        type: 'pie',
+                        color: function(color, d) {
+                            return (typeof d === 'string') ? colorsByCategory[d] : color;
+                        }
+                    },
+                    legend: {show: false},
+                    interaction: {enabled: false},
+                    pie: {
+                        label: {
+                            format: function (value, ratio, id) {
+                                return value + ' membre' + (value > 1 ? 's' : '');
+                            }
                         }
                     }
-                }
-            });
-
-            d3.select('#pie_chart_wrapper').selectAll('div.legend_item')
-                .data(Object.keys(proportionsData))
-                .enter().append('div')
-                .attr('class', 'legend_item w33')
-                .attr('data-id', function (id) { return id; })
-                .html(function (id) {
-                    return '<p class="txtleft flex-container--row lh"><span class="fw500" style="color: ' + colorsByCategory[id] + ';">' + proportionsData[id] + '€</span>' +
-                        '<span class="txt--white item-fluid">' + labelsByCategory[id] + '</span></p>';
-                })
-                .on('mouseover', function (id) {
-                    chart.focus(id);
-                })
-                .on('mouseout', function (id) {
-                    chart.revert();
-                })
-                .on('click', function (id) {
-                    chart.toggle(id);
                 });
+                d3.select('#pie_legend').selectAll('div.legend_item')
+                    .data(Object.keys(pieData.subscriptions)).enter().append('div')
+                    .attr('class', 'legend_item flex-container--column')
+                    .html(function (id) {
+                        return '<button type="button" class="flex-container--column ' + id + '" style="border-left-color: ' + colorsByCategory[id] + ';" onclick="toggleRankFilter(\'' + id + '\', this)">' +
+                            '<span class="fw500" style="color: ' + colorsByCategory[id] + ';">' + formatAmount(pieData.amounts[id]) + '</span>' +
+                            '<span class="txt--white">' + labelsByCategory[id] + '</span></button>';
+                    })
+                    .on('mouseover', function (id) {
+                        if (pieChart) pieChart.focus(id);
+                    })
+                    .on('mouseout', function (id) {
+                        if (pieChart) pieChart.revert();
+                    });
+            }
         } else {
+            pieChart = null;
             document.querySelector("#pie_chart").innerHTML = '<p class="txtcenter txt--white">Aucune donnée à l\'heure actuelle.</p>';
         }
     };
     ajax.send();
+}
+
+function loadPieData(chart, data) {
+    chart.load({
+        json: data
+    });
 }
 
 function loadSubscriptions(container) {
@@ -295,7 +344,7 @@ function loadSubscriptions(container) {
         for (var i = 0; i < subscriptionsData.length; i++) {
             rowsContainer.innerHTML += '<tr class="txtcenter">' +
                 '<td>' + subscriptionsData[i].label + '</td>' +
-                '<td>' + subscriptionsData[i].amount + '€</td>' +
+                '<td>' + formatAmount(subscriptionsData[i].amount) + '</td>' +
                 '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +
             '</tr>'
         }

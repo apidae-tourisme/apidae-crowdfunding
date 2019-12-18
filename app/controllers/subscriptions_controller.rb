@@ -29,13 +29,17 @@ class SubscriptionsController < ApplicationController
   end
 
   def rankings
-    @subscriptions = Subscription.all.select("label, LOG(amount) AS value, (amount / 100) as shares, category").order("value DESC").limit(5)
+    @subscriptions = filtered_records.select("label, LOG(amount) AS value, amount, category").order("value DESC").limit(5)
   end
 
   def proportions
-    @amounts_by_category = Hash[Subscription.all.select("category, SUM(amount) AS total").group(:category)
-                                    .map {|s| [s.category, s.total]}]
-    render json: @amounts_by_category
+    default_map = Hash[CATEGORIES.keys.map {|cat| [cat.to_s, 0]}]
+    records = (params[:filter].blank? || CATEGORIES.keys.include?(params[:filter].to_sym)) ? Subscription.all : filtered_records
+    @subscriptions_by_category = default_map.merge(Hash[records.select("category, COUNT(id) AS subs").group(:category)
+                                          .map {|s| [s.category, s.subs]}])
+    @amount_by_category = default_map.merge(Hash[records.select("category, SUM(amount) AS total").group(:category)
+                                   .map {|s| [s.category, s.total]}])
+    render json: {subscriptions: @subscriptions_by_category, amounts: @amount_by_category}
   end
 
   def regions
@@ -48,5 +52,14 @@ class SubscriptionsController < ApplicationController
 
   def subscription_params
     params.require(:subscription).permit!
+  end
+
+  def filtered_records
+    records = Subscription.all
+    unless params[:filter].blank?
+      filter_type = CATEGORIES.keys.include?(params[:filter].to_sym) ? 'category' : 'region'
+      records = records.where("#{filter_type} = ?", params[:filter])
+    end
+    records
   end
 end
