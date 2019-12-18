@@ -188,9 +188,7 @@ function initRankingsChart(rankingType) {
                         type: 'bar',
                         labels: {
                             format: function (v, id, i, j) {
-                                if (typeof i !== 'undefined') {
-                                    return rankingsData[i].shares + ' parts';
-                                }
+                                return null;
                             }
                         },
                         keys: {
@@ -205,7 +203,12 @@ function initRankingsChart(rankingType) {
                         rotated: true,
                         x: {
                             type: 'category',
-                            tick: {multiline: false}
+                            tick: {
+                                multiline: false,
+                                format: function (x) {
+                                    return rankingsData[x] ? (rankingsData[x].label + ' - ' + rankingsData[x].shares + ' parts') : '';
+                                }
+                            }
                         },
                         y: {show: false}
                     },
