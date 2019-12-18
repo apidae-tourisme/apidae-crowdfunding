@@ -29,7 +29,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def rankings
-    @subscriptions = Subscription.all.select(:label, :amount, :category).order(amount: :desc).limit(5)
+    @subscriptions = Subscription.all.select("label, LOG(amount) AS value, (amount / 100) as shares, category").order("value DESC").limit(5)
   end
 
   def proportions

@@ -172,7 +172,7 @@ function initRankingsChart(rankingType) {
                     json: rankingsData,
                     keys: {
                         x: 'label',
-                        value: ['amount']
+                        value: ['value']
                     }
                 });
             } else {
@@ -187,13 +187,15 @@ function initRankingsChart(rankingType) {
                         json: rankingsData,
                         type: 'bar',
                         labels: {
-                            format: function (v) {
-                                return v + '€';
+                            format: function (v, id, i, j) {
+                                if (typeof i !== 'undefined') {
+                                    return rankingsData[i].shares + ' parts';
+                                }
                             }
                         },
                         keys: {
                             x: 'label',
-                            value: ['amount']
+                            value: ['value']
                         },
                         color: function (color, d) {
                             return (typeof d === 'object') ? colorsByCategory[rankingsData[d.index].category] : color;
