@@ -265,7 +265,11 @@ function clearActiveCategory() {
 function alignLeftAxis() {
     var grp = document.querySelector("#rank_chart svg > g");
     if (grp) {
-        grp.setAttribute("transform", "translate(100.5,5.5)");
+        if (window.innerWidth > 575) {
+            grp.setAttribute("transform", "translate(100.5,5.5)");
+        } else {
+            grp.setAttribute("transform", "translate(20,5.5)");
+        }
     }
 }
 
