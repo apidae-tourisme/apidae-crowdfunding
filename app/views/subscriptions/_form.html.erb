@@ -161,12 +161,6 @@
           </div>
         </div>
         <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :website, 'Site web' %></div>
-          <div class="w60">
-            <%= f.text_field :website, class: 'w100' %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
           <div class="txtright item-center w40 prs pls"><%= f.label :fund_deposit, 'Dépôt des fonds' %></div>
           <div class="w60">
             <%= f.select(:fund_deposit, deposit_choices, {}, class: 'w100') %>
