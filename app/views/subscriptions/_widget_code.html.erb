@@ -1,3 +1,6 @@
+<h3 class="flex-container--row mtl">
+  <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Code d'intégration</span>
+</h3>
 <% snippet = capture do %>
   <script src="<%= subscription_url(id: @subscription.id, format: :js) %>" async></script>
   <div id="apidae_subscription_widget"></div>

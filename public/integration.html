@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Widget Souscription - Test d'intégration</title>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+<style>
+    body {
+        font-family: Arial, Helvetica Neue, sans-serif;
+    }
+</style>
+
+<body>
+<div>
+    <div>
+        <h1>Test d'intégration du widget</h1>
+    </div>
+    <div id="preview_form" style="padding-bottom: 20px; margin-bottom: 20px; border-bottom: 2px solid #333;">
+        <label for="widget_id">Identifiant du widget</label>
+        <input type="text" name="widget_id" id="widget_id"/>
+        <button id="submit_preview" onclick="updatePreview()">Prévisualiser</button>
+    </div>
+    <div id="apidae_subscription_widget"></div>
+</div>
+<script src="http://localhost:3000/souscriptions/16.js" async></script>
+</body>
+</html>

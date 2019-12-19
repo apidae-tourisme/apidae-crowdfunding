@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   get 'mentions-legales', to: 'static#legal'
 
   resources :subscriptions, only: [:index, :new, :create, :update, :show], path: 'souscriptions' do
-    get :confirm, on: :collection, path: 'confirmation'
+    get :confirm, on: :member, path: 'confirmation'
     get :members, on: :collection
     get :rankings, on: :collection
     get :proportions, on: :collection

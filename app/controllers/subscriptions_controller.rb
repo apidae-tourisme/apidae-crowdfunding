@@ -1,5 +1,6 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: [:update, :share, :widget, :show]
+  before_action :set_subscription, only: [:update, :share, :widget, :show, :confirm]
+  skip_before_action :verify_authenticity_token, only: [:show]
 
   def index
     @subscriptions = Subscription.all.select(:label, :amount, :category)
@@ -12,8 +13,8 @@ class SubscriptionsController < ApplicationController
   def create
     @subscription = Subscription.new(subscription_params)
     if @subscription.save
-      SubscriptionsMailer.confirm_subscription(@subscription.email).deliver_now
-      redirect_to confirm_subscriptions_url
+      SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
+      redirect_to confirm_subscription_url(@subscription)
     else
       flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
       render :new

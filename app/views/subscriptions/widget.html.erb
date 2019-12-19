@@ -7,9 +7,10 @@
           <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Générer mon widget</span>
         </h3>
         <p class="txtcenter mts">
-          Vous pouvez créer un widget qui affichera vos badges obtenus au cours de la
-          campagne de financement de la SCIC SA Apidae. Pour cela, saisissez ci-dessous les adresses (URLs) des sites
-          sur lesquels votre widget sera affiché, puis cliquez sur le bouton "Récupérer le code".
+          Vous pouvez créer un widget qui affichera automatiquement vos badges pionniers obtenus au lors de la levée de
+          fonds de la SCIC SA Apidae Tourisme. Pour cela, merci de saisir ci-dessous les urls des sites (adresses) sur
+          lesquels vous voulez afficher le widget et cliquez sur le bouton "Récupérer le code". Il vous suffit ensuite
+          de demander à votre webmaster d’intégrer ce code sur votre (vos) site(s).
         </p>
         <%= form_for(@subscription, remote: true, html: {id: 'widget_form'}) do |f| %>
           <div class="txtcenter mtm">
@@ -22,11 +23,7 @@
             <%= f.submit "Récupérer le code", class: 'btn btn--warning', data: { disable_with: "Génération du code..." } %>
           </div>
         <% end %>
-        <h3 class="flex-container--row mtl">
-          <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Code d'intégration</span>
-        </h3>
         <div id="widget_code">
-          <p class="txtcenter">Veuillez saisir au moins un nom de domaine pour obtenir le code d'intégration.</p>
         </div>
       </div>
     </div>
