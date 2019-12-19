@@ -22,7 +22,7 @@
             <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
                     data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
                     data-modal-title="Toutes les déclarations d'intention" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
-                    aria-haspopup="dialog">
+                    aria-haspopup="dialog" onclick="initDataTable()">
               <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Voir toutes les déclarations d'intention</span>
             </button>
           </div>
@@ -48,7 +48,7 @@
         </p>
       </div>
       <div class="w15">
-        <p><strong class="u-bigger">180</strong><br/>sociétaires</p>
+        <p><strong class="u-bigger"><%= @count %></strong><br/>sur 180 sociétaires</p>
       </div>
       <div class="w25">
         <p class="inbl txtleft mrm countdown"><strong class="u-bigger">16/03/2020</strong><br/>fin de la 1<sup>ère</sup> levée de fonds</p>
@@ -177,7 +177,7 @@
     <tr class="txtcenter">
       <th>Nom</th>
       <th>Montant de la souscription</th>
-      <th>Communauté</th>
+      <th>Catégorie</th>
     </tr>
     </thead>
     <tbody>

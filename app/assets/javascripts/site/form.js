@@ -6,7 +6,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     bindAmountDesc();
     bindLegalTypeSelector();
     initMemberSelector();
+    initNumbersFormatter();
 });
+
+function initNumbersFormatter() {
+    var nbrs = document.querySelectorAll("span.nbr");
+    for (var i = 0; i < nbrs.length; i++) {
+        nbrs[i].innerHTML = formatAmount(nbrs[i].innerHTML);
+    }
+}
 
 function disableNextSteps() {
     var tabLinks = document.querySelectorAll("a.tabs__link");
@@ -155,10 +163,10 @@ function generateValidationMsg() {
             lastName = document.querySelector("#subscription_last_name").value, address = document.querySelector("#subscription_address").value,
             postalCode = document.querySelector("#subscription_postal_code").value, town = document.querySelector("#subscription_town").value;
         msgWrapper.innerHTML = "Je déclare " + [title, firstName, lastName].join(" ") + " domicilié(e) à " +
-            [address, postalCode, town].join(" ") + "<br/>m'engage à investir " + amount + " € soit " + (parseInt(amount) / 100) + " parts de 100 €."
+            [address, postalCode, town].join(" ") + "<br/>m'engage à investir " + formatAmount(amount) + " soit " + (parseInt(amount) / 100) + " parts de 100 €."
     } else {
         var structureName = document.querySelector("#subscription_structure_name").value;
-        msgWrapper.innerHTML = structureName + "<br/>s'engage à investir " + amount + " € soit " + (parseInt(amount) / 100) + " parts de 100 €."
+        msgWrapper.innerHTML = structureName + "<br/>s'engage à investir " + formatAmount(amount) + " soit " + (parseInt(amount) / 100) + " parts de 100 €."
     }
 }
 

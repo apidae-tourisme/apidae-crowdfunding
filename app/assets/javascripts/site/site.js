@@ -38,6 +38,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 });
 
+function initDataTable() {
+    setTimeout(function() {
+        var table = document.querySelector(".data_table");
+        if (table) {
+            var dataTable = new DataTable(table, {
+                labels: {
+                    placeholder: "Rechercher...",
+                    perPage: "{select} résultats par page",
+                    noRows: "Aucun résultat",
+                    info: "Résultats {start} - {end} sur {rows}",
+                }
+            });
+        }
+    }, 500);
+}
+
 function initMap(mapWrapper) {
     var wrapperRect = mapWrapper.getBoundingClientRect();
     var width = wrapperRect.width, height = wrapperRect.height;

@@ -374,6 +374,44 @@ header {
   }
 }
 
+#js-modal {
+  .dataTable-bottom, .dataTable-top {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .dataTable-selector {
+    padding-right: 2rem;
+  }
+
+  .dataTable-sorter {
+    &:before {
+      opacity: 0.6;
+      border-top-color: white;
+    }
+    &:after {
+      opacity: 0.6;
+      border-bottom-color: white;
+    }
+  }
+
+  .dataTable-table {
+    > thead > tr > th {
+      text-align: center;
+    }
+  }
+
+  thead > tr > th:last-child {
+    a.dataTable-sorter {
+      display: none;
+    }
+  }
+
+  .data_table td {
+    vertical-align: middle;
+  }
+}
+
 #new_subscription, #confirm_subscription, #static_section {
 
   #form_wrapper, #confirmation_wrapper {

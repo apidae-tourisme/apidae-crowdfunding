@@ -5,6 +5,7 @@ class StaticController < ApplicationController
 
   def home
     @total = Subscription.sum(:amount).to_i
+    @count = Subscription.count
   end
 
   def fonts

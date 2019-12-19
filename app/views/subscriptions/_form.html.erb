@@ -36,11 +36,7 @@
             <span class="min_amount is-hidden"><%= cat[:amount] || 100 %></span>
             <p class="pre mtm"><%= cat[:desc] %></p>
             <p class="fw500 mtm">
-              <% if cat[:shares] %>
-                Le nombre de prises de parts minimal au capital pour <em><%= cat[:name] %></em> est de <%= pluralize(cat[:shares], 'part', 'parts') %> soit un montant de <%= cat[:amount] %> €.
-              <% else %>
-                Nombre de prises de parts minimal au capital : négociations en cours
-              <% end %>
+              Le nombre de prises de parts minimal au capital pour <em><%= cat[:name] %></em> est de <%= pluralize(cat[:shares], 'part', 'parts') %> soit un montant de <span class="nbr"><%= cat[:amount] %></span>.
             </p>
           </div>
         <% end %>
@@ -113,13 +109,13 @@
         <div class="flex-container mbs">
           <div class="txtright item-center w40 prs pls"><%= f.label :last_name, 'Nom<sup>*</sup>'.html_safe %></div>
           <div class="w60">
-            <%= f.text_field :last_name, class: 'w100', required: true %>
+            <%= f.text_field :last_name, class: 'w100', required: true, placeholder: 'Contact administratif' %>
           </div>
         </div>
         <div class="flex-container mbs">
           <div class="txtright item-center w40 prs pls"><%= f.label :first_name, 'Prénom<sup>*</sup>'.html_safe %></div>
           <div class="w60">
-            <%= f.text_field :first_name, class: 'w100', required: true %>
+            <%= f.text_field :first_name, class: 'w100', required: true, placeholder: 'Contact administratif' %>
           </div>
         </div>
         <div class="flex-container mbs">
