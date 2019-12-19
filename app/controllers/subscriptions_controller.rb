@@ -48,6 +48,15 @@ class SubscriptionsController < ApplicationController
     render json: @amounts_by_region
   end
 
+  def share
+    @subscription = Subscription.find(params[:id])
+    render :share, layout: 'standalone'
+  end
+
+  def widget
+    @subscription = Subscription.find(params[:id])
+  end
+
   private
 
   def subscription_params

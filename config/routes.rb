@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     get :rankings, on: :collection
     get :proportions, on: :collection
     get :regions, on: :collection
+    get :share, on: :member, path: 'partager'
+    get :widget, on: :member
   end
 
   get 'static/fonts'

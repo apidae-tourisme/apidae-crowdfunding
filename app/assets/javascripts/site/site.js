@@ -51,7 +51,7 @@ function initDataTable() {
                 }
             });
         }
-    }, 500);
+    }, 1000);
 }
 
 function initMap(mapWrapper) {

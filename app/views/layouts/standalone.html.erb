@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Apidae - Souscrivez à la nouvelle structure</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Apidae - Souscrivez à la nouvelle structure">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag 'standalone', media: 'all' %>
+    <%= javascript_include_tag 'standalone' %>
+  </head>
+
+  <body>
+    <div id="standalone_content">
+      <%= yield %>
+    </div>
+  </body>
+</html>

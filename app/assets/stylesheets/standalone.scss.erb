@@ -1,0 +1,21 @@
+@import "fonts/fa";
+@import "fonts/montserrat";
+@import "fonts/apidae";
+@import "knacss/knacss";
+@import "site/common";
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#standalone_content  {
+  background-image: url(<%= asset_path('bee_bg_pink.svg') %>);
+  background-repeat: no-repeat;
+  background-position: left 20px;
+  background-size: 100% auto;
+  background-color: $color-danger;
+  height: 100%;
+  padding-top: 10vh;
+}
