@@ -1,0 +1,59 @@
+<section id="widget_creation" class="bg--primary">
+  <div id="confirmation_wrapper">
+    <div class="w100 mw1140p center pam">
+      <h1 class="txtcenter txt--white mtl mbl h2-like">Widget de souscription</h1>
+      <div id="widget_content" class="bg--white">
+        <h3 class="flex-container--row">
+          <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Générer mon widget</span>
+        </h3>
+        <p class="txtcenter mts">
+          Vous pouvez créer un widget qui affichera vos badges obtenus au cours de la
+          campagne de financement de la SCIC SA Apidae. Pour cela, saisissez ci-dessous les adresses (URLs) des sites
+          sur lesquels votre widget sera affiché, puis cliquez sur le bouton "Récupérer le code".
+        </p>
+        <%= form_for(@subscription, remote: true, html: {id: 'widget_form'}) do |f| %>
+          <div class="txtcenter mtm">
+            <div><%= f.label :widget_hosts, 'Adresses des sites web hôtes<sup>*</sup>'.html_safe, class: 'w100 fw500' %></div>
+            <div>
+              <%= f.text_field :widget_hosts, class: 'w100', required: true, placeholder: 'Séparées par des virgules, ex : www.monsite1.fr, www.monsite2.com' %>
+            </div>
+          </div>
+          <div class="mtm mbs txtcenter">
+            <%= f.submit "Récupérer le code", class: 'btn btn--warning', data: { disable_with: "Génération du code..." } %>
+          </div>
+        <% end %>
+        <h3 class="flex-container--row mtl">
+          <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Code d'intégration</span>
+        </h3>
+        <div id="widget_code">
+          <p class="txtcenter">Veuillez saisir au moins un nom de domaine pour obtenir le code d'intégration.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<% content_for :page_scripts do %>
+  <script>
+      function copyCode() {
+          var codeElt = document.querySelector("#widget_integration_code");
+          if (document.body.createTextRange) {
+              var range = document.body.createTextRange();
+              range.moveToElementText(codeElt);
+              range.select();
+          } else if (window.getSelection) {
+              var selection = window.getSelection();
+              var range = document.createRange();
+              range.selectNodeContents(codeElt);
+              selection.removeAllRanges();
+              selection.addRange(range);
+          } else {
+              console.warn("copyCode - Unsupported browser");
+          }
+          document.execCommand("copy");
+      }
+  </script>
+<% end %>
+
+
+

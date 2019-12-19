@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'contact', to: 'static#contact'
   get 'mentions-legales', to: 'static#legal'
 
-  resources :subscriptions, only: [:index, :new, :create], path: 'souscriptions' do
+  resources :subscriptions, only: [:index, :new, :create, :update, :show], path: 'souscriptions' do
     get :confirm, on: :collection, path: 'confirmation'
     get :members, on: :collection
     get :rankings, on: :collection

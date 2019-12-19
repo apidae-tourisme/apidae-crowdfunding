@@ -1,4 +1,6 @@
 class SubscriptionsController < ApplicationController
+  before_action :set_subscription, only: [:update, :share, :widget, :show]
+
   def index
     @subscriptions = Subscription.all.select(:label, :amount, :category)
   end
@@ -16,6 +18,16 @@ class SubscriptionsController < ApplicationController
       flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
       render :new
     end
+  end
+
+  def update
+    unless params[:subscription][:widget_hosts].blank?
+      hosts = params[:subscription][:widget_hosts].split(',').map {|h| h.strip.gsub(/https?:\/\//, '')}
+      @success = @subscription.update(widget_hosts: hosts)
+    end
+  end
+
+  def show
   end
 
   def members
@@ -49,18 +61,20 @@ class SubscriptionsController < ApplicationController
   end
 
   def share
-    @subscription = Subscription.find(params[:id])
     render :share, layout: 'standalone'
   end
 
   def widget
-    @subscription = Subscription.find(params[:id])
   end
 
   private
 
   def subscription_params
     params.require(:subscription).permit!
+  end
+
+  def set_subscription
+    @subscription = Subscription.find(params[:id])
   end
 
   def filtered_records

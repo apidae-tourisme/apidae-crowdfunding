@@ -412,13 +412,37 @@ header {
   }
 }
 
-#new_subscription, #confirm_subscription, #static_section {
+#new_subscription, #confirm_subscription, #static_section, #widget_creation {
 
   #form_wrapper, #confirmation_wrapper {
     background-image: url(<%= asset_path('bee_bg.svg') %>);
     background-repeat: no-repeat;
     background-position: left 20px;
     background-size: 100% auto;
+  }
+}
+
+#widget_content {
+  padding: 5rem 10rem;
+  min-height: 60vh;
+
+  h3 {
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+  }
+
+  #widget_code {
+    code {
+      display: block;
+      height: 40px;
+      padding: 6px 8px;
+      margin-bottom: 5px;
+    }
+
+    button {
+      border-radius: 0;
+    }
   }
 }
 

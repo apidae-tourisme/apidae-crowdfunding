@@ -1,0 +1,8 @@
+<% if @success %>
+  var wrapper = document.querySelector("#widget_code");
+  if (wrapper) {
+      wrapper.innerHTML = '<%= j(render "widget_code") %>';
+  }
+<% else %>
+  console.log('failed');
+<% end %>
