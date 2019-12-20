@@ -78,6 +78,8 @@ function updateCategoryFields(categorySelect) {
                 inputs[k].setAttribute('disabled', 'disabled');
             }
         }
+        document.querySelector("#subscription_role").removeAttribute('required');
+        document.querySelector("label[for='subscription_role'] sup").remove();
     } else {
         for (var j = 0; j < structureFields.length; j++) {
             structureFields[j].classList.remove('is-hidden');
@@ -86,6 +88,7 @@ function updateCategoryFields(categorySelect) {
                 inputs[l].removeAttribute('disabled');
             }
         }
+        document.querySelector("#subscription_role").setAttribute('required', 'required');
     }
 }
 

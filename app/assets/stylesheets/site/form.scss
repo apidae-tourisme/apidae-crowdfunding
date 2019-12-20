@@ -194,6 +194,12 @@
   }
 }
 
+.ie_browser {
+  #subscription_form #infos_fields {
+    height: 410px;
+  }
+}
+
 #confirmation_content {
   padding: 5rem 10rem;
   min-height: 60vh;

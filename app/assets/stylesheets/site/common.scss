@@ -88,3 +88,16 @@ video {
 a.no_udl {
   text-decoration: none;
 }
+
+// prefixed flex and grid versions
+.flex-container {
+  -ms-flex-wrap: wrap
+}
+
+.flex-container--row {
+  -ms-flex-direction: row;
+}
+
+.flex-container--column {
+  -ms-flex-direction: column;
+}

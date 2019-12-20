@@ -9,6 +9,11 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= yield :page_styles %>
+    <script>
+        if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > -1) {
+          document.body.classList.add('ie_browser');
+        }
+    </script>
   </head>
 
   <body>
