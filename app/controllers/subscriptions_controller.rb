@@ -3,7 +3,7 @@ class SubscriptionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:show]
 
   def index
-    @subscriptions = Subscription.all.select(:label, :amount, :category)
+    @subscriptions = Subscription.by_subscriber
   end
 
   def new
@@ -42,17 +42,15 @@ class SubscriptionsController < ApplicationController
   end
 
   def rankings
-    @subscriptions = filtered_records.select("label, LOG(amount) AS value, amount, category").order("value DESC").limit(5)
+    @subscriptions = filtered_records(Subscription.by_subscriber).order("total DESC, sub_id ASC").limit(5)
   end
 
   def proportions
     default_map = Hash[CATEGORIES.keys.map {|cat| [cat.to_s, 0]}]
-    records = (params[:filter].blank? || CATEGORIES.keys.include?(params[:filter].to_sym)) ? Subscription.all : filtered_records
-    @subscriptions_by_category = default_map.merge(Hash[records.select("category, COUNT(id) AS subs").group(:category)
-                                          .map {|s| [s.category, s.subs]}])
-    @amount_by_category = default_map.merge(Hash[records.select("category, SUM(amount) AS total").group(:category)
-                                   .map {|s| [s.category, s.total]}])
-    render json: {subscriptions: @subscriptions_by_category, amounts: @amount_by_category}
+    records = (params[:filter].blank? || CATEGORIES.keys.include?(params[:filter].to_sym)) ? Subscription.by_subscriber : filtered_records(Subscription.by_subscriber)
+    @members_by_category = default_map.merge(Hash[records.to_a.group_by {|s| s.category }.map {|cat, subs| [cat, subs.length]}])
+    @amount_by_category = default_map.merge(Hash[records.to_a.group_by {|s| s.category }.map {|cat, subs| [cat, subs.sum {|s| s.total}]}])
+    render json: {subscriptions: @members_by_category, amounts: @amount_by_category}
   end
 
   def regions
@@ -78,8 +76,7 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.find(params[:id])
   end
 
-  def filtered_records
-    records = Subscription.all
+  def filtered_records(records)
     unless params[:filter].blank?
       filter_type = CATEGORIES.keys.include?(params[:filter].to_sym) ? 'category' : 'region'
       records = records.where("#{filter_type} = ?", params[:filter])

@@ -6,15 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     bindAmountDesc();
     bindLegalTypeSelector();
     initMemberSelector();
-    initNumbersFormatter();
 });
-
-function initNumbersFormatter() {
-    var nbrs = document.querySelectorAll("span.nbr");
-    for (var i = 0; i < nbrs.length; i++) {
-        nbrs[i].innerHTML = formatAmount(nbrs[i].innerHTML);
-    }
-}
 
 function disableNextSteps() {
     var tabLinks = document.querySelectorAll("a.tabs__link");

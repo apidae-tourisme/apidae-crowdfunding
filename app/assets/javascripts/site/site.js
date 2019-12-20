@@ -18,6 +18,7 @@ const labelsByCategory = {
     sp: "Socio-professionnels"
 };
 
+var datatable;
 var rankingsChart, rankingsData, pieChart, pieData;
 var mapFeatures, activeRegion;
 var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', '€']}).format('$,');
@@ -36,13 +37,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (subscriptionsWrapper) {
         loadSubscriptions(subscriptionsWrapper);
     }
+    initNumbersFormatter();
 });
+
+function initNumbersFormatter() {
+    var nbrs = document.querySelectorAll("span.nbr");
+    for (var i = 0; i < nbrs.length; i++) {
+        nbrs[i].innerHTML = formatAmount(nbrs[i].innerHTML);
+    }
+}
 
 function initDataTable() {
     setTimeout(function() {
         var table = document.querySelector(".data_table");
         if (table) {
-            var dataTable = new DataTable(table, {
+            datatable = new DataTable(table, {
                 labels: {
                     placeholder: "Rechercher...",
                     perPage: "{select} résultats par page",
@@ -51,7 +60,14 @@ function initDataTable() {
                 }
             });
         }
-    }, 1000);
+        document.querySelector("button#js-modal-close").setAttribute('onclick', 'clearDatatable()');
+    }, 700);
+}
+
+function clearDatatable() {
+    if (datatable) {
+        datatable.destroy();
+    }
 }
 
 function initMap(mapWrapper) {
@@ -213,7 +229,7 @@ function initRankingsChart(filter) {
                             }
                         },
                         keys: {
-                            x: 'label',
+                            x: 'id',
                             value: ['value']
                         },
                         color: function (color, d) {
@@ -263,7 +279,7 @@ function loadRankingsData(chart, data) {
     chart.load({
         json: data,
         keys: {
-            x: 'label',
+            x: 'id',
             value: ['value']
         },
         // Note : this is to fix the rotated x axis on the left

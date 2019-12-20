@@ -8,17 +8,29 @@ class Subscription < ApplicationRecord
 
   before_save :compute_fields
 
+  def self.by_subscriber
+    Subscription.all.group("person_data -> 'email', category, label").select("MIN(id) AS sub_id, category, label, SUM(amount) AS total")
+  end
+
   def is_structure?
     category != 'sa' && category != 'sr'
   end
 
   def compute_fields
-    self.label = is_structure? ? structure_name : "#{title} #{first_name} #{last_name}"
+    self.label = normalize_label
     unless postal_code.blank?
       code = country == 'ch' ? ('CH' + postal_code) : lpad(postal_code)
       REGIONS.each_pair do |r, codes|
         self.region = r if codes.any? {|c| code.start_with?(c)}
       end
+    end
+  end
+
+  def normalize_label
+    if com_enabled
+      is_structure? ? structure_name.gsub(/office (de|du) tourisme/i, 'OT') : "#{title} #{first_name} #{last_name}"
+    else
+      'Déclaration anonyme'
     end
   end
 
