@@ -22,7 +22,7 @@
             <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
                     data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
                     data-modal-title="Toutes les déclarations d'intention" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
-                    aria-haspopup="dialog" onclick="initDataTable()">
+                    aria-haspopup="dialog" onclick="loadSubscriptions()">
               <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Voir toutes les déclarations d'intention</span>
             </button>
           </div>
@@ -172,15 +172,5 @@
   </section>
 </div>
 <div id="all_subscriptions" class="is-hidden">
-  <table id="subscriptions_table" class="data_table table--zebra">
-    <thead class="bg--primary">
-    <tr class="txtcenter">
-      <th>Nom</th>
-      <th>Montant de la souscription</th>
-      <th>Catégorie</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
+  <div id="subscriptions_wrapper"></div>
 </div>

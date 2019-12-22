@@ -20,7 +20,7 @@ const labelsByCategory = {
 
 var datatable;
 var rankingsChart, rankingsData, pieChart, pieData;
-var mapFeatures, activeRegion;
+var mapFeatures, textFeatures, activeRegion;
 var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', '€']}).format('$,');
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -33,10 +33,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         initRankingsChart();
         initPieChart();
     }
-    var subscriptionsWrapper = document.querySelector("#all_subscriptions");
-    if (subscriptionsWrapper) {
-        loadSubscriptions(subscriptionsWrapper);
-    }
     initNumbersFormatter();
 });
 
@@ -48,25 +44,20 @@ function initNumbersFormatter() {
 }
 
 function initDataTable() {
-    setTimeout(function() {
-        var table = document.querySelector(".data_table");
-        if (table) {
-            datatable = new DataTable(table, {
-                labels: {
-                    placeholder: "Rechercher...",
-                    perPage: "{select} résultats par page",
-                    noRows: "Aucun résultat",
-                    info: "Résultats {start} - {end} sur {rows}",
-                }
-            });
-        }
-        document.querySelector("button#js-modal-close").setAttribute('onclick', 'clearDatatable()');
-    }, 700);
-}
-
-function clearDatatable() {
-    if (datatable) {
-        datatable.destroy();
+    var table = document.querySelector("#subscriptions_table");
+    if (table) {
+        datatable = new DataTable(table, {
+            fixedHeight: true,
+            columns: [
+                {select: 1, type: 'number'}
+            ],
+            labels: {
+                placeholder: "Rechercher...",
+                perPage: "{select} résultats par page",
+                noRows: "Aucun résultat",
+                info: "Résultats {start} - {end} sur {rows}",
+            }
+        });
     }
 }
 
@@ -84,7 +75,7 @@ function initMap(mapWrapper) {
     var svg = d3.select('#home_map').append("svg")
         .attr("width", width)
         .attr("height", height);
-    var regions = svg.append("g");
+    var regionsWrapper = svg.append("g");
     var promises = [
         d3.json('/data/regions.json'),
         d3.json('/souscriptions/regions.json')
@@ -95,10 +86,10 @@ function initMap(mapWrapper) {
         var regionsData = values[0];
         var subscriptionsData = values[1];
 
-        mapFeatures = regions
+        mapFeatures = regionsWrapper
             .selectAll("path")
             .data(regionsData.features)
-            .enter().append("g").attr("class", "map_region");
+            .enter().append("g").attr("class", function(d) {return "map_region " + d.properties.reference;});
 
         mapFeatures.append("path")
             .attr("id", function (d) {
@@ -109,15 +100,14 @@ function initMap(mapWrapper) {
             })
             .attr("d", path)
             .on("click", focusOnRegion);
-        mapFeatures.append("text").attr("class", "region_label")
+        textFeatures = regionsWrapper
+            .selectAll("text")
+            .data(regionsData.features)
+            .enter().append("g").attr("class", function(d) {return "map_region region_text " + d.properties.reference;});
+        textFeatures.append("text").attr("class", "region_label")
             .html(function (d) {
                 var count = subscriptionCount(d.properties.reference, subscriptionsData);
-                var zoomedText = '<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>';
-                if (count > 0) {
-                    return zoomedText + '<tspan class="map_text" x="0" y="0">' + formatAmount(count * 100) + '</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>';
-                } else {
-                    return zoomedText;
-                }
+                return count  > 0 ? ('<tspan class="map_text" x="0" y="0">' + formatAmount(count * 100) + '</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>') : '';
             }).on("click", focusOnRegion);
 
         d3.selectAll("text.region_label").attr("transform", function (d, i) {
@@ -127,9 +117,16 @@ function initMap(mapWrapper) {
     });
 
     function focusOnRegion(d) {
-        if (activeRegion.node() === this.parentElement) return resetMapZoom();
-        activeRegion.classed("active", false);
-        activeRegion = d3.select(this.parentElement).classed("active", true);
+        if (activeRegion === d.properties.reference) return resetMapZoom();
+        var previousElts = document.querySelectorAll(".map_region.active");
+        for (var i = 0; i < previousElts.length; i++) {
+            previousElts[i].classList.remove('active');
+        }
+        var activeElts = document.querySelectorAll(".map_region." + d.properties.reference);
+        for (var j = 0; j < activeElts.length; j++) {
+            activeElts[j].classList.add('active');
+        }
+        activeRegion = d.properties.reference;
 
         var bounds = path.bounds(d),
             dx = bounds[1][0] - bounds[0][0],
@@ -139,12 +136,20 @@ function initMap(mapWrapper) {
             scale = .9 / Math.max(dx / width, dy / height),
             translate = [width / 2 - scale * x, height / 2 - scale * y];
 
+        mapWrapper.classList.add('zoomed', 'zooming');
         mapFeatures.transition()
             .duration(750)
-            .style("opacity", function(feat) { return feat.properties.reference === d.properties.reference ? 1 : 0; })
-            .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+            .attr("transform", "translate(" + translate + ") scale(" + scale + ")");
         setTimeout(function() {
-            mapWrapper.classList.add('zoomed');
+            var textTransform = document.querySelector(".map_region.region_text." + d.properties.reference + " > text")
+                .getAttribute("transform");
+            d3.select(".map_region.region_text." + d.properties.reference)
+                .attr("transform", "translate(" + translate + ") scale(" + scale + ")")
+                .append("text")
+                .attr("transform", textTransform)
+                .attr("class", "region_label")
+                .html('<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>');
+            mapWrapper.classList.remove('zooming');
             clearActiveCategory();
             initPieChart(d.properties.reference);
             initRankingsChart(d.properties.reference);
@@ -170,16 +175,22 @@ function initMap(mapWrapper) {
 }
 
 function resetMapZoom(filter) {
-    activeRegion.classed("active", false);
-    activeRegion = d3.select(null);
-    document.querySelector("#home_map").classList.remove('zoomed');
-
+    var mapWrapper = document.querySelector("#home_map");
+    mapWrapper.classList.add('zooming');
     mapFeatures.transition()
         .duration(750)
-        .style("opacity", 1)
         .attr("transform", "");
 
     setTimeout(function() {
+        var activeText = d3.select(".map_region.region_text.active");
+        activeText.attr("transform", "");
+        activeText.select("text:last-child").remove();
+        var previousElts = document.querySelectorAll(".map_region.active");
+        for (var i = 0; i < previousElts.length; i++) {
+            previousElts[i].classList.remove('active');
+        }
+        activeRegion = '';
+        document.querySelector("#home_map").classList.remove('zoomed', 'zooming');
         initPieChart(filter);
         initRankingsChart(filter);
     }, 750);
@@ -370,8 +381,22 @@ function loadPieData(chart, data) {
     });
 }
 
-function loadSubscriptions(container) {
-    var rowsContainer = container.querySelector('tbody');
+function loadSubscriptions() {
+    var formatNoCurrency = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3]}).format(',');
+    var container = document.querySelector("#subscriptions_wrapper");
+    container.innerHTML =
+        '<table id="subscriptions_table" class="data_table table--zebra">' +
+        '  <thead class="bg--primary">' +
+        '    <tr class="txtcenter">' +
+        '      <th>Nom</th>' +
+        '      <th>Montant (€)</th>' +
+        '      <th>Catégorie</th>' +
+        '    </tr>' +
+        '  </thead>' +
+        '  <tbody>' +
+        '  </tbody>' +
+        '</table>';
+    var rowsContainer = document.querySelector('#subscriptions_table tbody');
     var ajax = new XMLHttpRequest();
     ajax.open("GET", "/souscriptions.json", true);
     ajax.onload = function () {
@@ -380,10 +405,11 @@ function loadSubscriptions(container) {
         for (var i = 0; i < subscriptionsData.length; i++) {
             rowsContainer.innerHTML += '<tr class="txtcenter">' +
                 '<td>' + subscriptionsData[i].label + '</td>' +
-                '<td>' + formatAmount(subscriptionsData[i].amount) + '</td>' +
+                '<td>' + formatNoCurrency(subscriptionsData[i].amount) + '</td>' +
                 '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +
             '</tr>'
         }
+        initDataTable();
     };
     ajax.send();
 }
