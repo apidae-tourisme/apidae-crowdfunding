@@ -1,0 +1,5 @@
+fr:
+  time:
+    formats:
+      detailed: "%d/%m à %H:%M"
+      hour: "%H:%M"

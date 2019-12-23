@@ -9,7 +9,8 @@ class Subscription < ApplicationRecord
   before_save :compute_fields
 
   def self.by_subscriber
-    Subscription.all.group("person_data -> 'email', category, label").select("MIN(id) AS sub_id, category, label, SUM(amount) AS total")
+    Subscription.all.group("person_data -> 'email', category, label")
+        .select("MIN(id) AS sub_id, MIN(created_at) AS creation_date, category, label, SUM(amount) AS total")
   end
 
   def is_structure?

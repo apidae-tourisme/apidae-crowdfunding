@@ -49,6 +49,7 @@ function initDataTable() {
         datatable = new DataTable(table, {
             fixedHeight: true,
             columns: [
+                {select: 0, type: 'date', format: "le DD/MM/YYYY à HH:mm:ss", sort: "asc"},
                 {select: 1, type: 'number'}
             ],
             labels: {
@@ -388,6 +389,7 @@ function loadSubscriptions() {
         '<table id="subscriptions_table" class="data_table table--zebra">' +
         '  <thead class="bg--primary">' +
         '    <tr class="txtcenter">' +
+        '      <th>Date</th>' +
         '      <th>Nom</th>' +
         '      <th>Montant (€)</th>' +
         '      <th>Catégorie</th>' +
@@ -402,8 +404,11 @@ function loadSubscriptions() {
     ajax.onload = function () {
         var resp = ajax.responseText;
         var subscriptionsData = JSON.parse(resp);
+        var timestamp;
         for (var i = 0; i < subscriptionsData.length; i++) {
+            timestamp = new Date(subscriptionsData[i].date);
             rowsContainer.innerHTML += '<tr class="txtcenter">' +
+                '<td>le ' + timestamp.toLocaleDateString() + ' à ' + timestamp.toLocaleTimeString() + '</td>' +
                 '<td>' + subscriptionsData[i].label + '</td>' +
                 '<td>' + formatNoCurrency(subscriptionsData[i].amount) + '</td>' +
                 '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +

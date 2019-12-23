@@ -12,6 +12,7 @@
     "swiper": "^4.4.1",
     "van11y-accessible-modal-window-aria": "^2.4.5",
     "van11y-accessible-tab-panel-aria": "^2.0.4",
-    "vanilla-datatables": "^1.6.16"
+    "vanilla-datatables": "^1.6.16",
+    "whatwg-fetch": "^3.0.0"
   }
 }
