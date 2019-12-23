@@ -30,5 +30,9 @@ module ApidaeCrowdfunding
 
     # Send inline emails as default
     config.active_job.queue_adapter = :inline
+
+    config.sender_email = ''
+    config.subscriptions_admins = []
+
   end
 end

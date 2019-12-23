@@ -8,6 +8,9 @@ gem 'sass-rails', '~> 5.0'
 gem 'aasm', '~> 5.0.5'
 gem 'devise'
 gem 'devise-i18n'
+gem 'omniauth'
+# 1.3.1 specified as 1.4.0 is broken for now
+gem 'omniauth-oauth2', '1.3.1'
 
 gem 'rack-cors'
 
