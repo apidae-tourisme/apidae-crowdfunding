@@ -23,13 +23,13 @@ Rails.application.routes.draw do
   devise_for :users, path: 'administration', controllers: {omniauth_callbacks: 'users/omniauth_callbacks'},
              path_names: {sign_in: 'connexion', sign_out: 'deconnexion'}
 
-  authenticated :user do
-    get 'administration' => 'admin/subscriptions#index'
-  end
+  # authenticated :user do
+  #   get '/' => redirect('/administration/subscriptions')
+  # end
 
   scope module: 'admin' do
     scope '/administration' do
-      resources :subscriptions, only: [:index] do
+      resources :subscriptions, only: [:index], path: 'souscriptions', as: 'subs' do
         get :export, on: :collection
       end
     end

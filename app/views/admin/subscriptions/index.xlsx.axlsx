@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "souscriptions") do |sheet|
+  sheet.add_row export_columns.map {|col| I18n.t("export.subscription.field.#{col}")}
+  @subscriptions.each do |s|
+    sheet.add_row export_values(s)
+  end
+end

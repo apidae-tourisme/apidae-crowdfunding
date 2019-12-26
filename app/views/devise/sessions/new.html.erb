@@ -1,8 +1,6 @@
-<div id="auth_wrapper" class="txtcenter">
+<div id="auth_wrapper" class="txtcenter mtl">
   <div class="w300p center">
     <%= image_tag 'logo_apidae.svg', class: 'w100', alt: 'logo apidae' %>
-    <h1 class="uc strong ptm pbm">Ferme de widgets</h1>
-
     <div class="bg--primary pam big">
 
       <h2 class="txtcenter">Connexion</h2>
@@ -10,11 +8,8 @@
       <p class="mts mbm u-small">Veuillez vous authentifier pour continuer.</p>
       <%- resource_class.omniauth_providers.each do |provider| %>
         <%= link_to "Authentification",
-                    omniauth_authorize_path(resource_name, provider), id: 'auth_button', class: 'btn btn--big btn--primary mbm' %><br />
+                    omniauth_authorize_path(resource_name, provider), id: 'auth_button', class: 'btn btn--big btn--warning mbm' %><br />
       <% end -%>
     </div>
   </div>
-</div>
-<div class="txtcenter mtl">
-  <p class="u-smaller">Conçu et développé par <a href="https://hotentic.com" target="_blank">Hotentic</a> pour le réseau Apidae.</p>
 </div>

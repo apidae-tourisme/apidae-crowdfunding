@@ -1,6 +1,47 @@
 @import "fonts/fa";
 @import "fonts/montserrat";
+@import "fonts/apidae";
 @import "knacss/knacss";
 @import "vanilla-datatables/dist/vanilla-dataTables.min";
-@import "accessible-autocomplete/dist/accessible-autocomplete.min";
-@import "bo/bo";
+@import "site/site";
+
+#site_content {
+  tbody {
+    font-size: 14px;
+
+    tr > td {
+      line-height: 1.1;
+    }
+  }
+
+  .dataTable-bottom, .dataTable-top {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .dataTable-selector {
+    padding-right: 2rem;
+  }
+
+  .dataTable-sorter {
+    &:before {
+      opacity: 0.6;
+      border-top-color: white;
+    }
+
+    &:after {
+      opacity: 0.6;
+      border-bottom-color: white;
+    }
+  }
+
+  .dataTable-table {
+    > thead > tr > th {
+      text-align: center;
+    }
+  }
+
+  .data_table td {
+    vertical-align: middle;
+  }
+}

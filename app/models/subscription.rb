@@ -38,4 +38,12 @@ class Subscription < ApplicationRecord
   def lpad(str)
     str.length == 5 ? str : ('0' + str)
   end
+
+  def legal_entity_type
+    (legal_type == 'autre' ? legal_type_desc : LEGAL_TYPES[legal_type.to_sym]) unless legal_type.blank?
+  end
+
+  def sponsor_label
+    sponsor.label if sponsor
+  end
 end

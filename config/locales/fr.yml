@@ -1,4 +1,31 @@
 fr:
+  export:
+    subscription:
+      field:
+        created_at: "Date"
+        label: "Nom"
+        category: "Catégorie"
+        apidae_member_id: "Membre Apidae"
+        amount: "Montant"
+        siret: "SIRET"
+        legal_entity_type: "Statut"
+        role: "Fonction"
+        address: "Adresse"
+        postal_code: "Code postal"
+        town: "Ville"
+        country: "Pays"
+        telephone: "Téléphone"
+        email: "Email"
+        website: "Site web"
+        fund_deposit: "Dépôt des fonds"
+        com_enabled: "Com autorisée"
+        sponsor_label: "Parrain"
+      value:
+        fr: "France"
+        ch: "Suisse"
+        before: "Avant le 16/03/2020"
+        after: "Après le 16/03/2020"
+        unavailable: "Ne sait pas"
   time:
     formats:
       detailed: "%d/%m à %H:%M"

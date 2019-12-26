@@ -1,2 +1,55 @@
-<h1>Admin::Subscriptions#index</h1>
-<p>Find me in app/views/admin/subscriptions/index.html.erb</p>
+<div class="flex-container pbs">
+  <h1 class="txtleft item-fluid u-uppercase">Souscriptions</h1>
+  <div class="w120p item-center">
+    <%= link_to 'Export Excel', '/administration/souscriptions.xlsx', class: 'btn btn--primary', target: '_blank' %>
+  </div>
+</div>
+<div class="mtm">
+  <table id="subscriptions_table" class="data_table table--zebra">
+    <thead class="bg--inverse">
+    <tr class="txtcenter">
+      <th class="w300p">Nom</th>
+      <th>Montant</th>
+      <th>Catégorie</th>
+      <th>Email</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @subscriptions.any? %>
+      <% @subscriptions.each do |s| %>
+        <tr class="txtcenter">
+          <td class="lh"><%= s.label %></td>
+          <td><%= s.amount %></td>
+          <td><%= CATEGORIES[s.category.to_sym][:name] %></td>
+          <td><%= s.email %></td>
+          <td><span class="is-hidden"><%= s.created_at.to_i %></span><%= l(s.created_at, format: :detailed) %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5" class="txtcenter pas">
+          Aucune souscription pour le moment.
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<% content_for :page_scripts do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+          var table = document.querySelector("#subscriptions_table");
+          if (table) {
+              datatable = new DataTable(table, {
+                  labels: {
+                      placeholder: "Rechercher...",
+                      perPage: "{select} résultats par page",
+                      noRows: "Aucun résultat",
+                      info: "Résultats {start} - {end} sur {rows}",
+                  }
+              });
+          }
+      });
+  </script>
+<% end %>

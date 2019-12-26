@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apidae Souscriptions - Administration</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="Apidae - Souscrivez à la nouvelle structure">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'admin', media: 'all' %>
+  <%= javascript_include_tag 'admin' %>
+  <%= yield :page_styles %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+          if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > -1) {
+              document.body.classList.add('ie_browser');
+          }
+      });
+  </script>
+</head>
+
+<body>
+<% if current_user %>
+  <header class="w100">
+    <%= render 'shared/admin_header' %>
+  </header>
+<% end %>
+<div id="site_content" class="w100 mw1140p center pam">
+  <%= yield %>
+</div>
+<%= yield :page_scripts %>
+</body>
+</html>

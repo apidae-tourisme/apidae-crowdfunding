@@ -33,6 +33,5 @@ module ApidaeCrowdfunding
 
     config.sender_email = ''
     config.subscriptions_admins = []
-
   end
 end
