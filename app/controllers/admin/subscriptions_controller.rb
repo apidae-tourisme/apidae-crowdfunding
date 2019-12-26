@@ -1,11 +1,8 @@
 class Admin::SubscriptionsController < Admin::UserController
-  before_action :authenticate_user!
+  before_action :check_credentials
 
   def index
     @subscriptions = Subscription.all
-  end
-
-  def export
   end
 
   private
