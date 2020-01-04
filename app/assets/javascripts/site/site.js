@@ -49,7 +49,7 @@ function initDataTable() {
         datatable = new DataTable(table, {
             fixedHeight: true,
             columns: [
-                {select: 0, type: 'number', sort: "asc"},
+                {select: 0, type: 'date', format: "DD/MM/YYYY HH:mm:ss", sort: "asc"},
                 {select: 2, type: 'number'}
             ],
             labels: {
@@ -389,7 +389,6 @@ function loadSubscriptions() {
         '<table id="subscriptions_table" class="data_table table--zebra">' +
         '  <thead class="bg--primary">' +
         '    <tr class="txtcenter">' +
-        '      <th class="is-hidden">Timestamp</th>' +
         '      <th>Date</th>' +
         '      <th>Nom</th>' +
         '      <th>Montant (€)</th>' +
@@ -409,8 +408,7 @@ function loadSubscriptions() {
         for (var i = 0; i < subscriptionsData.length; i++) {
             timestamp = new Date(subscriptionsData[i].date);
             rowsContainer.innerHTML += '<tr class="txtcenter">' +
-                '<td class="is-hidden">' + subscriptionsData[i].timestamp + '</td>' +
-                '<td>le ' + timestamp.toLocaleDateString() + ' à ' + timestamp.toLocaleTimeString() + '</td>' +
+                '<td>' + timestamp.toLocaleDateString() + ' ' + timestamp.toLocaleTimeString() + '</td>' +
                 '<td>' + subscriptionsData[i].label + '</td>' +
                 '<td>' + formatNoCurrency(subscriptionsData[i].amount) + '</td>' +
                 '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +
