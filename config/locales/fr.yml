@@ -4,6 +4,10 @@ fr:
       field:
         created_at: "Date"
         label: "Nom"
+        structure_name: "Structure"
+        title: "M. / Mme"
+        first_name: "Prénom"
+        last_name: "Nom"
         category: "Catégorie"
         apidae_member_id: "Membre Apidae"
         amount: "Montant"

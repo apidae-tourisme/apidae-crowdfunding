@@ -29,10 +29,14 @@ class Subscription < ApplicationRecord
 
   def normalize_label
     if com_enabled
-      is_structure? ? structure_name.gsub(/office (de|du) tourisme/i, 'OT') : "#{title} #{first_name} #{last_name}"
+      public_label
     else
       'Déclaration anonyme'
     end
+  end
+
+  def public_label
+    is_structure? ? structure_name.gsub(/office (de|du) tourisme/i, 'OT') : "#{title} #{first_name} #{last_name}"
   end
 
   def lpad(str)

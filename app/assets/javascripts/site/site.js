@@ -49,7 +49,12 @@ function initDataTable() {
         datatable = new DataTable(table, {
             fixedHeight: true,
             columns: [
-                {select: 0, type: 'date', format: "DD/MM/YYYY HH:mm:ss", sort: "asc"},
+                {
+                    select: 0, type: 'number', sort: 'asc',
+                    render: function(data, cell, row) {
+                        return new Date(parseInt(data)).toLocaleString();
+                    }
+                },
                 {select: 2, type: 'number'}
             ],
             labels: {
@@ -404,11 +409,9 @@ function loadSubscriptions() {
     ajax.onload = function () {
         var resp = ajax.responseText;
         var subscriptionsData = JSON.parse(resp);
-        var timestamp;
         for (var i = 0; i < subscriptionsData.length; i++) {
-            timestamp = new Date(subscriptionsData[i].date);
             rowsContainer.innerHTML += '<tr class="txtcenter">' +
-                '<td>' + timestamp.toLocaleDateString() + ' ' + timestamp.toLocaleTimeString() + '</td>' +
+                '<td>' + subscriptionsData[i].date + '</td>' +
                 '<td>' + subscriptionsData[i].label + '</td>' +
                 '<td>' + formatNoCurrency(subscriptionsData[i].amount) + '</td>' +
                 '<td>' + labelsByCategory[subscriptionsData[i].category] + '</td>' +

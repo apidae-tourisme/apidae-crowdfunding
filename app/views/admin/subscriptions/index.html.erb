@@ -4,26 +4,24 @@
     <%= link_to 'Export Excel', '/administration/souscriptions.xlsx', class: 'btn btn--primary', target: '_blank' %>
   </div>
 </div>
-<div class="mtm">
+<div class="mts">
   <table id="subscriptions_table" class="data_table table--zebra">
     <thead class="bg--inverse">
     <tr class="txtcenter">
+      <th class="w100p">Date</th>
       <th class="w300p">Nom</th>
+      <th>Anonyme</th>
       <th>Montant</th>
       <th>Catégorie</th>
       <th>Email</th>
-      <th>Date</th>
+      <th class="w100p"></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody class="u-smaller">
     <% if @subscriptions.any? %>
       <% @subscriptions.each do |s| %>
-        <tr class="txtcenter">
-          <td class="lh"><%= s.label %></td>
-          <td><%= s.amount %></td>
-          <td><%= CATEGORIES[s.category.to_sym][:name] %></td>
-          <td><%= s.email %></td>
-          <td><span class="is-hidden"><%= s.created_at.to_i %></span><%= l(s.created_at, format: :detailed) %></td>
+        <tr class="txtcenter" id="sub_<%= s.id %>">
+          <%= render 'subscription_entry', s: s %>
         </tr>
       <% end %>
     <% else %>
@@ -42,6 +40,9 @@
           var table = document.querySelector("#subscriptions_table");
           if (table) {
               datatable = new DataTable(table, {
+                  columns: [
+                      {select: 0, sort: "asc"}
+                  ],
                   labels: {
                       placeholder: "Rechercher...",
                       perPage: "{select} résultats par page",

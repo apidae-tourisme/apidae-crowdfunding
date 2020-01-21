@@ -1,0 +1,12 @@
+<% if notice %>
+  <p id="notice" class="w100 alert--success txtcenter"><%= notice %></p>
+<% end %>
+<% if alert %>
+  <p id="alert" class="w100 alert--danger txtcenter"><%= alert %></p>
+<% end %>
+
+<% content_for :scripts do %>
+  <script>
+      displayAlerts();
+  </script>
+<% end %>

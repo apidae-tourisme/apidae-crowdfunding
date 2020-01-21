@@ -4,10 +4,11 @@
 @import "knacss/knacss";
 @import "vanilla-datatables/dist/vanilla-dataTables.min";
 @import "site/site";
+@import "bo/bo";
 
 #site_content {
   tbody {
-    font-size: 14px;
+    font-size: 11px;
 
     tr > td {
       line-height: 1.1;

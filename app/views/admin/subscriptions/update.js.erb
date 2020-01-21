@@ -1,0 +1,6 @@
+var subEntry = document.querySelector("#sub_<%= @subscription.id %>");
+if (subEntry) {
+    subEntry.innerHTML = "<%= j(render 'subscription_entry', s: @subscription) %>";
+}
+document.querySelector("#notifs").innerHTML = "<%= j(render 'shared/notifications') %>";
+displayAlerts();

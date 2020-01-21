@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   scope module: 'admin' do
     scope '/administration' do
-      resources :subscriptions, only: [:index], path: 'souscriptions', as: 'subs'
+      resources :subscriptions, only: [:index, :update], path: 'souscriptions', as: 'subs'
     end
   end
 
