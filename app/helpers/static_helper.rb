@@ -8,4 +8,8 @@ module StaticHelper
      'apidae-icon-project', 'apidae-icon-role', 'apidae-icon-search', 'apidae-icon-service', 'apidae-icon-share',
      'apidae-icon-star', 'apidae-icon-validate']
   end
+
+  def amount_ratio
+    [100, (@total / 500000.0).round(2) * 100].min.to_i
+  end
 end
