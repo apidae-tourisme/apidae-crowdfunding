@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     bindAmountDesc();
     bindLegalTypeSelector();
     initMemberSelector();
+    initSignatureFileLabel();
 });
 
 function disableNextSteps() {
@@ -136,7 +137,8 @@ function checkStepValidity(step) {
     if (!isValid) {
         var invalidFields = formSection.querySelectorAll("*:invalid");
         for (var j = 0; j < invalidFields.length; j++) {
-            invalidFields[j].parentElement.previousElementSibling.classList.add('invalid_field');
+            var fieldWrapper = invalidFields[j].parentElement.previousElementSibling || invalidFields[j].parentElement.parentElement;
+            fieldWrapper.classList.add('invalid_field');
         }
         var tabs = formWrapper.querySelectorAll(".js-tabcontent"),
             tabsEntries = formWrapper.querySelectorAll(".js-tablist__item");
@@ -200,4 +202,50 @@ function searchMembers(query, callback) {
         callback(JSON.parse(ajax.responseText).members);
     };
     ajax.send();
+}
+
+var signaturePad;
+function toggleSignaturePad() {
+    var onlineSigning = document.querySelector("#online_signing");
+    var canvasWrapper = document.querySelector("#signing_canvas");
+    if (onlineSigning.checked) {
+        canvasWrapper.classList.remove('is-hidden');
+        if (!signaturePad) {
+            signaturePad = new SignaturePad(canvasWrapper.querySelector("canvas"));
+            window.onresize = resizeCanvas;
+            resizeCanvas();
+        }
+    } else {
+        signaturePad.clear();
+        canvasWrapper.classList.add('is-hidden');
+    }
+}
+
+function resizeCanvas() {
+    var canvas = document.querySelector("#signing_canvas canvas");
+    var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
+    signaturePad.clear();
+}
+
+function clearPad() {
+    if (signaturePad) {
+        signaturePad.clear();
+    }
+}
+
+function initSignatureFileLabel() {
+    var inputFile = document.querySelector("#signature_file");
+    inputFile.addEventListener('change', function() {
+        document.querySelector("#download_signature").innerHTML = inputFile.files[0].name;
+    });
+}
+
+function copySignature() {
+    var inputFile = document.querySelector("#signature_file");
+    if (signaturePad && !signaturePad.isEmpty() && !inputFile.value) {
+        document.querySelector("#signature_data").value = signaturePad.toDataURL();
+    }
 }

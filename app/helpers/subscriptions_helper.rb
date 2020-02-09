@@ -6,7 +6,11 @@ module SubscriptionsHelper
   def subscription_countries
     [
         ['France', 'fr'],
-        ['Suisse', 'ch']
+        ['Suisse', 'ch'],
+        ['Allemagne', 'de'],
+        ['Italie', 'it'],
+        ['Espagne', 'es'],
+        ['Belgique', 'be']
     ]
   end
 

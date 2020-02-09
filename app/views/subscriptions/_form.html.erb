@@ -127,7 +127,7 @@
         <div class="flex-container mbs">
           <div class="txtright item-center w40 prs pls"><%= f.label :address, 'Adresse<sup>*</sup>'.html_safe %></div>
           <div class="w60">
-            <%= f.text_field :address, class: 'w100', required: true %>
+            <%= f.text_area :address, class: 'w100', required: true, rows: 2 %>
           </div>
         </div>
         <div class="flex-container mbs">
@@ -161,33 +161,94 @@
           </div>
         </div>
         <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :fund_deposit, 'Dépôt des fonds' %></div>
-          <div class="w60">
-            <%= f.select(:fund_deposit, deposit_choices, {}, class: 'w100') %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
           <div class="txtright item-center w40 prs pls"><%= f.label :sponsor, 'Parrain' %></div>
           <div class="w60">
             <%= f.select(:sponsor_id, subscription_sponsors, {prompt: 'Facultatif'}, class: 'w100') %>
           </div>
         </div>
         <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :payment_method, 'Mode de réglement<sup>*</sup>'.html_safe %></div>
+          <div class="w60 item-center">
+            <%= f.radio_button(:payment_method, 'cheque', id: 'payment_cheque', class: 'radio', required: true) %>
+            <label for="payment_cheque">Chèque</label>
+            <%= f.radio_button(:payment_method, 'virement', id: 'payment_virement', class: 'mlm radio', required: true) %>
+            <label for="payment_virement">Virement</label>
+          </div>
+        </div>
+        <div class="flex-container mbm">
           <div class="txtright item-center w40 prs pls"><%= f.label :comments, 'Remarques / questions' %></div>
           <div class="w60">
             <%= f.text_area :comments, class: 'w100', rows: 3 %>
           </div>
         </div>
+        <div class="flex-container mbs">
+          <div class="txtright item-center w40 prs pls"><%= f.label :signing, 'Signature'.html_safe %></div>
+          <div class="w60 flex-container aic">
+            <%= f.check_box :signing, {class: 'checkbox mrs', id: 'online_signing', onclick: 'toggleSignaturePad()'} %>
+            <label for="online_signing" class="item-fluid ma0">J'accepte de signer mon bulletin de souscription en ligne</label>
+            <div id="signing_canvas" class="is-hidden mts">
+              <canvas></canvas>
+              <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
+              <div>
+                <p class="item-fluid u-small item-center lh mbs">
+                  Utilisez la zone ci-dessus pour tracer votre signature.
+                  Vous pouvez également télécharger une image via le bouton ci-dessous.
+                </p>
+                <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="btn--small btn--inverse w100">
+                  Télécharger une signature
+                </button>
+              </div>
+              <%= f.file_field :signature, accept: 'image/png,image/jpeg', class: 'is-hidden', id: 'signature_file' %>
+              <%= f.hidden_field :signature_data, id: 'signature_data' %>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :com_enabled, {class: 'checkbox'} %></div>
-        <div class="item-fluid item-center txtleft lh">
+        <label for="subscription_com_enabled" class="item-fluid item-center txtleft lh reg">
           J'autorise Apidae Tourisme à communiquer ma déclaration d'intention sur l'ensemble de ses supports de communication (facultatif)
-        </div>
+        </label>
+      </div>
+      <div class="flex-container mtl">
+        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_societaire, {class: 'checkbox', required: true} %></div>
+        <label for="subscription_ack_societaire" class="item-fluid item-center txtleft lh reg">
+          Je déclare vouloir devenir sociétaire d’Apidae Tourisme Scic SA à capital variable. L’entrée de tout nouveau
+          sociétaire est soumise à une procédure d’agrément prévue par les statuts d’Apidae Tourisme Scic SA à capital variable.
+          Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
+          intégrale de chaque part souscrite.
+        </label>
+      </div>
+      <div class="flex-container mtl">
+        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_statuts, {class: 'checkbox', required: true} %></div>
+        <label for="subscription_ack_statuts" class="item-fluid item-center txtleft lh reg">
+          Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
+          d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
+          peuvent être consultés directement sur le site souscription https://souscription.apidae-tourisme.com
+        </label>
+      </div>
+      <div class="flex-container mtl">
+        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_biens_communs, {class: 'checkbox'} %></div>
+        <label for="subscription_ack_biens_communs" class="item-fluid item-center txtleft lh reg">
+          En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
+          et à fournir la notification de renonciation à être associé (téléchargeable sur le site
+          https://souscription.apidae-tourisme.com/)
+        </label>
+      </div>
+      <div class="flex-container mtl">
+        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_convocation, {class: 'checkbox', required: true} %></div>
+        <label for="subscription_ack_convocation" class="item-fluid item-center txtleft lh reg">
+          J’accepte d’être convoqué(e) aux assemblées par courrier électronique, qu’Apidae Tourisme Scic SA à capital
+          variable ait recours à la transmission par voie électronique en lieu et place de l’envoi postal lors de
+          l’exécution des formalités de convocation, d’envoi de documents, d’informations et plus généralement d’être
+          destinataire d’informations et de communications institutionnelles. Cette autorisation aura pour seul objectif
+          de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable, en limitant les frais de gestion et en
+          économisant le papier.
+        </label>
       </div>
       <div class="txtright mtl">
         <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
-        <button type="button" class="btn btn--warning" onclick="nextStep('infos')">Suivant</button>
+        <button type="button" class="btn btn--warning" onclick="copySignature(); nextStep('infos')">Suivant</button>
       </div>
     </div>
     <div id="validation" class="js-tabcontent bg--white">

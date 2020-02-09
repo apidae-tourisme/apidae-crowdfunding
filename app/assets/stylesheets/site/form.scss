@@ -108,6 +108,7 @@
       [type="time"],
       [type="url"],
       [type="week"],
+      [type="checkbox"],
       select,
       textarea {
         &:invalid {
@@ -131,6 +132,10 @@
     line-height: 1;
   }
 
+  input[type=radio] + label, label.reg {
+    font-weight: 400;
+  }
+
   .category_desc {
     p:last-child {
       padding-left: 2rem;
@@ -139,7 +144,7 @@
   }
 
   #infos_fields {
-    max-height: 410px;
+    max-height: 560px;
 
     > .flex-container {
       max-width: 50%;
@@ -192,11 +197,33 @@
       }
     }
   }
+
+  #signing_canvas {
+    position: relative;
+
+    canvas {
+      border: none;
+      box-shadow: 0 0 0 1px #333 inset;
+      max-width: 100%;
+
+      & + button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        z-index: 2;
+      }
+    }
+
+    #download_signature {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
 }
 
 .ie_browser {
   #subscription_form #infos_fields {
-    height: 410px;
+    height: 560px;
   }
 }
 

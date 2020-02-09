@@ -31,6 +31,9 @@ module ApidaeCrowdfunding
     # Send inline emails as default
     config.active_job.queue_adapter = :inline
 
+    # Active storage mode
+    config.active_storage.service = :local
+
     config.sender_email = ''
     config.subscriptions_admins = []
   end

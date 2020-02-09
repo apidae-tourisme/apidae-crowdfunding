@@ -1,3 +1,5 @@
+require "base64"
+
 class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: [:update, :share, :widget, :show, :confirm]
   skip_before_action :verify_authenticity_token, only: [:show]
@@ -12,6 +14,11 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.new(subscription_params)
+    if @subscription.signature_data
+      encoded_signature = @subscription.signature_data.split(",")[1]
+      decoded_signature = Base64.decode64(encoded_signature)
+      @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
+    end
     if @subscription.save
       SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
       redirect_to confirm_subscription_url(@subscription)
