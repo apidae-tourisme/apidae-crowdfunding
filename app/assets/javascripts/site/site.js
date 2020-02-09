@@ -82,6 +82,18 @@ function initMap(mapWrapper) {
         .attr("width", width)
         .attr("height", height);
     var regionsWrapper = svg.append("g");
+    svg.append("defs")
+        .append('pattern')
+        .attr('id', 'flag')
+        .attr('patternUnits', 'userSpaceOnUse')
+        .attr('width', 100)
+        .attr('height', 100)
+        .append("image")
+        .attr("xlink:href", "eu_flag.png")
+        .attr('width', width > 480 ? 25 : 20)
+        .attr('height', 100)
+        .attr('x', width > 480 ? 35 : 70)
+        .attr('y', width > 480 ? -10 : 10);
     var promises = [
         d3.json('/data/regions.json'),
         d3.json('/souscriptions/regions.json')

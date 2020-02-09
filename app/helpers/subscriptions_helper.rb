@@ -10,7 +10,8 @@ module SubscriptionsHelper
         ['Allemagne', 'de'],
         ['Italie', 'it'],
         ['Espagne', 'es'],
-        ['Belgique', 'be']
+        ['Belgique', 'be'],
+        ['Royaume-Uni', 'uk']
     ]
   end
 

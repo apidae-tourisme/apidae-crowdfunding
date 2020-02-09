@@ -36,5 +36,6 @@ REGIONS = {
     "provence-alpes-cote-d-azur": ['04', '05', '06', '13', '83', '84'],
     "corse": ['2A', '2B', '20'],
     "nouvelle-caledonie": ['988'],
-    "suisse": ['CH']
+    "suisse": ['CH'],
+    "autres": ['DE', 'ES', 'IT', 'BE', 'UK']
 }

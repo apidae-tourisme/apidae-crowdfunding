@@ -28,7 +28,7 @@ class Subscription < ApplicationRecord
   def compute_fields
     self.label = normalize_label
     unless postal_code.blank?
-      code = country == 'ch' ? ('CH' + postal_code) : lpad(postal_code)
+      code = country == 'fr' ? lpad(postal_code) : (country.upcase + postal_code)
       REGIONS.each_pair do |r, codes|
         self.region = r if codes.any? {|c| code.start_with?(c)}
       end
