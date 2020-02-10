@@ -18,6 +18,9 @@
           Merci pour votre déclaration. Une confirmation vous a été envoyée par mail.<br/><br/>
           Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !
         </p>
+        <div class="txtcenter mtm">
+          <a class="btn btn--inverse" target="_blank" href="https://print.hotentic.com/souscription?path=<%= CGI.escape(document_subscription_path(@subscription)) %>">Télécharger votre bulletin de souscription</a>
+        </div>
         <div class="flex-container--row mtm jcc">
           <a class="twitter-share-button" target="_blank"
              href="https://twitter.com/intent/tweet?text=<%= CGI.escape("Je soutiens @ApidaeTourisme") %>&url=<%= CGI.escape(share_subscription_url(@subscription)) %>"
