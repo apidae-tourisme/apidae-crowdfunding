@@ -3,7 +3,7 @@ class Subscription < ApplicationRecord
   has_many :sponsored, class_name: "Subscription", foreign_key: :sponsor_id
   belongs_to :sponsor, class_name: "Subscription", optional: true
 
-  store_accessor :structure_data, :structure_name, :siret, :legal_type, :legal_type_desc, :apidae_member_id, :widget_hosts
+  store_accessor :structure_data, :structure_name, :siret, :ape, :legal_type, :legal_type_desc, :apidae_member_id, :widget_hosts
   store_accessor :person_data, :title, :first_name, :last_name, :role, :birth_date, :address, :postal_code, :town, :country,
                  :telephone, :email, :website, :fund_deposit, :payment_method, :signing, :ack_societaire, :ack_statuts,
                  :ack_biens_communs, :ack_convocation, :person_type
@@ -29,6 +29,10 @@ class Subscription < ApplicationRecord
     category != 'sa' && category != 'sr'
   end
 
+  def pp?
+    person_type == 'pp'
+  end
+
   def compute_fields
     self.label = normalize_label
     unless postal_code.blank?
@@ -48,7 +52,11 @@ class Subscription < ApplicationRecord
   end
 
   def public_label
-    is_structure? ? structure_name.gsub(/office (de|du) tourisme/i, 'OT') : "#{title} #{first_name} #{last_name}"
+    is_structure? ? structure_name.gsub(/office (de|du) tourisme/i, 'OT') : full_name
+  end
+
+  def full_name
+    "#{title} #{first_name} #{last_name}"
   end
 
   def lpad(str)

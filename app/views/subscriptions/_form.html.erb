@@ -231,37 +231,69 @@
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_societaire, {class: 'checkbox', required: true} %></div>
         <label for="subscription_ack_societaire" class="item-fluid item-center txtleft lh reg">
-          Je déclare vouloir devenir sociétaire d’Apidae Tourisme Scic SA à capital variable. L’entrée de tout nouveau
-          sociétaire est soumise à une procédure d’agrément prévue par les statuts d’Apidae Tourisme Scic SA à capital variable.
-          Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
-          intégrale de chaque part souscrite.
+          <span class="person_pp_only">
+            Je déclare vouloir devenir sociétaire d’Apidae Tourisme Scic SA à capital variable. L’entrée de tout nouveau
+            sociétaire est soumise à une procédure d’agrément prévue par les statuts d’Apidae Tourisme Scic SA à capital variable.
+            Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
+            intégrale de chaque part souscrite.
+          </span>
+          <span class="structure_only">
+            La personne morale / collectivité territoriale représentée déclare vouloir devenir sociétaire d’Apidae Tourisme
+            Scic SA à capital variable L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
+            par les statuts d’Apidae Tourisme Scic SA à capital variable. Si la demande est acceptée, elle intégrera l’une
+            des catégories de sociétaires définies par les statuts après libération intégrale de chaque part souscrite.
+          </span>
         </label>
       </div>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_statuts, {class: 'checkbox', required: true} %></div>
         <label for="subscription_ack_statuts" class="item-fluid item-center txtleft lh reg">
-          Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
-          d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
-          peuvent être consultés directement sur le site souscription https://souscription.apidae-tourisme.com
+          <span class="person_pp_only">
+            Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
+            d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
+            peuvent être consultés directement sur le site souscription https://souscription.apidae-tourisme.com
+          </span>
+          <span class="structure_only">
+            La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
+            Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
+            au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site souscription
+            https://souscription.apidae-tourisme.com
+          </span>
         </label>
       </div>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_biens_communs, {class: 'checkbox'} %></div>
         <label for="subscription_ack_biens_communs" class="item-fluid item-center txtleft lh reg">
-          En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
-          et à fournir la notification de renonciation à être associé (téléchargeable sur le site
-          https://souscription.apidae-tourisme.com/)
+          <span class="person_pp_only">
+            En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
+            et à fournir la notification de renonciation à être associé (téléchargeable sur le site
+            https://souscription.apidae-tourisme.com/)
+          </span>
+          <span class="structure_only">
+            La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
+            et à engager la structure qu’elle représente.
+          </span>
         </label>
       </div>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_convocation, {class: 'checkbox', required: true} %></div>
         <label for="subscription_ack_convocation" class="item-fluid item-center txtleft lh reg">
-          J’accepte d’être convoqué(e) aux assemblées par courrier électronique, qu’Apidae Tourisme Scic SA à capital
-          variable ait recours à la transmission par voie électronique en lieu et place de l’envoi postal lors de
-          l’exécution des formalités de convocation, d’envoi de documents, d’informations et plus généralement d’être
-          destinataire d’informations et de communications institutionnelles. Cette autorisation aura pour seul objectif
-          de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable, en limitant les frais de gestion et en
-          économisant le papier.
+          <span class="person_pp_only">
+            J’accepte d’être convoqué(e) aux assemblées par courrier électronique, qu’Apidae Tourisme Scic SA à capital
+            variable ait recours à la transmission par voie électronique en lieu et place de l’envoi postal lors de
+            l’exécution des formalités de convocation, d’envoi de documents, d’informations et plus généralement d’être
+            destinataire d’informations et de communications institutionnelles. Cette autorisation aura pour seul objectif
+            de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable, en limitant les frais de gestion et en
+            économisant le papier.
+          </span>
+          <span>
+            La personne morale / collectivité territoriale représentée accepte d’être convoquée aux assemblées par courrier
+            électronique, qu’Apidae Tourisme Scic SA à capital variable ait recours à la transmission par voie électronique
+            en lieu et place de l’envoi postal lors de l’exécution des formalités de convocation, d’envoi de documents,
+            d’informations et plus généralement d’être destinataire d’informations et de communications institutionnelles.
+            Cette autorisation aura pour seul objectif de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable,
+            en limitant les frais de gestion et en économisant le papier.
+          </span>
         </label>
       </div>
       <div class="txtright mtl">
