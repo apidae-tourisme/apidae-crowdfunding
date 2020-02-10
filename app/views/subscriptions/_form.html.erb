@@ -45,9 +45,9 @@
         <div class="flex-container">
           <div class="txtright item-center u-big w15 prs">Je suis<sup>*</sup></div>
           <div class="item-fluid pls flex-container aic">
-            <%= f.radio_button(:person_type, 'pp', id: 'person_type_pp', class: 'radio', required: true) %>
+            <%= f.radio_button(:person_type, 'pp', id: 'person_type_pp', class: 'radio') %>
             <label for="person_type_pp">Une personne physique</label>
-            <%= f.radio_button(:person_type, 'pm', id: 'person_type_pm', class: 'mlm radio', required: true) %>
+            <%= f.radio_button(:person_type, 'pm', id: 'person_type_pm', class: 'mlm radio') %>
             <label for="person_type_pm">Une personne morale</label>
           </div>
         </div>
