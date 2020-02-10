@@ -1,7 +1,7 @@
 require "base64"
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: [:update, :share, :widget, :show, :confirm, :document]
+  before_action :set_subscription, only: [:edit, :update, :share, :widget, :show, :confirm, :document]
   skip_before_action :verify_authenticity_token, only: [:show]
 
   def index
@@ -28,6 +28,9 @@ class SubscriptionsController < ApplicationController
       flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
       render :new
     end
+  end
+
+  def edit
   end
 
   def update

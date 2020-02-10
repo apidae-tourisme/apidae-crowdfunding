@@ -29,7 +29,7 @@
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% else %>
         <p class="w100 flex-container"><span>Raison sociale : </span><span class="text_value"><%= @subscription.structure_name %></span></p>
-        <p class="w100 flex-container"><span>Forme juridique : </span><span class="text_value"><%= @subscription.legal_type %></span></p>
+        <p class="w100 flex-container"><span>Forme juridique : </span><span class="text_value"><%= LEGAL_TYPES[@subscription.legal_type.to_sym] %></span></p>
         <p class="w60 flex-container"><span>SIRET : </span><span class="text_value"><%= @subscription.siret %></span></p>
         <p class="w40 flex-container"><span>APE : </span><span class="text_value"><%= @subscription.ape %></span></p>
         <p class="w100 flex-container"><span>Représenté par : </span><span class="text_value"><%= @subscription.full_name %></span></p>
@@ -114,12 +114,12 @@
   </section>
   <section class="print_form">
     <div class="ptm pbm pll prl u-big flex-container--column">
-      <p class="flex-container w100"><span>Date : </span><span class="text_value"><%= @subscription.signed_at %></span></p>
+      <p class="flex-container w100"><span>Date : </span><span class="text_value"><%= l(@subscription.signed_at, format: :signature) unless @subscription.signed_at.blank? %></span></p>
       <p class="flex-container w100 mtm"><span>Fait à : </span><span class="text_value"><%= @subscription.town if @subscription.signed_at %></span></p>
-      <p class="w40 item-center">
-        Signature<%= " du représentant légal" unless @subscription.pp? %><br/>
+      <p class="w40 txtcenter lh">
+        <span class="u-small">Signature<%= " du représentant légal" unless @subscription.pp? %></span><br/>
         <% if @subscription.signature.attached? %>
-          <%= image_tag url_for(@subscription.signature), class: 'w100' %>
+          <%= image_tag url_for(@subscription.signature), class: 'signature_img' %>
         <% else %>
           <span class="signature_placeholder"></span>
         <% end %>
@@ -135,4 +135,5 @@
       mail à info@apidae-tourisme.com
     </p>
   </footer>
+  <input type="hidden" value="<%= @subscription.document_filename %>" id="subscription_doc_filename"/>
 </div>

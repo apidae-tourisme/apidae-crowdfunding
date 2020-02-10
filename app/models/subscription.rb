@@ -33,6 +33,10 @@ class Subscription < ApplicationRecord
     person_type == 'pp'
   end
 
+  def document_filename
+    "Bulletin souscription - #{pp? ? 'Personne physique' : 'Personne morale'} - #{public_label} - #{signed_at ? (I18n.l(signed_at, format: :doc) + ' - Signé') : 'Non signé'}"
+  end
+
   def compute_fields
     self.label = normalize_label
     unless postal_code.blank?

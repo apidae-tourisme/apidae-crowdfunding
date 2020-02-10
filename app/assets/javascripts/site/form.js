@@ -270,5 +270,7 @@ function copySignature() {
     if (signaturePad && !signaturePad.isEmpty() && !inputFile.value) {
         document.querySelector("#signature_data").value = signaturePad.toDataURL();
         document.querySelector("#subscription_signed_at").value = new Date().toISOString();
+    } else if (inputFile.value) {
+        document.querySelector("#subscription_signed_at").value = new Date().toISOString();
     }
 }

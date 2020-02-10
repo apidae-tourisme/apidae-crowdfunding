@@ -42,6 +42,8 @@ fr:
     formats:
       detailed: "%d/%m à %H:%M"
       hour: "%H:%M"
+      doc: "%Y%d%m"
+      signature: "Le %d/%m/%Y"
   number:
     currency:
       format:
