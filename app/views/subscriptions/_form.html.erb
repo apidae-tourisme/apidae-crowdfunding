@@ -41,6 +41,17 @@
           </div>
         <% end %>
       </div>
+      <div id="person_type_field" class="mtl mbs is-hidden">
+        <div class="flex-container">
+          <div class="txtright item-center u-big w15 prs">Je suis<sup>*</sup></div>
+          <div class="item-fluid pls flex-container aic">
+            <%= f.radio_button(:person_type, 'pp', id: 'person_type_pp', class: 'radio', required: true) %>
+            <label for="person_type_pp">Une personne physique</label>
+            <%= f.radio_button(:person_type, 'pm', id: 'person_type_pm', class: 'mlm radio', required: true) %>
+            <label for="person_type_pm">Une personne morale</label>
+          </div>
+        </div>
+      </div>
       <div class="txtright mtl">
         <button type="button" class="btn btn--warning" onclick="nextStep('type')">Suivant</button>
       </div>
@@ -116,6 +127,12 @@
           <div class="txtright item-center w40 prs pls"><%= f.label :first_name, 'Prénom<sup>*</sup>'.html_safe %></div>
           <div class="w60">
             <%= f.text_field :first_name, class: 'w100', required: true, placeholder: 'Contact administratif' %>
+          </div>
+        </div>
+        <div class="flex-container mbs person_pp_only">
+          <div class="txtright item-center w40 prs pls"><%= f.label :birth_date, 'Date de naissance<sup>*</sup>'.html_safe %></div>
+          <div class="w60">
+            <%= f.date_field :birth_date, class: 'w100', required: true, placeholder: 'JJ/MM/AAAA' %>
           </div>
         </div>
         <div class="flex-container mbs">
@@ -200,6 +217,7 @@
               </div>
               <%= f.file_field :signature, accept: 'image/png,image/jpeg', class: 'is-hidden', id: 'signature_file' %>
               <%= f.hidden_field :signature_data, id: 'signature_data' %>
+              <%= f.hidden_field :signed_at, id: 'subscription_signed_at' %>
             </div>
           </div>
         </div>

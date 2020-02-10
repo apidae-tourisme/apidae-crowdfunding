@@ -6,7 +6,7 @@ class Subscription < ApplicationRecord
   store_accessor :structure_data, :structure_name, :siret, :legal_type, :legal_type_desc, :apidae_member_id, :widget_hosts
   store_accessor :person_data, :title, :first_name, :last_name, :role, :birth_date, :address, :postal_code, :town, :country,
                  :telephone, :email, :website, :fund_deposit, :payment_method, :signing, :ack_societaire, :ack_statuts,
-                 :ack_biens_communs, :ack_convocation
+                 :ack_biens_communs, :ack_convocation, :person_type
 
   attr_accessor :signature_data
 

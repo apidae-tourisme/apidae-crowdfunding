@@ -62,7 +62,15 @@ function updateCategoryFields(categorySelect) {
         document.querySelector("#spl_alert").classList.add('is-hidden');
     }
 
-    var structureFields = document.querySelectorAll("#infos .structure_only"), inputs;
+    if (categorySelect.value === 'sr') {
+        document.querySelector("#person_type_field").classList.remove('is-hidden');
+    } else {
+        document.querySelector("#person_type_field").classList.add('is-hidden');
+    }
+
+    var structureFields = document.querySelectorAll("#infos .structure_only"),
+        personFields = document.querySelectorAll("form .person_pp_only"),
+        inputs;
     if (categorySelect.value === 'sr' || categorySelect.value === 'sa') {
         for (var i = 0; i < structureFields.length; i++) {
             structureFields[i].classList.add('is-hidden');
@@ -73,6 +81,13 @@ function updateCategoryFields(categorySelect) {
         }
         document.querySelector("#subscription_role").removeAttribute('required');
         document.querySelector("label[for='subscription_role'] sup").remove();
+        for (var m = 0; m < personFields.length; m++) {
+            personFields[m].classList.remove('is-hidden');
+            inputs = personFields[m].querySelectorAll('input, select');
+            for (var n = 0; n < inputs.length; n++) {
+                inputs[n].removeAttribute('disabled');
+            }
+        }
     } else {
         for (var j = 0; j < structureFields.length; j++) {
             structureFields[j].classList.remove('is-hidden');
@@ -82,6 +97,13 @@ function updateCategoryFields(categorySelect) {
             }
         }
         document.querySelector("#subscription_role").setAttribute('required', 'required');
+        for (var o = 0; o < personFields.length; o++) {
+            personFields[o].classList.add('is-hidden');
+            inputs = personFields[o].querySelectorAll('input, select');
+            for (var p = 0; p < inputs.length; p++) {
+                inputs[p].setAttribute('disabled', 'disabled');
+            }
+        }
     }
 }
 
@@ -247,5 +269,6 @@ function copySignature() {
     var inputFile = document.querySelector("#signature_file");
     if (signaturePad && !signaturePad.isEmpty() && !inputFile.value) {
         document.querySelector("#signature_data").value = signaturePad.toDataURL();
+        document.querySelector("#subscription_signed_at").value = new Date().toISOString();
     }
 }
