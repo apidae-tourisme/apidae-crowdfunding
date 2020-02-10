@@ -6,7 +6,7 @@ module StaticHelper
      'apidae-icon-close', 'apidae-icon-creativework', 'apidae-icon-event', 'apidae-icon-idea', 'apidae-icon-list',
      'apidae-icon-organization', 'apidae-icon-pen', 'apidae-icon-person', 'apidae-icon-plus', 'apidae-icon-product',
      'apidae-icon-project', 'apidae-icon-role', 'apidae-icon-search', 'apidae-icon-service', 'apidae-icon-share',
-     'apidae-icon-star', 'apidae-icon-validate']
+     'apidae-icon-star', 'apidae-icon-validate', 'apidae-icon-hexa']
   end
 
   def amount_ratio

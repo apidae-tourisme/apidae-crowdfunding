@@ -1,7 +1,7 @@
 require "base64"
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: [:update, :share, :widget, :show, :confirm]
+  before_action :set_subscription, only: [:update, :share, :widget, :show, :confirm, :document]
   skip_before_action :verify_authenticity_token, only: [:show]
 
   def index
@@ -71,6 +71,10 @@ class SubscriptionsController < ApplicationController
   end
 
   def widget
+  end
+
+  def document
+    render :document, layout: 'print'
   end
 
   private

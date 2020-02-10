@@ -1,0 +1,71 @@
+@import "fonts/fa";
+@import "fonts/montserrat";
+@import "fonts/apidae";
+@import "knacss/knacss";
+@import "site/common";
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative;
+
+  > p:last-child {
+    position: absolute;
+    left: 4rem;
+    bottom: 1rem;
+    font-size: 14px;
+  }
+}
+
+.print_form {
+  i.apidae-icon-validate, i.apidae-icon-hexa {
+    margin: 0 2rem 0 5px;
+    vertical-align: text-top;
+  }
+
+  sup {
+    font-size: 50%;
+    top: -1em;
+  }
+
+  span {
+    margin-right: 1rem;
+  }
+
+  p.flex-container {
+    min-height: 28px;
+  }
+
+  .flex-container--column {
+    max-height: 160px;
+
+    > .flex-container {
+      max-width: 50%;
+    }
+  }
+
+  .signature_placeholder {
+    display: inline-block;
+    width: 100%;
+    height: 120px;
+    border: 1px solid #333;
+  }
+
+  .text_value {
+    flex: 1 1 0%;
+    position: relative;
+
+    &:after {
+      content: '';
+      height: 1px;
+      background-color: #CCC;
+      position: absolute;
+      bottom: 3px;
+      left: 0;
+      right: 0;
+    }
+  }
+}

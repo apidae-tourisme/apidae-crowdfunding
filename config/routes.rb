@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :subscriptions, only: [:index, :new, :create, :update, :show], path: 'souscriptions' do
     get :confirm, on: :member, path: 'confirmation'
+    get :document, on: :member, path: 'bulletin'
     get :members, on: :collection
     get :rankings, on: :collection
     get :proportions, on: :collection

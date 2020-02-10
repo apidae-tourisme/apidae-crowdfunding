@@ -34,4 +34,12 @@ module SubscriptionsHelper
         ['Ne sait pas', 'unavailable']
     ]
   end
+
+  def chk(field, checked_value)
+    "<i class=\"u-big apidae-icon-#{@subscription.send(field) == checked_value ? 'validate' : 'hexa'}\"></i>".html_safe
+  end
+
+  def address_fields
+    @subscription.address.split(/(\r\n?)/)
+  end
 end

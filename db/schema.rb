@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_09_203738) do
+ActiveRecord::Schema.define(version: 2020_02_10_102914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2020_02_09_203738) do
     t.integer "sponsor_id"
     t.string "label"
     t.string "region"
+    t.datetime "signed_at"
   end
 
   create_table "users", force: :cascade do |t|

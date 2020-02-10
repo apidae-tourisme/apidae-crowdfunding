@@ -17,6 +17,10 @@ class Subscription < ApplicationRecord
         .select("MIN(id) AS sub_id, MIN(created_at) AS creation_date, category, label, SUM(amount) AS total")
   end
 
+  def shares_count
+    amount.nil? ? 0 : (amount / 100).to_i
+  end
+
   def amount_as_text
     "#{amount.humanize} euros" unless amount.nil?
   end

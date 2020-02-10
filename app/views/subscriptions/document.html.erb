@@ -1,0 +1,97 @@
+<header class="bg--danger ptm pbl pll prl">
+  <div class="flex-container aic">
+    <p class="u-uppercase u-biggest lh item-fluid">
+      <strong>Bulletin</strong> de <strong>souscription</strong><br/>
+      de <strong>parts</strong> au <strong>capital</strong>
+    </p>
+    <%= image_tag 'logo_apidae_mono.svg', class: 'w25' %>
+  </div>
+  <p class="ma0"><em>Apidae Tourisme, Société Coopérative d’Intérêt Collectif Anonyme à capital variable</em></p>
+</header>
+<section class="pts pbs pll prl">
+  <p>N° de souscription : <strong><%= @subscription.id %></strong></p>
+  <p class="lh">
+    <span class="fw500">IMPORTANT :</span> Merci de compléter et signer ce formulaire, d’en conserver une copie et de
+    nous retourner l’original à : Apidae Tourisme 11B Quai Perrache 69002 Lyon ou par mail à info@apidae-tourisme.com
+  </p>
+</section>
+<section class="print_form">
+  <p class="bg--danger pll prl u-big fw500">Pour les personnes physiques</p>
+  <div class="ptm pbm pll prl u-big flex-container">
+    <p class="w20">M<sup>me</sup><%= chk(:title, 'Mme') %>M.<%= chk(:title, 'M.') %></p>
+    <p class="w40 flex-container"><span>Nom : </span><span class="text_value"><%= @subscription.first_name %></span></p>
+    <p class="w40 flex-container"><span>Prénom : </span><span class="text_value"><%= @subscription.last_name %></span></p>
+    <p class="w60 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
+    <p class="w40 flex-container"><span>Date de naissance : </span><span class="text_value"><%= @subscription.birth_date %></span></p>
+    <p class="w100 flex-container"><span>Adresse : </span><span class="text_value"><%= address_fields[0] %></span></p>
+    <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
+    <p class="w30 flex-container"><span>Code postal : </span><span class="text_value"><%= @subscription.postal_code %></span></p>
+    <p class="w70 flex-container"><span>Commune : </span><span class="text_value"><%= @subscription.town %></span></p>
+    <p class="w30 flex-container"><span>Pays : </span><span class="text_value"><%= t("countries.#{@subscription.country}") %></span></p>
+    <p class="w70 flex-container"><span>Email : </span><span class="text_value"><%= @subscription.email %></span></p>
+    <p class="w100 flex-container"><span>N° de téléphone : </span><span class="text_value"><%= @subscription.telephone %></span></p>
+    <p class="w100"><span>Mode de règlement : </span>Chèque<%= chk(:payment_method, 'cheque') %>Virement<%= chk(:payment_method, 'virement') %></p>
+    <p class="w100 flex-container"><span>Nombre de parts : </span><span class="text_value"><%= @subscription.shares_count %></span></p>
+    <p class="w100 flex-container"><span>Montant de la souscription <small><em>(en chiffres)</em></small> : </span><span class="text_value"><%= number_to_currency(@subscription.amount, locale: :fr, precision: 0) %></span></p>
+    <p class="w100 flex-container"><span>Montant de la souscription <small><em>(en lettres)</em></small> : </span><span class="text_value"><%= @subscription.amount_as_text %></span></p>
+  </div>
+</section>
+<section class="bg--danger pll prl ptm pbm">
+  <div class="flex-container mts">
+    <div class="u-big prs"><%= chk(:ack_societaire, '1') %></div>
+    <p class="lh item-fluid">
+      Je déclare vouloir devenir sociétaire d’Apidae Tourisme Scic SA à capital variable. L’entrée de tout nouveau
+      sociétaire est soumise à une procédure d’agrément prévue par les statuts d’Apidae Tourisme Scic SA à capital variable.
+      Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
+      intégrale de chaque part souscrite.
+    </p>
+  </div>
+  <div class="flex-container mts">
+    <div class="u-big prs"><%= chk(:ack_statuts, '1') %></div>
+    <p class="lh item-fluid">
+      Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours d’immatriculation
+      au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés
+      directement sur le site souscription https://souscription.apidae-tourisme.com
+    </p>
+  </div>
+  <div class="flex-container mts">
+    <div class="u-big prs"><%= chk(:ack_biens_communs, '1') %></div>
+    <p class="lh item-fluid">
+      En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs et à
+      fournir la notification de renonciation à être associé (téléchargeable sur le site https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf)
+    </p>
+  </div>
+  <div class="flex-container mts">
+    <div class="u-big prs"><%= chk(:ack_convocation, '1') %></div>
+    <p class="lh item-fluid">
+      J’accepte d’être convoqué(e) aux assemblées par courrier électronique, qu’Apidae Tourisme Scic SA à capital variable
+      ait recours à la transmission par voie électronique en lieu et place de l’envoi postal lors de l’exécution des
+      formalités de convocation, d’envoi de documents, d’informations et plus généralement d’être destinataire d’informations
+      et de communications institutionnelles. Cette autorisation aura pour seul objectif de faciliter la gestion d’Apidae
+      Tourisme Scic SA à capital variable, en limitant les frais de gestion et en économisant le papier.
+    </p>
+  </div>
+</section>
+<section class="print_form">
+  <div class="ptm pbm pll prl u-big flex-container--column">
+    <p class="flex-container w100"><span>Date : </span><span class="text_value"><%= @subscription.signed_at %></span></p>
+    <p class="flex-container w100 mtm"><span>Fait à : </span><span class="text_value"><%= @subscription.town if @subscription.signed_at %></span></p>
+    <p class="w40 item-center">
+      Signature<br/>
+      <% if @subscription.signed_at %>
+        <%= image_tag url_for(@subscription.signature), class: 'w100' %>
+      <% else %>
+        <span class="signature_placeholder"></span>
+      <% end %>
+    </p>
+  </div>
+</section>
+<footer class="bg--danger prl pll ptm pbm mtl">
+  <p class="u-small lh u-italic">
+    Les informations communiquées seront enregistrées par Apidae Tourisme Scic SA à capital variable uniquement pour le
+    traitement de votre demande. Ces informations sont obligatoires. Vous disposez d’un droit d’accès, de rectification,
+    d’opposition et de suppression dans les conditions prévues par la loi n°78-17 du 6 janvier 1978 relative à l’informatique,
+    aux fichiers et aux libertés. Ces droits peuvent s’exercer auprès d’Apidae Tourisme Scic SA à capital variable par
+    mail à info@apidae-tourisme.com
+  </p>
+</footer>
