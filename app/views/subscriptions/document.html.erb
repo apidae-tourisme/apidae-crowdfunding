@@ -117,8 +117,8 @@
       <p class="flex-container w100"><span>Date : </span><span class="text_value"><%= @subscription.signed_at %></span></p>
       <p class="flex-container w100 mtm"><span>Fait à : </span><span class="text_value"><%= @subscription.town if @subscription.signed_at %></span></p>
       <p class="w40 item-center">
-        Signature<%= " du réprésentant légal" unless @subscription.pp? %><br/>
-        <% if @subscription.signed_at %>
+        Signature<%= " du représentant légal" unless @subscription.pp? %><br/>
+        <% if @subscription.signature.attached? %>
           <%= image_tag url_for(@subscription.signature), class: 'w100' %>
         <% else %>
           <span class="signature_placeholder"></span>

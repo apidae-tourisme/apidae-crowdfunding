@@ -14,10 +14,12 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.new(subscription_params)
-    if @subscription.signature_data
+    unless @subscription.signature_data.blank?
       encoded_signature = @subscription.signature_data.split(",")[1]
-      decoded_signature = Base64.decode64(encoded_signature)
-      @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
+      unless encoded_signature.blank?
+        decoded_signature = Base64.decode64(encoded_signature)
+        @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
+      end
     end
     if @subscription.save
       SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
