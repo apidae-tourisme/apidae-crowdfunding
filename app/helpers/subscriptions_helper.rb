@@ -24,7 +24,7 @@ module SubscriptionsHelper
   end
 
   def subscription_sponsors
-    Subscription.all.select(:id, :label).map {|s| [s.label, s.id]}
+    Subscription.where(com_enabled: true).by_subscriber.to_a.sort_by {|s| s.label}.map {|s| [s.label, s.sub_id]}
   end
 
   def deposit_choices

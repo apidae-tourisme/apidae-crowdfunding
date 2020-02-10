@@ -24,7 +24,7 @@ class Subscription < ApplicationRecord
   end
 
   def self.by_subscriber
-    Subscription.all.group("person_data -> 'email', category, label")
+    group("person_data -> 'email', category, label")
         .select("MIN(id) AS sub_id, MIN(created_at) AS creation_date, category, label, SUM(amount) AS total")
   end
 

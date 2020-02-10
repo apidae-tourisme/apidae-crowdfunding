@@ -164,6 +164,14 @@
     input, select {
       font-size: 14px;
     }
+
+    &.person_type_pp {
+      #subscription_first_name, #subscription_last_name {
+        &::placeholder {
+          opacity: 0;
+        }
+      }
+    }
   }
 
   input[type=checkbox] + label {
@@ -187,12 +195,17 @@
   }
 
   .autocomplete__input {
-    color: #333;
+    color: #FFFFFF;
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #CCC;
+    border-bottom: 1px solid #FFFFFF;
     box-shadow: none;
+
+    &::placeholder {
+      color: #DEDEDE;
+      opacity: 0.8;
+    }
 
     &.autocomplete__input--default {
       text-overflow: ellipsis;
@@ -206,12 +219,16 @@
   }
 
   #signing_canvas {
-    position: relative;
+
+    & > div:first-child {
+      position: relative;
+    }
 
     canvas {
       border: none;
       box-shadow: 0 0 0 1px #333 inset;
       max-width: 100%;
+      height: 120px;
 
       & + button {
         position: absolute;

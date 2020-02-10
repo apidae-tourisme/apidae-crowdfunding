@@ -3,10 +3,11 @@ var steps = ['type', 'montant', 'infos', 'validation'];
 document.addEventListener("DOMContentLoaded", function(event) {
     disableNextSteps();
     bindCategorySelector();
+    bindPersonTypeFields();
     bindAmountDesc();
     bindLegalTypeSelector();
     initMemberSelector();
-    initSignatureFileLabel();
+    initSignatureFilePreview();
 });
 
 function disableNextSteps() {
@@ -24,6 +25,18 @@ function bindCategorySelector() {
             updateCategoryFields(categorySelect);
         }
     }
+}
+
+function bindPersonTypeFields() {
+    var infos = document.querySelector("#infos_fields");
+    document.querySelector("#person_type_pm").addEventListener("change", function() {
+        infos.classList.remove('person_type_pp');
+        infos.classList.add('person_type_pm');
+    });
+    document.querySelector("#person_type_pp").addEventListener("change", function() {
+        infos.classList.remove('person_type_pm');
+        infos.classList.add('person_type_pp');
+    });
 }
 
 function bindAmountDesc() {
@@ -260,10 +273,20 @@ function clearPad() {
     }
 }
 
-function initSignatureFileLabel() {
+function initSignatureFilePreview() {
     var inputFile = document.querySelector("#signature_file");
     inputFile.addEventListener('change', function() {
-        document.querySelector("#download_signature").innerHTML = inputFile.files[0].name;
+        var loadedFile = inputFile.files[0];
+        var reader  = new FileReader();
+        reader.addEventListener("load", function () {
+            if (signaturePad) {
+                signaturePad.fromDataURL(reader.result);
+            }
+        }, false);
+
+        if (loadedFile) {
+            reader.readAsDataURL(loadedFile);
+        }
     });
 }
 

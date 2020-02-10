@@ -13,7 +13,7 @@
     <p>N° de souscription : <strong><%= @subscription.id %></strong></p>
     <p class="lh">
       <span class="fw500">IMPORTANT :</span> Merci de compléter et signer ce formulaire, d’en conserver une copie et de
-      nous retourner l’original à : Apidae Tourisme 11B Quai Perrache 69002 Lyon ou par mail à info@apidae-tourisme.com
+      nous retourner l’original à : Apidae Tourisme 11 bis Quai Perrache 69002 Lyon ou par mail à info@apidae-tourisme.com
     </p>
   </section>
   <section class="print_form">
@@ -24,7 +24,7 @@
         <p class="w40 flex-container"><span>Nom : </span><span class="text_value"><%= @subscription.first_name %></span></p>
         <p class="w40 flex-container"><span>Prénom : </span><span class="text_value"><%= @subscription.last_name %></span></p>
         <p class="w60 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
-        <p class="w40 flex-container"><span>Date de naissance : </span><span class="text_value"><%= @subscription.birth_date %></span></p>
+        <p class="w40 flex-container"><span>Date de naissance : </span><span class="text_value"><%= l(Date.parse(@subscription.birth_date), format: :short) %></span></p>
         <p class="w100 flex-container"><span>Adresse : </span><span class="text_value"><%= address_fields[0] %></span></p>
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% else %>
@@ -59,7 +59,7 @@
           intégrale de chaque part souscrite.
         <% else %>
           La personne morale / collectivité territoriale représentée déclare vouloir devenir sociétaire d’Apidae Tourisme
-          Scic SA à capital variable L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
+          Scic SA à capital variable. L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
           par les statuts d’Apidae Tourisme Scic SA à capital variable. Si la demande est acceptée, elle intégrera l’une
           des catégories de sociétaires définies par les statuts après libération intégrale de chaque part souscrite.
         <% end %>
@@ -70,13 +70,12 @@
       <p class="lh item-fluid">
         <% if @subscription.pp? %>
           Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours d’immatriculation
-          au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés
-          directement sur le site souscription https://souscription.apidae-tourisme.com
+          au RCS de Lyon dont le siège social est situé au 11 bis Quai Perrache 69002 Lyon. Les statuts peuvent être consultés
+          directement sur le site https://souscription.apidae-tourisme.com
         <% else %>
           La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
           Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
-          au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site souscription
-          https://souscription.apidae-tourisme.com
+          au 11 bis Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
         <% end %>
       </p>
     </div>

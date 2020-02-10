@@ -18,7 +18,7 @@
         <a href="#infos" class="js-tablist__link tab_infos"><span><%= is_new ? 3 : 2 %></span>Mes informations</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#validation" class="js-tablist__link tab_validation"><span><%= is_new ? 4 : 3 %></span>Validation de ma déclaration</a>
+        <a href="#validation" class="js-tablist__link tab_validation"><span><%= is_new ? 4 : 3 %></span>Validation de ma souscription</a>
       </li>
     </ul>
     <div id="type" class="<%= is_new ? 'js-tabcontent' : 'is-hidden' %> bg--white">
@@ -48,10 +48,10 @@
         <div class="flex-container">
           <div class="txtright item-center u-big w15 prs">Je suis<sup>*</sup></div>
           <div class="item-fluid pls flex-container aic">
-            <%= f.radio_button(:person_type, 'pp', id: 'person_type_pp', class: 'radio') %>
-            <label for="person_type_pp">Une personne physique</label>
-            <%= f.radio_button(:person_type, 'pm', id: 'person_type_pm', class: 'mlm radio') %>
+            <%= f.radio_button(:person_type, 'pm', id: 'person_type_pm', class: 'radio', required: true) %>
             <label for="person_type_pm">Une personne morale</label>
+            <%= f.radio_button(:person_type, 'pp', id: 'person_type_pp', class: 'mlm radio', required: true) %>
+            <label for="person_type_pp">Une personne physique</label>
           </div>
         </div>
       </div>
@@ -86,11 +86,10 @@
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Mes informations</span>
       </h3>
-      <div class="flex-container mtm structure_only">
-        <div class="w20 txtright"></div>
-        <p class="w80 u-small item-center lh mbs">Si vous êtes membre du réseau Apidae, vous pouvez utiliser la recherche ci-dessous pour pré-remplir
+      <div class="flex-container mtm structure_only bg--primary pts pbs plm prm">
+        <p class="w100 lh mbs txtleft">Si vous êtes membre du réseau Apidae, vous pouvez utiliser la recherche ci-dessous pour pré-remplir
           certains champs du formulaire.</p>
-        <div class="txtright item-center w20 prs pls u-bigger"><i class="apidae-icon-search txt--warning u-bigger"></i></div>
+        <div class="txtright item-center w50p prm u-bigger"><i class="apidae-icon-search txt--warning u-bigger"></i></div>
         <div class="lookup_container item-fluid"></div>
         <%= f.hidden_field :apidae_member_id %>
       </div>
@@ -206,9 +205,11 @@
           <div class="w60 flex-container aic">
             <%= f.check_box :signing, {class: 'checkbox mrs', id: 'online_signing', onclick: 'toggleSignaturePad()'} %>
             <label for="online_signing" class="item-fluid ma0">J'accepte de signer mon bulletin de souscription en ligne</label>
-            <div id="signing_canvas" class="is-hidden mts">
-              <canvas></canvas>
-              <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
+            <div id="signing_canvas" class="is-hidden mts txtcenter">
+              <div class="inbl">
+                <canvas></canvas>
+                <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
+              </div>
               <div>
                 <p class="item-fluid u-small item-center lh mbs">
                   Utilisez la zone ci-dessus pour tracer votre signature.
@@ -228,7 +229,7 @@
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :com_enabled, {class: 'checkbox'} %></div>
         <label for="subscription_com_enabled" class="item-fluid item-center txtleft lh reg">
-          J'autorise Apidae Tourisme à communiquer ma déclaration d'intention sur l'ensemble de ses supports de communication (facultatif)
+          J'autorise Apidae Tourisme à communiquer ma prise de participation au capital sur l'ensemble de ses supports de communication
         </label>
       </div>
       <div class="flex-container mtl">
@@ -242,7 +243,7 @@
           </span>
           <span class="structure_only">
             La personne morale / collectivité territoriale représentée déclare vouloir devenir sociétaire d’Apidae Tourisme
-            Scic SA à capital variable L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
+            Scic SA à capital variable. L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
             par les statuts d’Apidae Tourisme Scic SA à capital variable. Si la demande est acceptée, elle intégrera l’une
             des catégories de sociétaires définies par les statuts après libération intégrale de chaque part souscrite.
           </span>
@@ -253,14 +254,13 @@
         <label for="subscription_ack_statuts" class="item-fluid item-center txtleft lh reg">
           <span class="person_pp_only">
             Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
-            d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
-            peuvent être consultés directement sur le site souscription https://souscription.apidae-tourisme.com
+            d’immatriculation au RCS de Lyon dont le siège social est situé au 11 bis Quai Perrache 69002 Lyon. Les statuts
+            peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
           </span>
           <span class="structure_only">
             La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
             Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
-            au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site souscription
-            https://souscription.apidae-tourisme.com
+            au 11 bis Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
           </span>
         </label>
       </div>
@@ -270,7 +270,7 @@
           <span class="person_pp_only">
             En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
             et à fournir la notification de renonciation à être associé (téléchargeable sur le site
-            https://souscription.apidae-tourisme.com/)
+            https://souscription.apidae-tourisme.com)
           </span>
           <span class="structure_only">
             La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
@@ -306,7 +306,7 @@
     </div>
     <div id="validation" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma déclaration d'intention</span>
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma souscription</span>
       </h3>
       <div id="validation_msg" class="mtl txtcenter">
       </div>

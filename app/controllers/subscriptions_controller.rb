@@ -5,11 +5,11 @@ class SubscriptionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:show]
 
   def index
-    @subscriptions = Subscription.by_subscriber
+    @subscriptions = Subscription.all.by_subscriber
   end
 
   def new
-    @subscription = Subscription.new
+    @subscription = Subscription.new(person_type: 'pm')
   end
 
   def create
@@ -49,12 +49,12 @@ class SubscriptionsController < ApplicationController
   end
 
   def rankings
-    @subscriptions = filtered_records(Subscription.by_subscriber).order("total DESC, sub_id ASC").limit(5)
+    @subscriptions = filtered_records(Subscription.all.by_subscriber).order("total DESC, sub_id ASC").limit(5)
   end
 
   def proportions
     default_map = Hash[CATEGORIES.keys.map {|cat| [cat.to_s, 0]}]
-    records = (params[:filter].blank? || CATEGORIES.keys.include?(params[:filter].to_sym)) ? Subscription.by_subscriber : filtered_records(Subscription.by_subscriber)
+    records = (params[:filter].blank? || CATEGORIES.keys.include?(params[:filter].to_sym)) ? Subscription.all.by_subscriber : filtered_records(Subscription.by_subscriber)
     @members_by_category = default_map.merge(Hash[records.to_a.group_by {|s| s.category }.map {|cat, subs| [cat, subs.length]}])
     @amount_by_category = default_map.merge(Hash[records.to_a.group_by {|s| s.category }.map {|cat, subs| [cat, subs.sum {|s| s.total}]}])
     render json: {subscriptions: @members_by_category, amounts: @amount_by_category}
@@ -107,7 +107,7 @@ class SubscriptionsController < ApplicationController
       SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
       redirect_to confirm_subscription_url(@subscription)
     else
-      flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
+      flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la souscription."
       render error_action
     end
   end
