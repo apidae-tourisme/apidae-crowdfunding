@@ -3,4 +3,8 @@ class SubscriptionsMailerPreview < ActionMailer::Preview
   def confirm_subscription
     SubscriptionsMailer.confirm_subscription(Subscription.last)
   end
+
+  def complete_subscription
+    SubscriptionsMailer.complete_subscription(Subscription.last)
+  end
 end

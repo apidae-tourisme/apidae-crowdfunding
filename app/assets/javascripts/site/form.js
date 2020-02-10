@@ -135,7 +135,9 @@ function nextStep(step) {
         var nextTab = document.querySelector("a.tab_" + nextStep);
         nextTab.classList.add('js-tablist__link');
         nextTab.click();
-        if (nextStep === 'validation') {
+        if (nextStep === 'infos') {
+            toggleSignaturePad();
+        } else if (nextStep === 'validation') {
             generateValidationMsg();
         }
     }
@@ -237,7 +239,7 @@ function toggleSignaturePad() {
             window.onresize = resizeCanvas;
             resizeCanvas();
         }
-    } else {
+    } else if(signaturePad) {
         signaturePad.clear();
         canvasWrapper.classList.add('is-hidden');
     }

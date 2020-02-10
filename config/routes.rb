@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     get :regions, on: :collection
     get :share, on: :member, path: 'partager'
     get :widget, on: :member
+    patch :update_widget, on: :member
   end
 
   get 'static/fonts'

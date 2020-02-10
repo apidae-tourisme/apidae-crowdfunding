@@ -12,7 +12,7 @@
           lesquels vous voulez afficher le widget et cliquez sur le bouton "Récupérer le code". Il vous suffit ensuite
           de demander à votre webmaster d’intégrer ce code sur votre (vos) site(s).
         </p>
-        <%= form_for(@subscription, remote: true, html: {id: 'widget_form'}) do |f| %>
+        <%= form_for(@subscription, url: { action: "update_widget" }, remote: true, html: {id: 'widget_form'}) do |f| %>
           <div class="txtcenter mtm">
             <div><%= f.label :widget_hosts, 'Adresses des sites web hôtes<sup>*</sup>'.html_safe, class: 'w100 fw500' %></div>
             <div>

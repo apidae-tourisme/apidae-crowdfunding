@@ -1,7 +1,7 @@
 require "base64"
 
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: [:edit, :update, :share, :widget, :show, :confirm, :document]
+  before_action :set_subscription, only: [:edit, :update, :share, :widget, :update_widget, :show, :confirm, :document]
   skip_before_action :verify_authenticity_token, only: [:show]
 
   def index
@@ -14,26 +14,21 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.new(subscription_params)
-    unless @subscription.signature_data.blank?
-      encoded_signature = @subscription.signature_data.split(",")[1]
-      unless encoded_signature.blank?
-        decoded_signature = Base64.decode64(encoded_signature)
-        @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
-      end
-    end
-    if @subscription.save
-      SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
-      redirect_to confirm_subscription_url(@subscription)
-    else
-      flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
-      render :new
-    end
+    handle_subscription_save(:new)
   end
 
   def edit
+    if @subscription.confirmed?
+      redirect_to url_for(action: :confirm)
+    end
   end
 
   def update
+    @subscription.attributes = subscription_params
+    handle_subscription_save(:edit)
+  end
+
+  def update_widget
     unless params[:subscription][:widget_hosts].blank?
       hosts = params[:subscription][:widget_hosts].split(',').map {|h| h.strip.gsub(/https?:\/\//, '')}
       @success = @subscription.update(widget_hosts: hosts)
@@ -98,5 +93,22 @@ class SubscriptionsController < ApplicationController
       records = records.where("#{filter_type} = ?", params[:filter])
     end
     records
+  end
+
+  def handle_subscription_save(error_action)
+    unless @subscription.signature_data.blank?
+      encoded_signature = @subscription.signature_data.split(",")[1]
+      unless encoded_signature.blank?
+        decoded_signature = Base64.decode64(encoded_signature)
+        @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
+      end
+    end
+    if @subscription.save && @subscription.confirm!
+      SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
+      redirect_to confirm_subscription_url(@subscription)
+    else
+      flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la déclaration."
+      render error_action
+    end
   end
 end

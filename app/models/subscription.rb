@@ -1,4 +1,6 @@
 class Subscription < ApplicationRecord
+  include AASM
+
   has_one_attached :signature
   has_many :sponsored, class_name: "Subscription", foreign_key: :sponsor_id
   belongs_to :sponsor, class_name: "Subscription", optional: true
@@ -11,6 +13,15 @@ class Subscription < ApplicationRecord
   attr_accessor :signature_data
 
   before_save :compute_fields
+
+  aasm column: 'status' do
+    state :declared, initial: true
+    state :confirmed
+
+    event :confirm do
+      transitions from: :declared, to: :confirmed
+    end
+  end
 
   def self.by_subscriber
     Subscription.all.group("person_data -> 'email', category, label")

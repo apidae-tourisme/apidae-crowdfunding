@@ -2,23 +2,26 @@
   <%= stylesheet_link_tag 'subscription', media: 'all' %>
 <% end %>
 
+<% is_new = !@subscription.persisted? %>
 <%= form_for(@subscription, html: {id: 'subscription_form'}) do |f| %>
   <div class="js-tabs">
     <ul class="js-tablist" data-existing-hx="h3">
+      <% if is_new %>
+        <li class="js-tablist__item">
+          <a href="#type" class="js-tablist__link tab_type"><span>1</span>Type de sociétaire</a>
+        </li>
+      <% end %>
       <li class="js-tablist__item">
-        <a href="#type" class="js-tablist__link tab_type"><span>1</span>Type de sociétaire</a>
+        <a href="#montant" class="js-tablist__link tab_montant"><span><%= is_new ? 2 : 1 %></span>Déclaration du montant</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#montant" class="js-tablist__link tab_montant"><span>2</span>Déclaration du montant</a>
+        <a href="#infos" class="js-tablist__link tab_infos"><span><%= is_new ? 3 : 2 %></span>Mes informations</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#infos" class="js-tablist__link tab_infos"><span>3</span>Mes informations</a>
-      </li>
-      <li class="js-tablist__item">
-        <a href="#validation" class="js-tablist__link tab_validation"><span>4</span>Validation de ma déclaration</a>
+        <a href="#validation" class="js-tablist__link tab_validation"><span><%= is_new ? 4 : 3 %></span>Validation de ma déclaration</a>
       </li>
     </ul>
-    <div id="type" class="js-tabcontent bg--white">
+    <div id="type" class="<%= is_new ? 'js-tabcontent' : 'is-hidden' %> bg--white">
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Type de sociétaire</span>
       </h3>
