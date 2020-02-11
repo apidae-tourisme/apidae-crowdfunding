@@ -12,6 +12,13 @@
 
     tr > td {
       line-height: 1.1;
+
+      &:last-child {
+        a {
+          width: 42px;
+          padding: 1rem 1.1rem;
+        }
+      }
     }
   }
 

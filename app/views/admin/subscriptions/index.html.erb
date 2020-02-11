@@ -13,8 +13,8 @@
       <th>Anonyme</th>
       <th>Montant</th>
       <th>Catégorie</th>
-      <th>Email</th>
-      <th class="w100p"></th>
+      <th>Statut</th>
+      <th></th>
     </tr>
     </thead>
     <tbody class="u-smaller">
@@ -41,7 +41,8 @@
           if (table) {
               datatable = new DataTable(table, {
                   columns: [
-                      {select: 0, sort: "asc"}
+                      {select: 0, sort: "asc"},
+                      {select: 6, sortable: false}
                   ],
                   labels: {
                       placeholder: "Rechercher...",
