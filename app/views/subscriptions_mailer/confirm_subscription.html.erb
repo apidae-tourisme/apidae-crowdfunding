@@ -3,7 +3,7 @@
   <br/>
   Nous vous remercions pour votre souscription, celle-ci a bien été prise en compte.<br/>
   <br/>
-  Vous pouvez télécharger votre bulletin de souscription en suivant <a href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_path(@subscription)) %>" target="_blank">ce lien</a>.<br/>
+  Vous pouvez télécharger votre bulletin de souscription en suivant <a href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, only_path: true)) %>" target="_blank">ce lien</a>.<br/>
   <br/>
   Vous faites à présent partie des pionniers Apidae !<br/>
   Pour vous remercier de votre engagement, vous trouverez en pièce jointe votre badge “pionnier” ainsi qu’un widget vous permettant d’afficher ce badge sur votre site web. Vous pouvez gagner vos badges pionnier bronze, argent ou or grâce au parrainage !<br/>

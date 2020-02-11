@@ -2,7 +2,7 @@ Bonjour,
 
 Nous vous remercions pour votre souscription, celle-ci a bien été prise en compte.
 
-Vous pouvez télécharger votre bulletin de souscription en suivant le lien suivant : https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_path(@subscription)) %>.
+Vous pouvez télécharger votre bulletin de souscription en suivant le lien suivant : https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, only_path: true)) %>.
 
 Vous faites à présent partie des pionniers Apidae !
 
