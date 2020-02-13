@@ -81,7 +81,7 @@ function updateCategoryFields(categorySelect) {
         document.querySelector("#person_type_field").classList.add('is-hidden');
     }
 
-    var structureFields = document.querySelectorAll("#infos .structure_only"),
+    var structureFields = document.querySelectorAll("#infos .person_pm_only"),
         personFields = document.querySelectorAll("form .person_pp_only"),
         inputs;
     if (categorySelect.value === 'sr' || categorySelect.value === 'sa') {

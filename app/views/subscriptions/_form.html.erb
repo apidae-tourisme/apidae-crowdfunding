@@ -12,7 +12,7 @@
         </li>
       <% end %>
       <li class="js-tablist__item">
-        <a href="#montant" class="js-tablist__link tab_montant"><span><%= is_new ? 2 : 1 %></span>Déclaration du montant</a>
+        <a href="#montant" class="js-tablist__link tab_montant"><span><%= is_new ? 2 : 1 %></span><%= is_new ? 'Déclaration du montant' : 'Montant déclaré' %></a>
       </li>
       <li class="js-tablist__item">
         <a href="#infos" class="js-tablist__link tab_infos"><span><%= is_new ? 3 : 2 %></span>Mes informations</a>
@@ -55,13 +55,16 @@
           </div>
         </div>
       </div>
+      <div class="pts plm prm txtcenter mtm">
+        <i class="fas fa-info-circle prvs"></i>Les statuts de Apidae Tourisme Scic SA sont consultables via <a href="/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf" target="_blank">ce lien</a>.
+      </div>
       <div class="txtright mtl">
         <button type="button" class="btn btn--warning" onclick="nextStep('type')">Suivant</button>
       </div>
     </div>
     <div id="montant" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Déclaration du montant</span>
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span><%= is_new ? 'Déclaration du montant' : 'Montant déclaré' %></span>
       </h3>
       <div class="flex-container mtl aic">
         <div class="txtright item-center u-big w40 prs">
@@ -76,6 +79,11 @@
         celle-ci ne peut pas prendre de parts au capital d’une Scic SA. Cependant, la collectivité territoriale dont elle dépend peut
         devenir sociétaire si elle le souhaite.
       </p>
+      <% unless is_new %>
+        <div class="pts plm prm txtcenter mtm">
+          <i class="fas fa-info-circle prvs"></i>Les statuts de Apidae Tourisme Scic SA sont consultables via <a href="/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf" target="_blank">ce lien</a>.
+        </div>
+      <% end %>
       <div class="txtright mtl">
         <button type="button" class="btn btn--primary mrm" onclick="prevStep('montant')">Précédent</button>
         <button type="button" class="btn btn--warning" onclick="nextStep('montant')">Suivant</button>
@@ -84,29 +92,37 @@
 
     <div id="infos" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Mes informations</span>
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span><%= is_new ? 'Mes informations' : 'Informations déjà fournies' %></span>
       </h3>
-      <div class="flex-container mtm structure_only bg--primary pts pbs plm prm">
-        <p class="w100 lh mbs txtleft">Si vous êtes membre du réseau Apidae, vous pouvez utiliser la recherche ci-dessous pour pré-remplir
-          certains champs du formulaire.</p>
-        <div class="txtright item-center w50p prm u-bigger"><i class="apidae-icon-search txt--warning u-bigger"></i></div>
-        <div class="lookup_container item-fluid"></div>
-        <%= f.hidden_field :apidae_member_id %>
-      </div>
+      <% if is_new %>
+        <div class="flex-container mtm person_pm_only bg--primary pts pbs plm prm">
+          <p class="w100 lh mbs txtleft">Si vous êtes membre du réseau Apidae, vous pouvez utiliser la recherche ci-dessous pour pré-remplir
+            certains champs du formulaire.</p>
+          <div class="txtright item-center w50p prm u-bigger"><i class="apidae-icon-search txt--warning u-bigger"></i></div>
+          <div class="lookup_container item-fluid"></div>
+          <%= f.hidden_field :apidae_member_id %>
+        </div>
+      <% end %>
       <div id="infos_fields" class="flex-container--column mtl">
-        <div class="flex-container mbs structure_only">
+        <div class="flex-container mbs person_pm_only">
           <div class="txtright item-center w40 prs pls"><%= f.label :structure_name, 'Nom de la structure<sup>*</sup>'.html_safe %></div>
           <div class="w60">
             <%= f.text_field :structure_name, class: 'w100', required: true %>
           </div>
         </div>
-        <div class="flex-container mbs structure_only">
+        <div class="flex-container mbs person_pm_only">
           <div class="txtright item-center w40 prs pls"><%= f.label :siret, 'SIRET<sup>*</sup>'.html_safe %></div>
           <div class="w60">
             <%= f.text_field :siret, class: 'w100', required: true %>
           </div>
         </div>
-        <div class="flex-container mbs structure_only">
+        <div class="flex-container mbs person_pm_only">
+          <div class="txtright item-center w40 prs pls"><%= f.label :ape, 'Code APE' %></div>
+          <div class="w60">
+            <%= f.text_field :ape, class: 'w100' %>
+          </div>
+        </div>
+        <div class="flex-container mbs person_pm_only">
           <div class="txtright item-center w40 prs pls"><%= f.label :legal_type, 'Statut<sup>*</sup>'.html_safe %></div>
           <div class="w60">
             <%= f.select(:legal_type, legal_types, {prompt: 'Sélectionnez un statut'}, required: true, class: 'w100') %><br/>
@@ -156,7 +172,7 @@
           </div>
         </div>
         <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :town, 'Ville<sup>*</sup>'.html_safe %></div>
+          <div class="txtright item-center w40 prs pls"><%= f.label :town, 'Commune<sup>*</sup>'.html_safe %></div>
           <div class="w60">
             <%= f.text_field :town, class: 'w100', required: true %>
           </div>
@@ -192,6 +208,15 @@
             <label for="payment_cheque">Chèque</label>
             <%= f.radio_button(:payment_method, 'virement', id: 'payment_virement', class: 'mlm radio', required: true) %>
             <label for="payment_virement">Virement</label>
+          </div>
+        </div>
+        <div class="flex-container mbs person_pm_only">
+          <div class="txtright item-center w40 prs pls"><%= f.label :payments_count, 'Libération du montant<sup>*</sup>'.html_safe %></div>
+          <div class="w60 item-center">
+            <%= f.radio_button(:payments_count, 'single_payment', id: 'single_payment', class: 'radio', required: true) %>
+            <label for="single_payment">En 1 fois</label>
+            <%= f.radio_button(:payments_count, 'half_payment', id: 'half_payment', class: 'mlm radio', required: true) %>
+            <label for="half_payment">En 2 fois (2 x 50%)</label>
           </div>
         </div>
         <div class="flex-container mbm">
@@ -241,7 +266,7 @@
             Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
             intégrale de chaque part souscrite.
           </span>
-          <span class="structure_only">
+          <span class="person_pm_only">
             La personne morale / collectivité territoriale représentée déclare vouloir devenir sociétaire d’Apidae Tourisme
             Scic SA à capital variable. L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
             par les statuts d’Apidae Tourisme Scic SA à capital variable. Si la demande est acceptée, elle intégrera l’une
@@ -254,25 +279,24 @@
         <label for="subscription_ack_statuts" class="item-fluid item-center txtleft lh reg">
           <span class="person_pp_only">
             Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
-            d’immatriculation au RCS de Lyon dont le siège social est situé au 11 bis Quai Perrache 69002 Lyon. Les statuts
+            d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
             peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
           </span>
-          <span class="structure_only">
+          <span class="person_pm_only">
             La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
             Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
-            au 11 bis Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
+            au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
           </span>
         </label>
       </div>
       <div class="flex-container mtl">
-        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_biens_communs, {class: 'checkbox'} %></div>
+        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_biens_communs, {class: 'checkbox', required: true} %></div>
         <label for="subscription_ack_biens_communs" class="item-fluid item-center txtleft lh reg">
           <span class="person_pp_only">
             En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
-            et à fournir la notification de renonciation à être associé (téléchargeable sur le site
-            https://souscription.apidae-tourisme.com)
+            et à fournir la notification de renonciation à être associé (téléchargeable à l'adresse <a href="https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf" target="_blank">https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf</a>)
           </span>
-          <span class="structure_only">
+          <span class="person_pm_only">
             La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
             et à engager la structure qu’elle représente.
           </span>
@@ -289,7 +313,7 @@
             de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable, en limitant les frais de gestion et en
             économisant le papier.
           </span>
-          <span>
+          <span class="person_pm_only">
             La personne morale / collectivité territoriale représentée accepte d’être convoquée aux assemblées par courrier
             électronique, qu’Apidae Tourisme Scic SA à capital variable ait recours à la transmission par voie électronique
             en lieu et place de l’envoi postal lors de l’exécution des formalités de convocation, d’envoi de documents,
@@ -312,7 +336,7 @@
       </div>
       <div class="mtm mbs txtcenter">
         <button type="button" class="btn btn--primary mrm" onclick="prevStep('validation')">Précédent</button>
-        <%= f.submit "Confirmer", class: 'btn btn--warning', data: { confirm: "Transmettre la déclaration ?", disable_with: "Transmission..." } %>
+        <%= f.submit "Confirmer", class: 'btn btn--warning', data: { disable_with: "Transmission..." } %>
       </div>
     </div>
   </div>

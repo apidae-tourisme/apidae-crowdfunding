@@ -24,7 +24,7 @@ fr:
         role: "Fonction"
         address: "Adresse"
         postal_code: "Code postal"
-        town: "Ville"
+        town: "Commune"
         country: "Pays"
         telephone: "Téléphone"
         email: "Email"

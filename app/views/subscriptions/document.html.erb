@@ -5,7 +5,7 @@
         <strong>Bulletin</strong> de <strong>souscription</strong><br/>
         de <strong>parts</strong> au <strong>capital</strong>
       </p>
-      <%= image_tag 'logo_apidae_mono.svg', class: 'w25' %>
+      <%= image_tag 'logo_apidae_mono.svg', class: 'w20' %>
     </div>
     <p class="ma0"><em>Apidae Tourisme, Société Coopérative d’Intérêt Collectif Anonyme à capital variable</em></p>
   </header>
@@ -13,7 +13,7 @@
     <p>N° de souscription : <strong><%= @subscription.id %></strong></p>
     <p class="lh">
       <span class="fw500">IMPORTANT :</span> Merci de compléter et signer ce formulaire, d’en conserver une copie et de
-      nous retourner l’original à : Apidae Tourisme 11 bis Quai Perrache 69002 Lyon ou par mail à info@apidae-tourisme.com
+      nous retourner l’original à : Apidae Tourisme 11B Quai Perrache 69002 Lyon ou par mail à info@apidae-tourisme.com
     </p>
   </section>
   <section class="print_form">
@@ -70,12 +70,12 @@
       <p class="lh item-fluid">
         <% if @subscription.pp? %>
           Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours d’immatriculation
-          au RCS de Lyon dont le siège social est situé au 11 bis Quai Perrache 69002 Lyon. Les statuts peuvent être consultés
+          au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés
           directement sur le site https://souscription.apidae-tourisme.com
         <% else %>
           La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
           Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
-          au 11 bis Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
+          au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés directement sur le site https://souscription.apidae-tourisme.com
         <% end %>
       </p>
     </div>
@@ -84,7 +84,7 @@
       <p class="lh item-fluid">
         <% if @subscription.pp? %>
           En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs et à
-          fournir la notification de renonciation à être associé (téléchargeable sur le site https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf)
+          fournir la notification de renonciation à être associé (téléchargeable à l'adresse <a href="https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf" target="_blank">https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf</a>)
         <% else %>
           La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
           et à engager la structure qu’elle représente.

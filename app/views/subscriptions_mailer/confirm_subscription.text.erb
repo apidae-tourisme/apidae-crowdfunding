@@ -4,16 +4,13 @@ Nous vous remercions pour votre souscription, celle-ci a bien été prise en com
 
 Vous pouvez télécharger votre bulletin de souscription en suivant le lien suivant : https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, only_path: true)) %>.
 
-Vous faites à présent partie des pionniers Apidae !
+<% if @subscription.payment_method == 'cheque' %>
+  Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon
+<% else %>
+  Nous vous enverrons prochainement un mail avec les coordonnées bancaires pour votre virement.
+<% end %>
 
-Pour vous remercier de votre engagement, vous trouverez en pièce jointe votre badge “pionnier”. Vous pouvez gagner vos badges pionnier bronze, argent ou or grâce au parrainage !
-- Parrainez deux membres et devenez pionnier bronze
-- Parrainez cinq membres et devenez pionnier argent
-- Parrainez dix membres et devenez pionnier or
-
-Pour récupérer votre widget, suivez ce lien : <%= widget_subscription_url(@subscription) %>.
-
-En cas de besoin, vous pouvez télécharger les modèles de délibération à partir de ce lien : https://www.apidae-tourisme.com/apidae-demain/modeles-deliberation/
+Nous vous tiendrons informés des prochaines assemblées.
 
 Pour suivre les actualités de la Scic SA Apidae Tourisme, rendez-vous dans la rubrique Apidae Demain : https://www.apidae-tourisme.com/apidae-demain/
 

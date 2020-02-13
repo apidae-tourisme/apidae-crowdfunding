@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def new
-    @subscription = Subscription.new(person_type: 'pm')
+    @subscription = Subscription.new(person_type: 'pm', payments_count: 'single_payment')
   end
 
   def create
@@ -20,6 +20,9 @@ class SubscriptionsController < ApplicationController
   def edit
     if @subscription.confirmed?
       redirect_to url_for(action: :confirm)
+    else
+      @subscription.person_type ||= 'pm'
+      @subscription.payments_count ||= 'single_payment'
     end
   end
 

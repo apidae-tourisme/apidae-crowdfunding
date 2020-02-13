@@ -5,21 +5,18 @@
   <br/>
   Vous pouvez télécharger votre bulletin de souscription en suivant <a href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, only_path: true)) %>" target="_blank">ce lien</a>.<br/>
   <br/>
-  Vous faites à présent partie des pionniers Apidae !<br/>
-  Pour vous remercier de votre engagement, vous trouverez en pièce jointe votre badge “pionnier” ainsi qu’un widget vous permettant d’afficher ce badge sur votre site web. Vous pouvez gagner vos badges pionnier bronze, argent ou or grâce au parrainage !<br/>
-    - Parrainez deux membres et devenez pionnier bronze<br/>
-    - Parrainez cinq membres et devenez pionnier argent<br/>
-    - Parrainez dix membres et devenez pionnier or<br/>
+  <% if @subscription.payment_method == 'cheque' %>
+    Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon<br/>
+  <% else %>
+    Nous vous enverrons prochainement un mail avec les coordonnées bancaires pour votre virement.<br/>
+  <% end %>
   <br/>
-  Pour récupérer votre widget, suivez <a href="<%= widget_subscription_url(@subscription) %>" target="_blank">ce lien</a>.<br/>
-  <br/>
-  <br/>
-  En cas de besoin, vous pouvez télécharger les modèles de délibération à partir de ce lien : <a href="https://www.apidae-tourisme.com/apidae-demain/modeles-deliberation/">https://www.apidae-tourisme.com/apidae-demain/modeles-deliberation/</a>.<br/>
+  Nous vous tiendrons informés des prochaines assemblées.<br/>
   <br/>
   Pour suivre les actualités de la Scic SA Apidae Tourisme, rendez-vous dans la rubrique Apidae Demain : <a href="https://www.apidae-tourisme.com/apidae-demain/">https://www.apidae-tourisme.com/apidae-demain/</a>.
   <br/>
   <br/>
-  Pour toute question, vous pouvez envoyer un mail à <a href="mailto:support@apidae-tourisme.zendesk.com?subject=Declaration-intention-SCIC">info@apidae-tourisme.com</a><br/>
+  Pour toute question, vous pouvez envoyer un mail à <a href="mailto:info@apidae-tourisme.com">info@apidae-tourisme.com</a><br/>
   <br/>
   L'équipe Apidae Tourisme
 </p>
