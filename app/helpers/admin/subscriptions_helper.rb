@@ -9,7 +9,7 @@ module Admin::SubscriptionsHelper
     vals = []
     export_columns.each do |col|
       if col == :created_at
-        vals << I18n.l(subscription.created_at, format: :detailed)
+        vals << subscription.created_at
       elsif col == :category
         vals << CATEGORIES[subscription.send(col).to_sym][:name]
       elsif [:country, :fund_deposit].include?(col)

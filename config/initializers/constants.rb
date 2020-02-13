@@ -11,13 +11,18 @@ CATEGORIES = {
 LEGAL_TYPES = {
     association: "Association",
     collectivite_territoriale: "Collectivité territoriale (commune, Conseil Départemental, Région, etc.)",
+    eurl: "Entreprise Unipersonnelle à Responsabilité Limitée (EURL)",
     regie_autonome: "Régie autonome",
     epic: "Régie personnalisée gestionnaire d'un Etablissement Public Industriel et Commercial (EPIC)",
     spa: "Régie personnalisée gestionnaire d'un Service Public Administratif (SPA)",
     spic: "Régie personnalisée gestionnaire d'un Service Public Industriel et Commercial (SPIC)",
     regie_simple: "Régie simple (régie directe)",
+    sa: "Société Anonyme (SA)",
+    sarl: "Société à Responsabilité Limitée (SARL)",
+    sas: "Société par Actions Simplifiée (SAS)",
     sem: "Société d'Economie Mixte (SEM)",
     spl: "Société Publique Locale (SPL)",
+    cooperative: "Coopérative (scop, scic, ...)",
     autre: "Autre"
 }
 

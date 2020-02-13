@@ -6,7 +6,7 @@ class Admin::SubscriptionsController < Admin::UserController
   end
 
   def update
-    @subscription = Subscription.find(params[:id])
+    @subscription = Subscription.find(Subscription.decrypt(params[:id]))
     if @subscription.update(subscription_params)
       flash[:notice] = "La souscription a bien été mise à jour."
     else

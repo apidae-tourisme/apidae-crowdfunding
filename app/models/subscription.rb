@@ -1,5 +1,6 @@
 class Subscription < ApplicationRecord
   include AASM
+  include Obfuscable
 
   has_one_attached :signature
   has_many :sponsored, class_name: "Subscription", foreign_key: :sponsor_id
@@ -26,6 +27,10 @@ class Subscription < ApplicationRecord
   def self.by_subscriber
     group("person_data -> 'email', category, label")
         .select("MIN(id) AS sub_id, MIN(created_at) AS creation_date, category, label, SUM(amount) AS total")
+  end
+
+  def to_param
+    encrypt id
   end
 
   def shares_count

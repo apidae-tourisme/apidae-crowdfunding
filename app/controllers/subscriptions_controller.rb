@@ -87,7 +87,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_subscription
-    @subscription = Subscription.find(params[:id])
+    @subscription = Subscription.find(Subscription.decrypt(params[:id]))
   end
 
   def filtered_records(records)
