@@ -15,7 +15,7 @@ module Obfuscable
   end
 
   def cipher_key
-    'apidae'
+    Rails.application.config.obfuscable_cipher_key
   end
 
   def decrypt(value)
