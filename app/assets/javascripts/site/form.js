@@ -32,10 +32,12 @@ function bindPersonTypeFields() {
     document.querySelector("#person_type_pm").addEventListener("change", function() {
         infos.classList.remove('person_type_pp');
         infos.classList.add('person_type_pm');
+        updateCategoryFields(document.querySelector("#category_selector"));
     });
     document.querySelector("#person_type_pp").addEventListener("change", function() {
         infos.classList.remove('person_type_pm');
         infos.classList.add('person_type_pp');
+        updateCategoryFields(document.querySelector("#category_selector"));
     });
 }
 
@@ -82,9 +84,10 @@ function updateCategoryFields(categorySelect) {
     }
 
     var structureFields = document.querySelectorAll("#infos .person_pm_only"),
-        personFields = document.querySelectorAll("form .person_pp_only"),
+        personFields = document.querySelectorAll("#infos .person_pp_only"),
+        personType = document.querySelector("input[name='subscription[person_type]']:checked").value,
         inputs;
-    if (categorySelect.value === 'sr' || categorySelect.value === 'sa') {
+    if ((categorySelect.value === 'sr' && personType === 'pp') || categorySelect.value === 'sa') {
         for (var i = 0; i < structureFields.length; i++) {
             structureFields[i].classList.add('is-hidden');
             inputs = structureFields[i].querySelectorAll('input, select');

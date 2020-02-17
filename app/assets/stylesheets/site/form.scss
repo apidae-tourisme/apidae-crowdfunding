@@ -151,7 +151,11 @@
   }
 
   #infos_fields {
-    max-height: 560px;
+    max-height: 650px;
+
+    &.person_type_pp {
+      max-height: 540px;
+    }
 
     > .flex-container {
       max-width: 50%;
@@ -247,7 +251,11 @@
 
 .ie_browser {
   #subscription_form #infos_fields {
-    height: 560px;
+    height: 650px;
+
+    &.person_type_pp {
+      height: 540px;
+    }
   }
 }
 

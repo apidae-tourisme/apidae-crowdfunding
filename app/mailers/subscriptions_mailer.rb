@@ -7,6 +7,6 @@ class SubscriptionsMailer < ApplicationMailer
 
   def complete_subscription(subscription)
     @subscription = subscription
-    mail(to: @subscription.email, subject: "Apidae Tourisme Scic SA à capital variable")
+    mail(to: @subscription.email, subject: "Confirmez votre prise de participation au capital Apidae Tourisme")
   end
 end
