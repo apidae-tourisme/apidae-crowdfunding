@@ -12,6 +12,8 @@ fr:
       field:
         created_at: "Date"
         label: "Nom"
+        status: "Statut"
+        signed_at: "Signature"
         structure_name: "Structure"
         title: "M. / Mme"
         first_name: "Prénom"
@@ -30,6 +32,7 @@ fr:
         email: "Email"
         website: "Site web"
         fund_deposit: "Dépôt des fonds"
+        payment_method: "Mode de paiement"
         com_enabled: "Com autorisée"
         sponsor_label: "Parrain"
       value:
@@ -38,6 +41,10 @@ fr:
         before: "Avant le 16/03/2020"
         after: "Après le 16/03/2020"
         unavailable: "Ne sait pas"
+        status: "Déclarée"
+        confirmed: "Confirmée"
+        cheque: "Chèque"
+        virement: "Virement"
       status:
         declared: "Déclarée"
         confirmed: "Confirmée"

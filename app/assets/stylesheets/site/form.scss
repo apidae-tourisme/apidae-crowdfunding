@@ -119,6 +119,12 @@
       .invalid_field sup {
         color: $color-danger;
       }
+
+      div.invalid_field + div {
+        > input[type=radio] + label {
+          color: $color-danger;
+        }
+      }
     }
   }
 

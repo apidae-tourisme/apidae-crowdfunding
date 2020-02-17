@@ -1,18 +1,16 @@
 module Admin::SubscriptionsHelper
   def export_columns
-    [:created_at, :label, :structure_name, :title, :first_name, :last_name, :category, :apidae_member_id, :amount, :siret,
-     :legal_entity_type, :role, :address, :postal_code, :town, :country, :telephone, :email, :website, :fund_deposit,
-     :com_enabled, :sponsor_label]
+    [:created_at, :status, :signed_at, :label, :structure_name, :title, :first_name, :last_name, :category, :apidae_member_id,
+     :amount, :siret, :legal_entity_type, :role, :address, :postal_code, :town, :country, :telephone, :email,
+     :website, :fund_deposit, :payment_method, :com_enabled, :sponsor_label]
   end
 
   def export_values(subscription)
     vals = []
     export_columns.each do |col|
-      if col == :created_at
-        vals << subscription.created_at
-      elsif col == :category
+      if col == :category
         vals << CATEGORIES[subscription.send(col).to_sym][:name]
-      elsif [:country, :fund_deposit].include?(col)
+      elsif [:country, :fund_deposit, :status, :payment_method].include?(col)
         vals << (subscription.send(col).blank? ? '' : I18n.t("export.subscription.value.#{subscription.send(col)}"))
       else
         vals << subscription.send(col)
