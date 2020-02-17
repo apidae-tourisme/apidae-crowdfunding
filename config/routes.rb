@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get :confirm, on: :member, path: 'confirmation'
     get :document, on: :member, path: 'bulletin'
     get :members, on: :collection
+    get :member, on: :collection
     get :rankings, on: :collection
     get :proportions, on: :collection
     get :regions, on: :collection

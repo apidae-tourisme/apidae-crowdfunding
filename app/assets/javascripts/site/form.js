@@ -220,8 +220,15 @@ function initMemberSelector() {
         },
         onConfirm: function(res) {
             if (res && res.id) {
-                document.querySelector('#subscription_apidae_member_id').setAttribute('value', res.id);
-                document.querySelector('#subscription_structure_name').setAttribute('value', res.text);
+                loadMemberInfo(res.id, function(data) {
+                    document.querySelector('#subscription_apidae_member_id').setAttribute('value', data.id);
+                    document.querySelector('#subscription_structure_name').setAttribute('value', data.name);
+                    document.querySelector('#subscription_address').setAttribute('value', data.address);
+                    document.querySelector('#subscription_postal_code').setAttribute('value', data.postal_code);
+                    document.querySelector('#subscription_town').setAttribute('value', data.town);
+                    document.querySelector('#subscription_email').setAttribute('value', data.email);
+                    document.querySelector('#subscription_telephone').setAttribute('value', data.telephone);
+                });
             }
         },
         placeholder: 'Rechercher un membre Apidae...',
@@ -240,6 +247,15 @@ function searchMembers(query, callback) {
     ajax.open("GET", "/souscriptions/members.json?pattern=" + query, true);
     ajax.onload = function() {
         callback(JSON.parse(ajax.responseText).members);
+    };
+    ajax.send();
+}
+
+function loadMemberInfo(memberId, callback) {
+    var ajax = new XMLHttpRequest();
+    ajax.open("GET", "/souscriptions/member.json?id=" + memberId, true);
+    ajax.onload = function() {
+        callback(JSON.parse(ajax.responseText));
     };
     ajax.send();
 }

@@ -48,6 +48,11 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def member
+    @member = ApidaeMember.find_by_apidae_id(params[:id])
+    render json: @member.retrieve_info.merge(id: @member.apidae_id, name: @member.name)
+  end
+
   def confirm
   end
 
