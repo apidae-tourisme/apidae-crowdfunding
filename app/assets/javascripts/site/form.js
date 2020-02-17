@@ -223,11 +223,12 @@ function initMemberSelector() {
                 loadMemberInfo(res.id, function(data) {
                     document.querySelector('#subscription_apidae_member_id').setAttribute('value', data.id);
                     document.querySelector('#subscription_structure_name').setAttribute('value', data.name);
-                    document.querySelector('#subscription_address').setAttribute('value', data.address);
-                    document.querySelector('#subscription_postal_code').setAttribute('value', data.postal_code);
-                    document.querySelector('#subscription_town').setAttribute('value', data.town);
-                    document.querySelector('#subscription_email').setAttribute('value', data.email);
-                    document.querySelector('#subscription_telephone').setAttribute('value', data.telephone);
+                    document.querySelector('#subscription_address').setAttribute('value', (data.address || ''));
+                    document.querySelector('#subscription_address').innerHTML = (data.address || '');
+                    document.querySelector('#subscription_postal_code').setAttribute('value', (data.postal_code || ''));
+                    document.querySelector('#subscription_town').setAttribute('value', (data.town || ''));
+                    document.querySelector('#subscription_email').setAttribute('value', (data.email || ''));
+                    document.querySelector('#subscription_telephone').setAttribute('value', (data.telephone || ''));
                 });
             }
         },
