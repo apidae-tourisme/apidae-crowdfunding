@@ -2,7 +2,7 @@ class Admin::SubscriptionsController < Admin::UserController
   before_action :check_credentials
 
   def index
-    @subscriptions = Subscription.all
+    @subscriptions = Subscription.all.order(created_at: :desc)
   end
 
   def update
