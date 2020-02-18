@@ -24,7 +24,7 @@
         <p class="w40 flex-container"><span>Nom : </span><span class="text_value"><%= @subscription.first_name %></span></p>
         <p class="w40 flex-container"><span>Prénom : </span><span class="text_value"><%= @subscription.last_name %></span></p>
         <p class="w60 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
-        <p class="w40 flex-container"><span>Date de naissance : </span><span class="text_value"><%= l(Date.parse(@subscription.birth_date), format: :short) %></span></p>
+        <p class="w40 flex-container"><span>Date de naissance : </span><span class="text_value"><%= l(Date.parse(@subscription.birth_date), format: :short) unless @subscription.birth_date.blank? %></span></p>
         <p class="w100 flex-container"><span>Adresse : </span><span class="text_value"><%= address_fields[0] %></span></p>
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% else %>
