@@ -41,7 +41,7 @@ fr:
         before: "Avant le 16/03/2020"
         after: "Après le 16/03/2020"
         unavailable: "Ne sait pas"
-        status: "Déclarée"
+        declared: "Déclarée"
         confirmed: "Confirmée"
         cheque: "Chèque"
         virement: "Virement"
