@@ -7,10 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag 'print', media: 'all' %>
+  <%= javascript_include_tag 'standalone' %>
 </head>
 
 <body>
 <div id="print_content" class="mw1140p center">
+  <% if current_user %>
+    <div id="notifs"><%= render 'shared/notifications' %></div>
+  <% end %>
   <%= yield %>
 </div>
 </body>
