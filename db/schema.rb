@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_13_170837) do
+ActiveRecord::Schema.define(version: 2020_02_28_075418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_170837) do
     t.string "region"
     t.datetime "signed_at"
     t.string "status"
+    t.jsonb "crm_data"
   end
 
   create_table "users", force: :cascade do |t|

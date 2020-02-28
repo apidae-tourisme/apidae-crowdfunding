@@ -1,0 +1,8 @@
+<% if @subscription.opportunity_id %>
+  <a href="https://www.sellsy.fr/prospection/opportunities/<%= @subscription.opportunity_id %>" target="_blank" class="bg--inverse pas mbm">
+    <i class="fas fa-link fa-2x"></i>
+  </a>
+<% end %>
+<%= button_to 'Mettre à jour'.html_safe, sync_crm_sub_path(@subscription), remote: true, method: :get,
+            data: {confirm: 'Enregistrer la souscription dans la base GRC ?', disable_with: 'En cours...'},
+              id: 'sync_crm_link', class: 'bg--warning pas' %>

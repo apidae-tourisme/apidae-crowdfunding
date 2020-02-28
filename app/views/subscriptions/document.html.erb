@@ -1,3 +1,8 @@
+<% if current_user %>
+  <div class="crm_links">
+    <%= render 'shared/crm_links' %>
+  </div>
+<% end %>
 <div class="<%= "person_#{@subscription.person_type || 'pm'}" %>">
   <header class="bg--danger ptm pbl pll prl">
     <div class="flex-container aic">
