@@ -38,6 +38,11 @@ fr:
       value:
         fr: "France"
         ch: "Suisse"
+        de: "Allemagne"
+        it: "Italie"
+        es: "Espagne"
+        be: "Belgique"
+        uk: "Royaume-Uni"
         before: "Avant le 16/03/2020"
         after: "Après le 16/03/2020"
         unavailable: "Ne sait pas"
