@@ -2,7 +2,7 @@ Bonjour,
 
 Nous vous remercions pour votre souscription, celle-ci a bien été prise en compte.
 
-Vous pouvez télécharger votre bulletin de souscription en suivant le lien suivant : https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, only_path: true)) %>.
+Vous pouvez télécharger votre bulletin de souscription en suivant le lien suivant : https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>.
 
 <% if @subscription.payment_method == 'cheque' %>
   Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon

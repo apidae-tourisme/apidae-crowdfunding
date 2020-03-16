@@ -23,7 +23,7 @@
           <% end %>
           <br/>
           <br/>
-          <a class="btn btn--inverse" target="_blank" href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_path(@subscription)) %>">Télécharger votre bulletin de souscription</a><br/>
+          <a class="btn btn--inverse" target="_blank" href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>">Télécharger votre bulletin de souscription</a><br/>
           <br/>
           <a class="btn btn--primary" href="/" target="_blank">Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !</a>
         </p>
