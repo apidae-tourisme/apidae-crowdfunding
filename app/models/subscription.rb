@@ -1,5 +1,3 @@
-require 'sellsy'
-
 class Subscription < ApplicationRecord
   include AASM
   include Obfuscable
@@ -12,7 +10,6 @@ class Subscription < ApplicationRecord
   store_accessor :person_data, :title, :first_name, :last_name, :role, :birth_date, :address, :postal_code, :town, :country,
                  :telephone, :email, :website, :fund_deposit, :payment_method, :payments_count, :signing, :ack_societaire,
                  :ack_statuts, :ack_biens_communs, :ack_convocation, :person_type
-  store_accessor :crm_data, :opportunity_id
 
   attr_accessor :signature_data
 

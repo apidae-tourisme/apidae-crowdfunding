@@ -14,16 +14,6 @@ class Admin::SubscriptionsController < Admin::UserController
     end
   end
 
-  def sync_crm
-    @subscription = Subscription.find(Subscription.decrypt(params[:id]))
-    begin
-      CrmClient.add_or_update(@subscription)
-      flash[:notice] = "La souscription a bien été enregistrée dans la base GRC."
-    rescue StandardError
-      flash[:alert] = "Une erreur s'est produite lors de l'enregistrement des la souscription dans la base GRC."
-    end
-  end
-
   private
 
   def check_credentials

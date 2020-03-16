@@ -28,9 +28,7 @@ Rails.application.routes.draw do
 
   scope module: 'admin' do
     scope '/administration' do
-      resources :subscriptions, only: [:index, :update], path: 'souscriptions', as: 'subs' do
-        get :sync_crm, on: :member
-      end
+      resources :subscriptions, only: [:index, :update], path: 'souscriptions', as: 'subs'
     end
   end
 

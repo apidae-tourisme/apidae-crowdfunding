@@ -11,4 +11,3 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require admin/common
