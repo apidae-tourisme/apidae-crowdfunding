@@ -9,35 +9,53 @@
 <section id="confirm_subscription" class="bg--primary">
   <div id="confirmation_wrapper">
     <div class="w100 mw1140p center pam">
-      <h1 class="txtcenter txt--white mtl mbl h2-like">Merci pour votre souscription !</h1>
-      <div id="confirmation_content" class="bg--white">
-        <h3 class="flex-container--row">
-          <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Confirmation de ma souscription</span>
-        </h3>
-        <p class="txtcenter mtl">
-          Merci pour votre souscription. Une confirmation vous a été envoyée par mail.<br/>
-          <% if @subscription.payment_method == 'cheque' %>
-            Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon
-          <% else %>
-            Merci de réaliser votre virement sur le compte de Apidae Tourisme Scic SA (<a href="/rib-scic-sa-apidae-tourisme.pdf" target="_blank">télécharger le RIB</a>) en précisant comme intitulé de virement « Souscription n°XXX », X étant le n° de souscription présent sur votre bulletin.
-          <% end %>
-          <br/>
-          <br/>
-          <a class="btn btn--inverse" target="_blank" href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>">Télécharger votre bulletin de souscription</a><br/>
-          <br/>
-          <a class="btn btn--primary" href="/" target="_blank">Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !</a>
-        </p>
-        <div class="flex-container--row mtm jcc">
-          <a class="twitter-share-button" target="_blank"
-             href="https://twitter.com/intent/tweet?text=<%= CGI.escape("Je soutiens @ApidaeTourisme") %>&url=<%= CGI.escape(share_subscription_url(@subscription)) %>"
-             data-size="large">
-            Partager sur Twitter</a>
-          <div class="fb-share-button mls" data-href="<%= share_subscription_url(@subscription) %>" data-layout="button" data-size="large">
-            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= CGI.escape(share_subscription_url(@subscription)) %>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager sur Facebook</a>
+      <% if @subscription.persisted? && @subscription.declared? %>
+        <h1 class="txtcenter txt--white mtl mbl h2-like">Merci pour votre déclaration</h1>
+        <div id="confirmation_content" class="bg--white">
+          <h3 class="flex-container--row">
+            <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Confirmation de ma déclaration d'intention</span>
+          </h3>
+          <p class="txtcenter mtl">
+            Merci pour votre déclaration. Une confirmation vous a été envoyée par mail.<br/><br/>
+            Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !
+          </p>
+          <div class="mtm">
+            <video muted playsinline controls poster="https://static.souscription.apidae-tourisme.com/apidae-badges-preview.png">
+              <source src="https://static.souscription.apidae-tourisme.com/apidae-badges.mp4" type="video/mp4">
+            </video>
           </div>
-          <div class="mls">
-            <script type="IN/Share" data-url="<%= share_subscription_url(@subscription) %>"></script>
-          </div>
+        </div>
+      <% else %>
+        <h1 class="txtcenter txt--white mtl mbl h2-like">Merci pour votre souscription !</h1>
+        <div id="confirmation_content" class="bg--white">
+          <h3 class="flex-container--row">
+            <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Confirmation de ma souscription</span>
+          </h3>
+          <p class="txtcenter mtl">
+            Merci pour votre souscription. Une confirmation vous a été envoyée par mail.<br/>
+            <% if @subscription.payment_method == 'cheque' %>
+              Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon
+            <% else %>
+              Merci de réaliser votre virement sur le compte de Apidae Tourisme Scic SA (<a href="/rib-scic-sa-apidae-tourisme.pdf" target="_blank">télécharger le RIB</a>) en précisant comme intitulé de virement « Souscription n°XXX », X étant le n° de souscription présent sur votre bulletin.
+            <% end %>
+            <br/>
+            <br/>
+            <a class="btn btn--inverse" target="_blank" href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>">Télécharger votre bulletin de souscription</a><br/>
+            <br/>
+            <a class="btn btn--primary" href="/" target="_blank">Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !</a>
+          </p>
+        </div>
+      <% end %>
+      <div class="flex-container--row mtm jcc">
+        <a class="twitter-share-button" target="_blank"
+           href="https://twitter.com/intent/tweet?text=<%= CGI.escape("Je soutiens @ApidaeTourisme") %>&url=<%= CGI.escape(share_subscription_url(@subscription)) %>"
+           data-size="large">
+          Partager sur Twitter</a>
+        <div class="fb-share-button mls" data-href="<%= share_subscription_url(@subscription) %>" data-layout="button" data-size="large">
+          <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= CGI.escape(share_subscription_url(@subscription)) %>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager sur Facebook</a>
+        </div>
+        <div class="mls">
+          <script type="IN/Share" data-url="<%= share_subscription_url(@subscription) %>"></script>
         </div>
       </div>
     </div>

@@ -18,7 +18,7 @@
         <a href="#infos" class="js-tablist__link tab_infos"><span><%= is_new ? 3 : 2 %></span>Mes informations</a>
       </li>
       <li class="js-tablist__item">
-        <a href="#validation" class="js-tablist__link tab_validation"><span><%= is_new ? 4 : 3 %></span>Validation de ma souscription</a>
+        <a href="#validation" class="js-tablist__link tab_validation"><span><%= is_new ? 4 : 3 %></span>Validation de ma <%= phase_label %></a>
       </li>
     </ul>
     <div id="type" class="<%= is_new ? 'js-tabcontent' : 'is-hidden' %> bg--white">
@@ -201,55 +201,59 @@
             <%= f.select(:sponsor_id, subscription_sponsors, {prompt: 'Facultatif'}, class: 'w100') %>
           </div>
         </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :payment_method, 'Mode de règlement<sup>*</sup>'.html_safe %></div>
-          <div class="w60 item-center">
-            <%= f.radio_button(:payment_method, 'cheque', id: 'payment_cheque', class: 'radio', required: true) %>
-            <label for="payment_cheque">Chèque</label>
-            <%= f.radio_button(:payment_method, 'virement', id: 'payment_virement', class: 'mlm radio', required: true) %>
-            <label for="payment_virement">Virement</label>
+        <% if @subscription.persisted? && @subscription.declared? %>
+          <div class="flex-container mbs">
+            <div class="txtright item-center w40 prs pls"><%= f.label :payment_method, 'Mode de règlement<sup>*</sup>'.html_safe %></div>
+            <div class="w60 item-center">
+              <%= f.radio_button(:payment_method, 'cheque', id: 'payment_cheque', class: 'radio', required: true) %>
+              <label for="payment_cheque">Chèque</label>
+              <%= f.radio_button(:payment_method, 'virement', id: 'payment_virement', class: 'mlm radio', required: true) %>
+              <label for="payment_virement">Virement</label>
+            </div>
           </div>
-        </div>
-        <div class="flex-container mbs person_pm_only">
-          <div class="txtright item-center w40 prs pls"><%= f.label :payments_count, 'Libération du montant<sup>*</sup>'.html_safe %></div>
-          <div class="w60 item-center">
-            <%= f.radio_button(:payments_count, 'single_payment', id: 'single_payment', class: 'radio', required: true) %>
-            <label for="single_payment">En 1 fois</label>
-            <%= f.radio_button(:payments_count, 'half_payment', id: 'half_payment', class: 'mlm radio', required: true) %>
-            <label for="half_payment">En 2 fois (2 x 50%)</label>
+          <div class="flex-container mbs person_pm_only">
+            <div class="txtright item-center w40 prs pls"><%= f.label :payments_count, 'Libération du montant<sup>*</sup>'.html_safe %></div>
+            <div class="w60 item-center">
+              <%= f.radio_button(:payments_count, 'single_payment', id: 'single_payment', class: 'radio', required: true) %>
+              <label for="single_payment">En 1 fois</label>
+              <%= f.radio_button(:payments_count, 'half_payment', id: 'half_payment', class: 'mlm radio', required: true) %>
+              <label for="half_payment">En 2 fois (2 x 50%)</label>
+            </div>
           </div>
-        </div>
+        <% end %>
         <div class="flex-container mbm">
           <div class="txtright item-center w40 prs pls"><%= f.label :comments, 'Remarques / questions' %></div>
           <div class="w60">
             <%= f.text_area :comments, class: 'w100', rows: 3 %>
           </div>
         </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :signing, 'Signature'.html_safe %></div>
-          <div class="w60 flex-container aic">
-            <%= f.check_box :signing, {class: 'checkbox mrs', id: 'online_signing', onclick: 'toggleSignaturePad()'} %>
-            <label for="online_signing" class="item-fluid ma0">J'accepte de signer mon bulletin de souscription en ligne</label>
-            <div id="signing_canvas" class="is-hidden mts txtcenter">
-              <div class="inbl">
-                <canvas></canvas>
-                <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
+        <% if @subscription.persisted? && @subscription.declared? %>
+          <div class="flex-container mbs">
+            <div class="txtright item-center w40 prs pls"><%= f.label :signing, 'Signature'.html_safe %></div>
+            <div class="w60 flex-container aic">
+              <%= f.check_box :signing, {class: 'checkbox mrs', id: 'online_signing', onclick: 'toggleSignaturePad()'} %>
+              <label for="online_signing" class="item-fluid ma0">J'accepte de signer mon bulletin de souscription en ligne</label>
+              <div id="signing_canvas" class="is-hidden mts txtcenter">
+                <div class="inbl">
+                  <canvas></canvas>
+                  <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
+                </div>
+                <div>
+                  <p class="item-fluid u-small item-center lh mbs">
+                    Utilisez la zone ci-dessus pour tracer votre signature.
+                    Vous pouvez également télécharger une image via le bouton ci-dessous.
+                  </p>
+                  <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="btn--small btn--inverse w100">
+                    Télécharger une signature
+                  </button>
+                </div>
+                <%= f.file_field :signature, accept: 'image/png,image/jpeg', class: 'is-hidden', id: 'signature_file' %>
+                <%= f.hidden_field :signature_data, id: 'signature_data' %>
+                <%= f.hidden_field :signed_at, id: 'subscription_signed_at' %>
               </div>
-              <div>
-                <p class="item-fluid u-small item-center lh mbs">
-                  Utilisez la zone ci-dessus pour tracer votre signature.
-                  Vous pouvez également télécharger une image via le bouton ci-dessous.
-                </p>
-                <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="btn--small btn--inverse w100">
-                  Télécharger une signature
-                </button>
-              </div>
-              <%= f.file_field :signature, accept: 'image/png,image/jpeg', class: 'is-hidden', id: 'signature_file' %>
-              <%= f.hidden_field :signature_data, id: 'signature_data' %>
-              <%= f.hidden_field :signed_at, id: 'subscription_signed_at' %>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :com_enabled, {class: 'checkbox'} %></div>
@@ -257,81 +261,88 @@
           J'autorise Apidae Tourisme à communiquer ma prise de participation au capital sur l'ensemble de ses supports de communication
         </label>
       </div>
-      <div class="flex-container mtl">
-        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_societaire, {class: 'checkbox', required: true} %></div>
-        <label for="subscription_ack_societaire" class="item-fluid item-center txtleft lh reg">
-          <span class="person_pp_only">
-            Je déclare vouloir devenir sociétaire d’Apidae Tourisme Scic SA à capital variable. L’entrée de tout nouveau
-            sociétaire est soumise à une procédure d’agrément prévue par les statuts d’Apidae Tourisme Scic SA à capital variable.
-            Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
-            intégrale de chaque part souscrite.
-          </span>
-          <span class="person_pm_only">
-            La personne morale / collectivité territoriale représentée déclare vouloir devenir sociétaire d’Apidae Tourisme
-            Scic SA à capital variable. L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
-            par les statuts d’Apidae Tourisme Scic SA à capital variable. Si la demande est acceptée, elle intégrera l’une
-            des catégories de sociétaires définies par les statuts après libération intégrale de chaque part souscrite.
-          </span>
-        </label>
-      </div>
-      <div class="flex-container mtl">
-        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_statuts, {class: 'checkbox', required: true} %></div>
-        <label for="subscription_ack_statuts" class="item-fluid item-center txtleft lh reg">
-          <span class="person_pp_only">
-            Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
-            d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
-            peuvent être consultés à l'adresse <a href="/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf" target="_blank">https://souscription.apidae-tourisme.com/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf</a>.
-          </span>
-          <span class="person_pm_only">
-            La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
-            Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
-            au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés à l'adresse
-            <a href="/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf" target="_blank">https://souscription.apidae-tourisme.com/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf</a>.
-          </span>
-        </label>
-      </div>
-      <div class="flex-container mtl">
-        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_biens_communs, {class: 'checkbox', required: true} %></div>
-        <label for="subscription_ack_biens_communs" class="item-fluid item-center txtleft lh reg">
-          <span class="person_pp_only">
-            En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
-            et à fournir la notification de renonciation à être associé (téléchargeable à l'adresse <a href="/renonciation-souscription-apidae.pdf" target="_blank">https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf</a>)
-          </span>
-          <span class="person_pm_only">
-            La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
-            et à engager la structure qu’elle représente.
-          </span>
-        </label>
-      </div>
-      <div class="flex-container mtl">
-        <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_convocation, {class: 'checkbox', required: true} %></div>
-        <label for="subscription_ack_convocation" class="item-fluid item-center txtleft lh reg">
-          <span class="person_pp_only">
-            J’accepte d’être convoqué(e) aux assemblées par courrier électronique, qu’Apidae Tourisme Scic SA à capital
-            variable ait recours à la transmission par voie électronique en lieu et place de l’envoi postal lors de
-            l’exécution des formalités de convocation, d’envoi de documents, d’informations et plus généralement d’être
-            destinataire d’informations et de communications institutionnelles. Cette autorisation aura pour seul objectif
-            de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable, en limitant les frais de gestion et en
-            économisant le papier.
-          </span>
-          <span class="person_pm_only">
-            La personne morale / collectivité territoriale représentée accepte d’être convoquée aux assemblées par courrier
-            électronique, qu’Apidae Tourisme Scic SA à capital variable ait recours à la transmission par voie électronique
-            en lieu et place de l’envoi postal lors de l’exécution des formalités de convocation, d’envoi de documents,
-            d’informations et plus généralement d’être destinataire d’informations et de communications institutionnelles.
-            Cette autorisation aura pour seul objectif de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable,
-            en limitant les frais de gestion et en économisant le papier.
-          </span>
-        </label>
-      </div>
-      <div class="txtright mtl">
-        <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
-        <button type="button" class="btn btn--warning" onclick="copySignature(); nextStep('infos')">Suivant</button>
-      </div>
+      <% if @subscription.persisted? && @subscription.declared? %>
+        <div class="flex-container mtl">
+          <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_societaire, {class: 'checkbox', required: true} %></div>
+          <label for="subscription_ack_societaire" class="item-fluid item-center txtleft lh reg">
+            <span class="person_pp_only">
+              Je déclare vouloir devenir sociétaire d’Apidae Tourisme Scic SA à capital variable. L’entrée de tout nouveau
+              sociétaire est soumise à une procédure d’agrément prévue par les statuts d’Apidae Tourisme Scic SA à capital variable.
+              Si ma demande est acceptée, j’intégrerai l’une des catégories de sociétaires définies par les statuts après libération
+              intégrale de chaque part souscrite.
+            </span>
+            <span class="person_pm_only">
+              La personne morale / collectivité territoriale représentée déclare vouloir devenir sociétaire d’Apidae Tourisme
+              Scic SA à capital variable. L’entrée de tout nouveau sociétaire est soumise à une procédure d’agrément prévue
+              par les statuts d’Apidae Tourisme Scic SA à capital variable. Si la demande est acceptée, elle intégrera l’une
+              des catégories de sociétaires définies par les statuts après libération intégrale de chaque part souscrite.
+            </span>
+          </label>
+        </div>
+        <div class="flex-container mtl">
+          <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_statuts, {class: 'checkbox', required: true} %></div>
+          <label for="subscription_ack_statuts" class="item-fluid item-center txtleft lh reg">
+            <span class="person_pp_only">
+              Je reconnais avoir pris connaissance des statuts d’Apidae Tourisme Scic SA à capital variable, en cours
+              d’immatriculation au RCS de Lyon dont le siège social est situé au 11B Quai Perrache 69002 Lyon. Les statuts
+              peuvent être consultés à l'adresse <a href="/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf" target="_blank">https://souscription.apidae-tourisme.com/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf</a>.
+            </span>
+            <span class="person_pm_only">
+              La personne morale / collectivité territoriale représentée déclare avoir pris connaissance des statuts d’Apidae
+              Tourisme Scic SA à capital variable, en cours d’immatriculation au RCS de Lyon dont le siège social est situé
+              au 11B Quai Perrache 69002 Lyon. Les statuts peuvent être consultés à l'adresse
+              <a href="/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf" target="_blank">https://souscription.apidae-tourisme.com/statuts-apidae-tourisme-scic-sa-a-capital-variable.pdf</a>.
+            </span>
+          </label>
+        </div>
+        <div class="flex-container mtl">
+          <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_biens_communs, {class: 'checkbox', required: true} %></div>
+          <label for="subscription_ack_biens_communs" class="item-fluid item-center txtleft lh reg">
+            <span class="person_pp_only">
+              En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs
+              et à fournir la notification de renonciation à être associé (téléchargeable à l'adresse <a href="/renonciation-souscription-apidae.pdf" target="_blank">https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf</a>)
+            </span>
+            <span class="person_pm_only">
+              La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
+              et à engager la structure qu’elle représente.
+            </span>
+          </label>
+        </div>
+        <div class="flex-container mtl">
+          <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_convocation, {class: 'checkbox', required: true} %></div>
+          <label for="subscription_ack_convocation" class="item-fluid item-center txtleft lh reg">
+            <span class="person_pp_only">
+              J’accepte d’être convoqué(e) aux assemblées par courrier électronique, qu’Apidae Tourisme Scic SA à capital
+              variable ait recours à la transmission par voie électronique en lieu et place de l’envoi postal lors de
+              l’exécution des formalités de convocation, d’envoi de documents, d’informations et plus généralement d’être
+              destinataire d’informations et de communications institutionnelles. Cette autorisation aura pour seul objectif
+              de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable, en limitant les frais de gestion et en
+              économisant le papier.
+            </span>
+            <span class="person_pm_only">
+              La personne morale / collectivité territoriale représentée accepte d’être convoquée aux assemblées par courrier
+              électronique, qu’Apidae Tourisme Scic SA à capital variable ait recours à la transmission par voie électronique
+              en lieu et place de l’envoi postal lors de l’exécution des formalités de convocation, d’envoi de documents,
+              d’informations et plus généralement d’être destinataire d’informations et de communications institutionnelles.
+              Cette autorisation aura pour seul objectif de faciliter la gestion d’Apidae Tourisme Scic SA à capital variable,
+              en limitant les frais de gestion et en économisant le papier.
+            </span>
+          </label>
+        </div>
+        <div class="txtright mtl">
+          <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
+          <button type="button" class="btn btn--warning" onclick="copySignature(); nextStep('infos')">Suivant</button>
+        </div>
+      <% else %>
+        <div class="txtright mtl">
+          <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
+          <button type="button" class="btn btn--warning" onclick="nextStep('infos')">Suivant</button>
+        </div>
+      <% end %>
     </div>
     <div id="validation" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma souscription</span>
+        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma <%= phase_label %></span>
       </h3>
       <div id="validation_msg" class="mtl txtcenter">
       </div>
@@ -344,5 +355,13 @@
 <% end %>
 
 <% content_for :page_scripts do %>
+  <%= javascript_include_tag 'tabs' %>
   <%= javascript_include_tag 'subscription' %>
+  <% if @subscription.persisted? && @subscription.declared? %>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            initSignatureFilePreview();
+        });
+    </script>
+  <% end %>
 <% end %>

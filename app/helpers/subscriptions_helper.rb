@@ -42,4 +42,8 @@ module SubscriptionsHelper
   def address_fields
     @subscription.address.split(/(\r\n?)/)
   end
+
+  def phase_label
+    @subscription.persisted? && @subscription.declared? ? "souscription" : "déclaration d'intention"
+  end
 end

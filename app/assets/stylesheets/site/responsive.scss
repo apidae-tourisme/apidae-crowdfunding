@@ -54,6 +54,16 @@
     }
   }
 
+  section#static_section {
+    .tabs__item {
+      width: 50%;
+
+      > a {
+        height: 48px;
+      }
+    }
+  }
+
   #footer_links a {
     display: block;
   }

@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     bindAmountDesc();
     bindLegalTypeSelector();
     initMemberSelector();
-    initSignatureFilePreview();
 });
 
 function disableNextSteps() {
