@@ -7,4 +7,8 @@ class SubscriptionsMailerPreview < ActionMailer::Preview
   def complete_subscription
     SubscriptionsMailer.complete_subscription(Subscription.last)
   end
+
+  def declare_subscription
+    SubscriptionsMailer.declare_subscription(Subscription.last)
+  end
 end

@@ -27,17 +27,25 @@ function bindCategorySelector() {
 }
 
 function bindPersonTypeFields() {
-    var infos = document.querySelector("#infos_fields");
     document.querySelector("#person_type_pm").addEventListener("change", function() {
-        infos.classList.remove('person_type_pp');
-        infos.classList.add('person_type_pm');
+        togglePersonType('pm');
         updateCategoryFields(document.querySelector("#category_selector"));
     });
     document.querySelector("#person_type_pp").addEventListener("change", function() {
-        infos.classList.remove('person_type_pm');
-        infos.classList.add('person_type_pp');
+        togglePersonType('pp');
         updateCategoryFields(document.querySelector("#category_selector"));
     });
+    if (document.querySelector("#person_type_pm:checked")) {
+        togglePersonType('pm');
+    } else if (document.querySelector("#person_type_pp:checked")) {
+        togglePersonType('pp');
+    }
+}
+
+function togglePersonType(personType) {
+    var infos = document.querySelector("#infos_fields"), otherType = personType === 'pp' ? 'pm' : 'pp';
+    infos.classList.remove('person_type_' + otherType);
+    infos.classList.add('person_type_' + personType);
 }
 
 function bindAmountDesc() {
@@ -68,6 +76,7 @@ function updateCategoryFields(categorySelect) {
     newCategory.classList.remove('is-hidden');
     var newAmount = newCategory.querySelector(".min_amount").innerHTML;
     document.querySelector("#subscription_amount").setAttribute('min', newAmount);
+    document.querySelector("#infos_fields").setAttribute("data-category", categorySelect.value);
 
     document.querySelector("#category_min").innerHTML = newCategory.querySelector("p:last-child").innerHTML;
     if (categorySelect.value === 'at' || categorySelect.value === 'ct') {
@@ -193,53 +202,57 @@ function checkStepValidity(step) {
 function generateValidationMsg() {
     var categorySelect = document.querySelector("#category_selector");
     var msgWrapper = document.querySelector("#validation_msg");
-    var amount = document.querySelector("#subscription_amount").value;
+    var amount = document.querySelector("#subscription_amount").value, shares = parseInt(amount) / 100;
+    var amountText = shares + " part" + (shares > 1 ? 's' : '') + " sociale" + (shares > 1 ? 's' : '') + " de 100 €, soit un montant de "  + formatAmount(amount) + ".";
+    var isNew = document.querySelector("form#subscription_form").classList.contains("new_subscription");
     if (categorySelect.value === 'sr' || categorySelect.value === 'sa') {
         var title = document.querySelector("#subscription_title").value, firstName = document.querySelector("#subscription_first_name").value,
             lastName = document.querySelector("#subscription_last_name").value, address = document.querySelector("#subscription_address").value,
             postalCode = document.querySelector("#subscription_postal_code").value, town = document.querySelector("#subscription_town").value;
-        msgWrapper.innerHTML = "Je déclare " + [title, firstName, lastName].join(" ") + " domicilié(e) à " +
-            [address, postalCode, town].join(" ") + "<br/>m'engage à investir " + formatAmount(amount) + " soit " + (parseInt(amount) / 100) + " parts de 100 €."
+        msgWrapper.innerHTML = "Je déclare " + [title, firstName, lastName].join(" ") + ", domicilié(e) à " +
+            [address, postalCode, town].join(" ") + "<br/>" + (isNew ? "déclare mon intention de prendre " : "m'engage à souscrire ") + amountText;
     } else {
         var structureName = document.querySelector("#subscription_structure_name").value;
-        msgWrapper.innerHTML = structureName + "<br/>s'engage à investir " + formatAmount(amount) + " soit " + (parseInt(amount) / 100) + " parts de 100 €."
+        msgWrapper.innerHTML = structureName + "<br/>" + (isNew ? "déclare son intention de prendre " : "s'engage à souscrire ") + amountText;
     }
 }
 
 function initMemberSelector() {
-    accessibleAutocomplete({
-        element: document.querySelector(".lookup_container"),
-        id: 'member_autocomplete',
-        source: function suggest(query, populateResults) {
-            searchMembers(query, populateResults);
-        },
-        templates: {
-            inputValue: function(res) {return res ? res.text : '';},
-            suggestion: function(res) {return res ? res.text : '';}
-        },
-        onConfirm: function(res) {
-            if (res && res.id) {
-                loadMemberInfo(res.id, function(data) {
-                    document.querySelector('#subscription_apidae_member_id').setAttribute('value', data.id);
-                    document.querySelector('#subscription_structure_name').setAttribute('value', data.name);
-                    document.querySelector('#subscription_address').setAttribute('value', (data.address || ''));
-                    document.querySelector('#subscription_address').innerHTML = (data.address || '');
-                    document.querySelector('#subscription_postal_code').setAttribute('value', (data.postal_code || ''));
-                    document.querySelector('#subscription_town').setAttribute('value', (data.town || ''));
-                    document.querySelector('#subscription_email').setAttribute('value', (data.email || ''));
-                    document.querySelector('#subscription_telephone').setAttribute('value', (data.telephone || ''));
-                });
-            }
-        },
-        placeholder: 'Rechercher un membre Apidae...',
-        displayMenu: 'overlay',
-        minLength: 2,
-        tNoResults: function() {return 'Aucun résultat.';},
-        tStatusQueryTooShort: function(l) {return 'Veuillez saisir au moins ' + l + ' caractères.';},
-        tStatusNoResults: function() {return 'Aucun résultat.';},
-        tStatusSelectedOption: function(selected, length, idx) {return 'Option ' + selected.text + ' (' + (idx + 1) + ' sur ' + length + ') sélectionnée.';},
-        tStatusResults: function(length, selectedMsg) {return length + ' résultat(s). ' + selectedMsg;}
-    })
+    if (document.querySelector(".lookup_container")) {
+        accessibleAutocomplete({
+            element: document.querySelector(".lookup_container"),
+            id: 'member_autocomplete',
+            source: function suggest(query, populateResults) {
+                searchMembers(query, populateResults);
+            },
+            templates: {
+                inputValue: function(res) {return res ? res.text : '';},
+                suggestion: function(res) {return res ? res.text : '';}
+            },
+            onConfirm: function(res) {
+                if (res && res.id) {
+                    loadMemberInfo(res.id, function(data) {
+                        document.querySelector('#subscription_apidae_member_id').setAttribute('value', data.id);
+                        document.querySelector('#subscription_structure_name').setAttribute('value', data.name);
+                        document.querySelector('#subscription_address').setAttribute('value', (data.address || ''));
+                        document.querySelector('#subscription_address').innerHTML = (data.address || '');
+                        document.querySelector('#subscription_postal_code').setAttribute('value', (data.postal_code || ''));
+                        document.querySelector('#subscription_town').setAttribute('value', (data.town || ''));
+                        document.querySelector('#subscription_email').setAttribute('value', (data.email || ''));
+                        document.querySelector('#subscription_telephone').setAttribute('value', (data.telephone || ''));
+                    });
+                }
+            },
+            placeholder: 'Rechercher un membre Apidae...',
+            displayMenu: 'overlay',
+            minLength: 2,
+            tNoResults: function() {return 'Aucun résultat.';},
+            tStatusQueryTooShort: function(l) {return 'Veuillez saisir au moins ' + l + ' caractères.';},
+            tStatusNoResults: function() {return 'Aucun résultat.';},
+            tStatusSelectedOption: function(selected, length, idx) {return 'Option ' + selected.text + ' (' + (idx + 1) + ' sur ' + length + ') sélectionnée.';},
+            tStatusResults: function(length, selectedMsg) {return length + ' résultat(s). ' + selectedMsg;}
+        })
+    }
 }
 
 function searchMembers(query, callback) {

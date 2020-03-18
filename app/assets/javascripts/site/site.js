@@ -4,7 +4,7 @@ const colorsByCategory = {
     at: '#FFC302',
     sr: '#FB71A7',
     fs: '#9D9D9C',
-    // sa: '#BDD07B',
+    sa: '#BDD07B',
     sp: '#00B1C6'
 };
 
@@ -14,14 +14,14 @@ const labelsByCategory = {
     at: "Acteurs territoriaux",
     sr: "Soutiens",
     fs: "Fournisseurs de services",
-    // sa: "Salariés de la Scic",
+    sa: "Salariés de la Scic",
     sp: "Socio-professionnels"
 };
 
 var datatable;
 var rankingsChart, rankingsData, pieChart, pieData;
 var mapFeatures, textFeatures, activeRegion;
-var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', '€']}).format('$,');
+var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', ' €']}).format('$,');
 
 document.addEventListener("DOMContentLoaded", function (event) {
     var mapWrapper = document.querySelector("#home_map");

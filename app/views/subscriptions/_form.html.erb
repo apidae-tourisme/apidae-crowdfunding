@@ -150,7 +150,8 @@
         <div class="flex-container mbs person_pp_only">
           <div class="txtright item-center w40 prs pls"><%= f.label :birth_date, 'Date de naissance<sup>*</sup>'.html_safe %></div>
           <div class="w60">
-            <%= f.date_field :birth_date, class: 'w100', required: true, placeholder: 'JJ/MM/AAAA' %>
+            <%= f.date_field :birth_date, value: f.object.birth_date,
+                             class: 'w100', required: true, placeholder: 'JJ/MM/AAAA' %>
           </div>
         </div>
         <div class="flex-container mbs">
@@ -344,8 +345,7 @@
       <h3 class="flex-container--row">
         <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma <%= phase_label %></span>
       </h3>
-      <div id="validation_msg" class="mtl txtcenter">
-      </div>
+      <div id="validation_msg" class="mtl txtcenter"></div>
       <div class="mtm mbs txtcenter">
         <button type="button" class="btn btn--primary mrm" onclick="prevStep('validation')">Précédent</button>
         <%= f.submit "Confirmer", class: 'btn btn--warning', data: { disable_with: "Transmission..." } %>
