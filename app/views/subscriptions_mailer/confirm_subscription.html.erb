@@ -3,15 +3,15 @@
   <br/>
   Nous vous remercions pour votre souscription, celle-ci a bien été prise en compte.<br/>
   <br/>
-  Vous pouvez télécharger votre bulletin de souscription en suivant <a href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, only_path: true)) %>" target="_blank">ce lien</a>.<br/>
+  Vous pouvez télécharger votre bulletin de souscription en suivant <a href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>" target="_blank">ce lien</a>.<br/>
   <br/>
   <% if @subscription.payment_method == 'cheque' %>
     Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon<br/>
   <% else %>
-    Merci de réaliser votre virement sur le compte de Apidae Tourisme Scic SA (<a href="/rib-scic-sa-apidae-tourisme.pdf" target="_blank">télécharger le RIB</a>) en précisant comme intitulé de virement « Souscription n°XXX » X étant le n° de souscription présent sur votre bulletin.<br/>
+    Merci de réaliser votre virement sur le compte de Apidae Tourisme Scic SA (<a href="https://souscription.apidae-tourisme.com/rib-scic-sa-apidae-tourisme.pdf" target="_blank">télécharger le RIB</a>) en précisant comme intitulé de virement « Souscription n°XXX » X étant le n° de souscription présent sur votre bulletin.<br/>
   <% end %>
   <br/>
-  Nous vous tiendrons informés des prochaines assemblées générales.<br/>
+  Nous vous tiendrons informé des prochaines assemblées générales.<br/>
   <br/>
   Pour suivre les actualités de Apidae Tourisme Scic SA à capital variable, rendez-vous dans la rubrique Apidae Demain : <a href="https://www.apidae-tourisme.com/apidae-demain/">https://www.apidae-tourisme.com/apidae-demain/</a>.<br/>
   <br/>

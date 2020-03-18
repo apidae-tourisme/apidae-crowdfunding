@@ -14,7 +14,7 @@ class SubscriptionsController < ApplicationController
 
   def create
     @subscription = Subscription.new(subscription_params)
-    handle_subscription_save(:new)
+    handle_subscription_save(true, :new)
   end
 
   def edit
@@ -28,7 +28,7 @@ class SubscriptionsController < ApplicationController
 
   def update
     @subscription.attributes = subscription_params
-    handle_subscription_save(:edit)
+    handle_subscription_save(false, :edit)
   end
 
   def update_widget
@@ -103,7 +103,7 @@ class SubscriptionsController < ApplicationController
     records
   end
 
-  def handle_subscription_save(error_action)
+  def handle_subscription_save(new_sub, error_action)
     unless @subscription.signature_data.blank?
       encoded_signature = @subscription.signature_data.split(",")[1]
       unless encoded_signature.blank?
@@ -111,9 +111,17 @@ class SubscriptionsController < ApplicationController
         @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
       end
     end
-    if @subscription.save && @subscription.confirm!
-      SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
-      redirect_to confirm_subscription_url(@subscription)
+    if @subscription.save
+      if new_sub
+        SubscriptionsMailer.declare_subscription(@subscription).deliver_now
+        redirect_to confirm_subscription_url(@subscription)
+      elsif @subscription.confirm!
+        SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
+        redirect_to confirm_subscription_url(@subscription)
+      else
+        flash.now[:alert] = "Une erreur s'est produite lors de la confirmation de la souscription."
+        render error_action
+      end
     else
       flash.now[:alert] = "Une erreur s'est produite lors de l'enregistrement de la souscription."
       render error_action
