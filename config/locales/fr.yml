@@ -11,6 +11,7 @@ fr:
     subscription:
       field:
         created_at: "Date"
+        id: "Réf."
         label: "Nom"
         status: "Statut"
         signed_at: "Signature"
