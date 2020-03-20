@@ -65,6 +65,20 @@ class CrmClient
     else
       entity = create_prospect(subscription)
     end
+
+    Sellsy::CustomField.set_values(entity,
+                                   Sellsy::CustomField.new('88153', college_type(subscription)),
+                                   Sellsy::CustomField.new('88155', LEGAL_TYPES[subscription.legal_type]),
+                                   Sellsy::CustomField.new('88156', activity_domain(subscription))
+    )
+
+    contact_id = (entity.class.to_s.constantize).find(entity.id).main_contact_id
+    unless contact_id.blank?
+      contact = Sellsy::Contact.new
+      contact.id = contact_id
+      Sellsy::CustomField.set_values(contact, Sellsy::CustomField.new('88160', 'Oui'))
+    end
+
     opportunity = add_opportunity(entity, subscription)
 
     subscription.update(opportunity_id: opportunity.id)
@@ -74,11 +88,6 @@ class CrmClient
     prospect = Sellsy::Prospect.new
     populate_fields(prospect, subscription)
     prospect.create
-    Sellsy::CustomField.set_values(prospect,
-                                   Sellsy::CustomField.new('88153', college_type(subscription)),
-                                   Sellsy::CustomField.new('88155', LEGAL_TYPES[subscription.legal_type]),
-                                   Sellsy::CustomField.new('88156', activity_domain(subscription))
-    )
     prospect
   end
 
@@ -91,8 +100,8 @@ class CrmClient
     result = true
 
     opportunity = Sellsy::Opportunity.new
-    opportunity.name = "Souscription SCIC"
-    opportunity.reference = "SOUSCRIPTION-#{Time.current.to_i}"
+    opportunity.name = "Souscription #{subscription.id} - Personne #{subscription.pp? ? 'physique' : 'morale'}"
+    opportunity.reference = "SOUSCRIPTION-#{subscription.id}"
     opportunity.amount = subscription.amount
     opportunity.entity_type = entity.is_a?(Sellsy::Customer) ? 'third' : 'prospect'
     opportunity.entity_id = entity.id

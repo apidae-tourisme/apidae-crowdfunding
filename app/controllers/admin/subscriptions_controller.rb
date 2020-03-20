@@ -19,7 +19,9 @@ class Admin::SubscriptionsController < Admin::UserController
     begin
       CrmClient.add_or_update(@subscription)
       flash[:notice] = "La souscription a bien été enregistrée dans la base GRC."
-    rescue StandardError
+    rescue StandardError => e
+      logger.error "sync_crm failed : #{e.message}"
+      logger.error e.backtrace.first
       flash[:alert] = "Une erreur s'est produite lors de l'enregistrement des la souscription dans la base GRC."
     end
   end

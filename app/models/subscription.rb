@@ -53,7 +53,7 @@ class Subscription < ApplicationRecord
   end
 
   def document_filename
-    "Bulletin souscription - #{pp? ? 'Personne physique' : 'Personne morale'} - #{public_label} - #{signed_at ? (I18n.l(signed_at, format: :doc) + ' - Signé') : 'Non signé'}"
+    "Bulletin souscription - #{id} - #{pp? ? 'Personne physique' : 'Personne morale'} - #{public_label} - #{signed_at ? (I18n.l(signed_at, format: :doc) + ' - Signé') : 'Non signé'}"
   end
 
   def compute_fields
