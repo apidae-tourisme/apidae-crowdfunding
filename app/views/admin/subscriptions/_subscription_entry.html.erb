@@ -1,5 +1,6 @@
 <td><span class="is-hidden"><%= s.created_at.to_i %></span><%= l(s.created_at, format: :detailed) %></td>
 <td class="lh"><span class="fw500"><%= s.public_label %></span><br/><%= s.email %></td>
+<td><%= s.id %></td>
 <td><%= s.com_enabled ? 'Non' : 'Oui' %></td>
 <td><%= s.amount %></td>
 <td><%= CATEGORIES[s.category.to_sym][:name] %></td>
