@@ -14,6 +14,16 @@ class Admin::SubscriptionsController < Admin::UserController
     end
   end
 
+  def send_mail
+    @subscription = Subscription.find(Subscription.decrypt(params[:id]))
+    if params[:mailer_action] == 'confirm_subscription' || params[:mailer_action] == 'declare_subscription'
+      SubscriptionsMailer.send(params[:mailer_action].to_sym, @subscription).deliver_now
+      flash[:notice] = "L'email a bien été envoyé."
+    else
+      flash[:alert] = "Une erreur s'est produite lors de l'envoi de l'email."
+    end
+  end
+
   private
 
   def check_credentials
