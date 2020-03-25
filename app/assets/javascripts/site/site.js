@@ -12,9 +12,9 @@ const labelsByCategory = {
     mo: "Moteurs de l’économie territoriale",
     ct: "Coordinateurs territoriaux",
     at: "Acteurs territoriaux",
-    sr: "Soutiens",
+    sr: "Soutiens du réseau",
     fs: "Fournisseurs de services",
-    sa: "Salariés de la Scic",
+    sa: "Salariés et Producteurs des services de la Scic",
     sp: "Socio-professionnels"
 };
 
