@@ -111,7 +111,7 @@ class CrmClient
       result = Sellsy::CustomField.set_values(opportunity,
                                               Sellsy::CustomField.new(lookup_field(SELLSY_NB_PARTS), subscription.shares_count),
                                               Sellsy::CustomField.new(lookup_field(SELLSY_NUM_SOUSCRIPTION), subscription.id),
-                                              subscription.payment_method ? Sellsy::CustomField.new(lookup_field(SELLSY_MOYEN_PAIEMENT), I18n.t("export.subscription.value.#{subscription.payment_method}")) : nil,
+                                              subscription.payment_method ? Sellsy::CustomField.new(*lookup_value(SELLSY_MOYEN_PAIEMENT, payment_method_code(subscription))) : nil,
                                               # Note : commented out for now - expects a numeric value with currency
                                               # Sellsy::CustomField.new(lookup_field(SELLSY_MONTANT_LIBERE), (subscription.payments_count == 'half_payment' ? "Deux fois (50%)" : "Une fois"))
       )
@@ -179,6 +179,16 @@ class CrmClient
 
   def self.rep_values(subscription)
     subscription.is_rep? ? ['LEG', 'INST'] : ['LEG']
+  end
+
+  def self.payment_method_code(subscription)
+    if subscription.payment_method == 'cheque'
+      'CH'
+    elsif subscription.payment_method == 'virement'
+      'VIR'
+    else
+      nil
+    end
   end
 
   def self.lookup_field(field_code)
