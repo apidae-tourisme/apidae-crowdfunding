@@ -1,29 +1,29 @@
 CATEGORIES = {
-    mo: {name: "Moteurs de l’économie territoriale", desc: "Personnes morales et collectivités territoriales, associées de la Scic dont l'intérêt principal est de contribuer à la structuration et au développement économique des territoires et qui, à ce titre souhaitent s’investir fortement dans le projet. Ex : Régions.", shares: 1000, amount: 100000},
-    ct: {name: 'Coordinateurs territoriaux', desc: "Personnes morales et collectivités en charge du développement de l’économie locale et/ou de la structuration de leur territoire qui mettent à dispo du réseau des ressources humaines pour l'accompagnement des utilisateurs de la plateforme dans le cadre d'une convention spécifique passée avec la Scic. Ex : Comités Départementaux de tourisme, Conseils Départementaux.", shares: 50, amount: 5000},
-    at: {name: 'Acteurs territoriaux', desc: "Personnes morales en charge du développement de l’économie locale, d’une marque ou d’une destination touristique, et qui utilisent les services de la plateforme via un abonnement. Ex : Offices de Tourisme, Communautés de Communes.", shares: 10, amount: 1000},
-    sr: {name: 'Soutiens du réseau', desc: "Personnes physiques ou morales souhaitant apporter un soutien au réseau (financier, expertise, apport de données …) et s’impliquer dans la gouvernance. Ex : greeters, ambassadeurs.", shares:1, amount: 100},
-    fs: {name: 'Fournisseurs de services', desc: "Personnes morales et personnes physiques, opérateurs économiques variés, qui proposent des services à destination des autres communautés, et qui utilisent les services de la plateforme via unabonnement. Ex : agences web, éditeurs de logiciels, start-ups.", shares: 10, amount: 1000},
-    sa: {name: 'Salariés et Producteurs des services de la Scic', desc: "Personnes physiques ayant un contrat de travail avec la Scic.", shares: 1, amount: 100},
-    sp: {name: 'Socio-professionnels', desc: "Personnes morales et personnes physiques, professionnels de l’économie touristique, qui commercialisent des biens et des services, à destination des touristes ou des habitants, et qui utilisent les services de la plateforme via un abonnement. Ex : hébergeurs, prestataires d’activités.", shares: 5, amount: 500}
+    mo: {name: "Moteurs de l’économie territoriale", desc: "Personnes morales et collectivités territoriales, associées de la Scic dont l'intérêt principal est de contribuer à la structuration et au développement économique des territoires et qui, à ce titre souhaitent s’investir fortement dans le projet. Ex : Régions.", shares: 1000, amount: 100000, crm_code: 'A'},
+    ct: {name: 'Coordinateurs territoriaux', desc: "Personnes morales et collectivités en charge du développement de l’économie locale et/ou de la structuration de leur territoire qui mettent à dispo du réseau des ressources humaines pour l'accompagnement des utilisateurs de la plateforme dans le cadre d'une convention spécifique passée avec la Scic. Ex : Comités Départementaux de tourisme, Conseils Départementaux.", shares: 50, amount: 5000, crm_code: 'A'},
+    at: {name: 'Acteurs territoriaux', desc: "Personnes morales en charge du développement de l’économie locale, d’une marque ou d’une destination touristique, et qui utilisent les services de la plateforme via un abonnement. Ex : Offices de Tourisme, Communautés de Communes.", shares: 10, amount: 1000, crm_code: 'C'},
+    sr: {name: 'Soutiens du réseau', desc: "Personnes physiques ou morales souhaitant apporter un soutien au réseau (financier, expertise, apport de données …) et s’impliquer dans la gouvernance. Ex : greeters, ambassadeurs.", shares:1, amount: 100, crm_code: 'E'},
+    fs: {name: 'Fournisseurs de services', desc: "Personnes morales et personnes physiques, opérateurs économiques variés, qui proposent des services à destination des autres communautés, et qui utilisent les services de la plateforme via unabonnement. Ex : agences web, éditeurs de logiciels, start-ups.", shares: 10, amount: 1000, crm_code: 'D'},
+    sa: {name: 'Salariés et Producteurs des services de la Scic', desc: "Personnes physiques ayant un contrat de travail avec la Scic.", shares: 1, amount: 100, crm_code: 'B'},
+    sp: {name: 'Socio-professionnels', desc: "Personnes morales et personnes physiques, professionnels de l’économie touristique, qui commercialisent des biens et des services, à destination des touristes ou des habitants, et qui utilisent les services de la plateforme via un abonnement. Ex : hébergeurs, prestataires d’activités.", shares: 5, amount: 500, crm_code: 'E'}
 }
 
 LEGAL_TYPES = {
-    association: "Association",
-    collectivite_territoriale: "Collectivité territoriale (commune, Conseil Départemental, Région, etc.)",
-    eurl: "Entreprise Unipersonnelle à Responsabilité Limitée (EURL)",
-    regie_autonome: "Régie autonome",
-    epic: "Régie personnalisée gestionnaire d'un Etablissement Public Industriel et Commercial (EPIC)",
-    spa: "Régie personnalisée gestionnaire d'un Service Public Administratif (SPA)",
-    spic: "Régie personnalisée gestionnaire d'un Service Public Industriel et Commercial (SPIC)",
-    regie_simple: "Régie simple (régie directe)",
-    sa: "Société Anonyme (SA)",
-    sarl: "Société à Responsabilité Limitée (SARL)",
-    sas: "Société par Actions Simplifiée (SAS)",
-    sem: "Société d'Economie Mixte (SEM)",
-    spl: "Société Publique Locale (SPL)",
-    cooperative: "Coopérative (scop, scic, ...)",
-    autre: "Autre"
+    association: {label: "Association", crm_code: 'ASSO'},
+    collectivite_territoriale: {label: "Collectivité territoriale (commune, Conseil Départemental, Région, etc.)", crm_code: 'AUT'},
+    eurl: {label: "Entreprise Unipersonnelle à Responsabilité Limitée (EURL)", crm_code: 'EURL'},
+    regie_autonome: {label: "Régie autonome", crm_code: 'RA'},
+    epic: {label: "Régie personnalisée gestionnaire d'un Etablissement Public Industriel et Commercial (EPIC)", crm_code: 'EPIC'},
+    spa: {label: "Régie personnalisée gestionnaire d'un Service Public Administratif (SPA)", crm_code: 'SPA'},
+    spic: {label: "Régie personnalisée gestionnaire d'un Service Public Industriel et Commercial (SPIC)", crm_code: 'SPIC'},
+    regie_simple: {label: "Régie simple (régie directe)", crm_code: 'RS'},
+    sa: {label: "Société Anonyme (SA)", crm_code: 'SA'},
+    sarl: {label: "Société à Responsabilité Limitée (SARL)", crm_code: 'SARL'},
+    sas: {label: "Société par Actions Simplifiée (SAS)", crm_code: 'SAS'},
+    sem: {label: "Société d'Economie Mixte (SEM)", crm_code: 'SEM'},
+    spl: {label: "Société Publique Locale (SPL)", crm_code: 'SPL'},
+    cooperative: {label: "Coopérative (scop, scic, ...)", crm_code: 'AUT'},
+    autre: {label: "Autre", crm_code: 'AUT'}
 }
 
 REGIONS = {

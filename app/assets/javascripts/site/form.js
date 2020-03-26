@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     bindAmountDesc();
     bindLegalTypeSelector();
     initMemberSelector();
+    toggleRepContactForm();
 });
 
 function disableNextSteps() {
@@ -161,6 +162,7 @@ function nextStep(step) {
         nextTab.click();
         if (nextStep === 'infos') {
             toggleSignaturePad();
+            toggleRepContactForm();
         } else if (nextStep === 'validation') {
             generateValidationMsg();
         }
@@ -273,20 +275,40 @@ function loadMemberInfo(memberId, callback) {
     ajax.send();
 }
 
+function toggleRepContactForm() {
+    var isRep = document.querySelector("#is_rep"), repForm = document.querySelector("#rep_contact_form"),
+        infosFields = document.querySelector("#infos_fields"), repFields = repForm.querySelectorAll("input, select");
+    if (isRep.checked) {
+        repForm.classList.add('is-hidden');
+        infosFields.classList.remove('rep_visible');
+        for (var i = 0; i < repFields.length; i++) {
+            repFields[i].removeAttribute('required');
+        }
+    } else {
+        repForm.classList.remove('is-hidden');
+        infosFields.classList.add('rep_visible');
+        for (var j = 0; j < repFields.length; j++) {
+            repFields[j].setAttribute('required', 'required');
+        }
+    }
+}
+
 var signaturePad;
 function toggleSignaturePad() {
     var onlineSigning = document.querySelector("#online_signing");
-    var canvasWrapper = document.querySelector("#signing_canvas");
-    if (onlineSigning.checked) {
-        canvasWrapper.classList.remove('is-hidden');
-        if (!signaturePad) {
-            signaturePad = new SignaturePad(canvasWrapper.querySelector("canvas"));
-            window.onresize = resizeCanvas;
-            resizeCanvas();
+    if (onlineSigning) {
+        var canvasWrapper = document.querySelector("#signing_canvas");
+        if (onlineSigning.checked) {
+            canvasWrapper.classList.remove('is-hidden');
+            if (!signaturePad) {
+                signaturePad = new SignaturePad(canvasWrapper.querySelector("canvas"));
+                window.onresize = resizeCanvas;
+                resizeCanvas();
+            }
+        } else if(signaturePad) {
+            signaturePad.clear();
+            canvasWrapper.classList.add('is-hidden');
         }
-    } else if(signaturePad) {
-        signaturePad.clear();
-        canvasWrapper.classList.add('is-hidden');
     }
 }
 

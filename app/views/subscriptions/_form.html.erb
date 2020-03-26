@@ -129,37 +129,19 @@
             <%= f.text_field :legal_type_desc, class: 'w100 is-hidden', placeholder: 'Précisez le statut', required: true, disabled: 'disabled' %>
           </div>
         </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :title, 'Civilité<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.select(:title, subscription_titles, {prompt: 'Sélectionnez une civilité'}, required: true, class: 'w100') %>
+        <%= render "contact_form", f: f, prefix: '', contact_title: 'Représentant légal', placeholder: 'Représentant légal' %>
+        <div class="flex-container mbs person_pm_only">
+          <div class="txtright item-center w40 prs pls"></div>
+          <div class="w60 flex-container aic">
+            <%= f.check_box :is_rep, {class: 'checkbox mrs', id: 'is_rep', onclick: 'toggleRepContactForm()'} %>
+            <label for="is_rep" class="item-fluid ma0">Sera le représentant permanent dans les instances</label>
           </div>
         </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :last_name, 'Nom<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :last_name, class: 'w100', required: true, placeholder: 'Contact administratif' %>
-          </div>
+        <div id="rep_contact_form" class="is-hidden">
+          <%= render "contact_form", f: f, prefix: 'rep_', contact_title: 'Représentant permanent dans les instances',
+                     placeholder: 'Représentant instances' %>
         </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :first_name, 'Prénom<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :first_name, class: 'w100', required: true, placeholder: 'Contact administratif' %>
-          </div>
-        </div>
-        <div class="flex-container mbs person_pp_only">
-          <div class="txtright item-center w40 prs pls"><%= f.label :birth_date, 'Date de naissance<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.date_field :birth_date, value: f.object.birth_date,
-                             class: 'w100', required: true, placeholder: 'JJ/MM/AAAA' %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :role, 'Fonction<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :role, class: 'w100', required: true %>
-          </div>
-        </div>
+
         <div class="flex-container mbs">
           <div class="txtright item-center w40 prs pls"><%= f.label :address, 'Adresse<sup>*</sup>'.html_safe %></div>
           <div class="w60">
@@ -182,18 +164,6 @@
           <div class="txtright item-center w40 prs pls"><%= f.label :country, 'Pays<sup>*</sup>'.html_safe %></div>
           <div class="w60">
             <%= f.select(:country, subscription_countries, {prompt: 'Sélectionnez un pays'}, required: true, class: 'w100') %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :telephone, 'Téléphone<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :telephone, class: 'w100', required: true, placeholder: 'portable de préférence' %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :email, 'Email<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.email_field :email, class: 'w100', required: true %>
           </div>
         </div>
         <div class="flex-container mbs">

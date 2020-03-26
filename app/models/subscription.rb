@@ -10,9 +10,10 @@ class Subscription < ApplicationRecord
 
   store_accessor :structure_data, :structure_name, :siret, :ape, :legal_type, :legal_type_desc, :apidae_member_id, :widget_hosts
   store_accessor :person_data, :title, :first_name, :last_name, :role, :birth_date, :address, :postal_code, :town, :country,
-                 :telephone, :email, :website, :fund_deposit, :payment_method, :payments_count, :signing, :ack_societaire,
-                 :ack_statuts, :ack_biens_communs, :ack_convocation, :person_type
-  store_accessor :crm_data, :opportunity_id
+                 :telephone, :email, :website, :is_rep, :rep_title, :rep_first_name, :rep_last_name, :rep_role, :rep_telephone, :rep_email,
+                 :fund_deposit, :payment_method, :payments_count, :signing,
+                 :ack_societaire, :ack_statuts, :ack_biens_communs, :ack_convocation, :person_type
+  store_accessor :crm_data, :opportunity_id, :crm_history
 
   attr_accessor :signature_data
 
@@ -52,6 +53,14 @@ class Subscription < ApplicationRecord
     person_type == 'pp'
   end
 
+  def is_rep?
+    is_rep == '1'
+  end
+
+  def email_recipient
+    (!is_rep? && !rep_email.blank?) ? rep_email : email
+  end
+
   def document_filename
     "Bulletin souscription - #{id} - #{pp? ? 'Personne physique' : 'Personne morale'} - #{public_label} - #{signed_at ? (I18n.l(signed_at, format: :doc) + ' - Signé') : 'Non signé'}"
   end
@@ -82,12 +91,16 @@ class Subscription < ApplicationRecord
     "#{title} #{first_name} #{last_name}"
   end
 
+  def full_rep_name
+    "#{rep_title} #{rep_first_name} #{rep_last_name}"
+  end
+
   def lpad(str)
     str.length == 5 ? str : ('0' + str)
   end
 
   def legal_entity_type
-    (legal_type == 'autre' ? legal_type_desc : LEGAL_TYPES[legal_type.to_sym]) unless legal_type.blank?
+    (legal_type == 'autre' ? legal_type_desc : LEGAL_TYPES[legal_type.to_sym][:label]) unless legal_type.blank?
   end
 
   def sponsor_label

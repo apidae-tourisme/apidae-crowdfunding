@@ -1,0 +1,49 @@
+<div class="flex-container mtm mbs person_pm_only">
+  <div class="txtright item-center w40 prs pls"><i class="apidae-icon-chevronrightfilled txt--primary u-bigger"></i></div>
+  <div class="w60 lh"><%= contact_title %></div>
+</div>
+<div class="flex-container mbs">
+  <div class="txtright item-center w40 prs pls"><%= f.label :"#{prefix}title", 'Civilité<sup>*</sup>'.html_safe %></div>
+  <div class="w60">
+    <%= f.select(:"#{prefix}title", subscription_titles, {prompt: 'Sélectionnez une civilité'}, required: true, class: 'w100') %>
+  </div>
+</div>
+<div class="flex-container mbs">
+  <div class="txtright item-center w40 prs pls"><%= f.label :"#{prefix}last_name", 'Nom<sup>*</sup>'.html_safe %></div>
+  <div class="w60">
+    <%= f.text_field :"#{prefix}last_name", class: 'w100', required: true, placeholder: placeholder %>
+  </div>
+</div>
+<div class="flex-container mbs">
+  <div class="txtright item-center w40 prs pls"><%= f.label :"#{prefix}first_name", 'Prénom<sup>*</sup>'.html_safe %></div>
+  <div class="w60">
+    <%= f.text_field :"#{prefix}first_name", class: 'w100', required: true, placeholder: placeholder %>
+  </div>
+</div>
+<% if prefix.blank? %>
+  <div class="flex-container mbs person_pp_only">
+    <div class="txtright item-center w40 prs pls"><%= f.label :birth_date, 'Date de naissance<sup>*</sup>'.html_safe %></div>
+    <div class="w60">
+      <%= f.date_field :birth_date, value: f.object.birth_date,
+                       class: 'w100', required: true, placeholder: 'JJ/MM/AAAA' %>
+    </div>
+  </div>
+<% end %>
+<div class="flex-container mbs">
+  <div class="txtright item-center w40 prs pls"><%= f.label :"#{prefix}role", 'Fonction<sup>*</sup>'.html_safe %></div>
+  <div class="w60">
+    <%= f.text_field :"#{prefix}role", class: 'w100', required: true %>
+  </div>
+</div>
+<div class="flex-container mbs">
+  <div class="txtright item-center w40 prs pls"><%= f.label :"#{prefix}telephone", 'Téléphone<sup>*</sup>'.html_safe %></div>
+  <div class="w60">
+    <%= f.text_field :"#{prefix}telephone", class: 'w100', required: true, placeholder: 'portable de préférence' %>
+  </div>
+</div>
+<div class="flex-container mbs">
+  <div class="txtright item-center w40 prs pls"><%= f.label :"#{prefix}email", 'Email<sup>*</sup>'.html_safe %></div>
+  <div class="w60">
+    <%= f.email_field :"#{prefix}email", class: 'w100', required: true %>
+  </div>
+</div>

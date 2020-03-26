@@ -20,7 +20,7 @@ module SubscriptionsHelper
   end
 
   def legal_types
-    LEGAL_TYPES.map {|ref, label| [label, ref.to_s]}
+    LEGAL_TYPES.map {|ref, lt| [lt[:label], ref.to_s]}
   end
 
   def subscription_sponsors

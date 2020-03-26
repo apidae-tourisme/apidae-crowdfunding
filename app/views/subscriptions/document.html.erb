@@ -34,11 +34,14 @@
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% else %>
         <p class="w100 flex-container"><span>Raison sociale : </span><span class="text_value"><%= @subscription.structure_name %></span></p>
-        <p class="w100 flex-container"><span>Forme juridique : </span><span class="text_value"><%= LEGAL_TYPES[@subscription.legal_type.to_sym] unless @subscription.legal_type.blank? %></span></p>
+        <p class="w100 flex-container"><span>Forme juridique : </span><span class="text_value"><%= LEGAL_TYPES[@subscription.legal_type.to_sym][:label] unless @subscription.legal_type.blank? %></span></p>
         <p class="w60 flex-container"><span>SIRET : </span><span class="text_value"><%= @subscription.siret %></span></p>
         <p class="w40 flex-container"><span>APE : </span><span class="text_value"><%= @subscription.ape %></span></p>
-        <p class="w100 flex-container"><span>Représenté par : </span><span class="text_value"><%= @subscription.full_name %></span></p>
-        <p class="w100 flex-container"><span>Agissant en qualité de : </span><span class="text_value"><%= @subscription.role %></span></p>
+        <p class="w100 flex-container"><span>Représentant légal : </span><span class="text_value"><%= @subscription.full_name %></span></p>
+        <% unless @subscription.is_rep? %>
+          <p class="w100 flex-container"><span>Représentant aux instances : </span><span class="text_value"><%= @subscription.full_rep_name %></span></p>
+        <% end %>
+        <p class="w100 flex-container"><span>Agissant en qualité de : </span><span class="text_value"><%= @subscription.is_rep? ? @subscription.role : @subscription.rep_role %></span></p>
         <p class="w100 flex-container"><span>Siège social : </span><span class="text_value"><%= address_fields[0] %></span></p>
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% end %>
@@ -49,8 +52,7 @@
       <p class="w100 flex-container"><span>N° de téléphone : </span><span class="text_value"><%= @subscription.telephone %></span></p>
       <p class="w100"><span>Mode de règlement : </span>Chèque<%= chk(:payment_method, 'cheque') %>Virement<%= chk(:payment_method, 'virement') %></p>
       <p class="w100 flex-container"><span>Nombre de parts : </span><span class="text_value"><%= @subscription.shares_count %></span></p>
-      <p class="w100 flex-container"><span>Montant de la souscription <small><em>(en chiffres)</em></small> : </span><span class="text_value"><%= number_to_currency(@subscription.amount, locale: :fr, precision: 0) %></span></p>
-      <p class="w100 flex-container"><span>Montant de la souscription <small><em>(en lettres)</em></small> : </span><span class="text_value"><%= @subscription.amount_as_text %></span></p>
+      <p class="w100 flex-container"><span>Montant de la souscription : </span><span class="text_value"><%= number_to_currency(@subscription.amount, locale: :fr, precision: 0) %> (<%= @subscription.amount_as_text %>)</span></p>
     </div>
   </section>
   <section class="bg--danger pll prl ptm pbm">
@@ -92,8 +94,7 @@
           En cas de régime de bien commun, je m’engage à prévenir mon/ma conjoint(e) en cas d’apport de biens communs et à
           fournir la notification de renonciation à être associé (téléchargeable à l'adresse <a href="/renonciation-souscription-apidae.pdf" target="_blank">https://souscription.apidae-tourisme.com/renonciation-souscription-apidae.pdf</a>)
         <% else %>
-          La personne morale / collectivité territoriale représentée déclare être habilitée à prendre cette décision
-          et à engager la structure qu’elle représente.
+          Le signataire déclare être habilitée à prendre cette décision et à engager la structure qu’elle représente.
         <% end %>
       </p>
     </div>

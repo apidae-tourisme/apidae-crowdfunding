@@ -157,10 +157,14 @@
   }
 
   #infos_fields {
-    max-height: 650px;
+    max-height: 520px;
 
     &.person_type_pp {
       max-height: 540px;
+    }
+
+    &.rep_visible {
+      max-height: 840px;
     }
 
     > .flex-container {

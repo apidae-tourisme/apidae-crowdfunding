@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def new
-    @subscription = Subscription.new(person_type: 'pm', payments_count: 'single_payment')
+    @subscription = Subscription.new(person_type: 'pm', payments_count: 'single_payment', is_rep: "1")
   end
 
   def create
