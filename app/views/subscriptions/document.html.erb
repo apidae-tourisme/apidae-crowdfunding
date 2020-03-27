@@ -37,11 +37,12 @@
         <p class="w100 flex-container"><span>Forme juridique : </span><span class="text_value"><%= LEGAL_TYPES[@subscription.legal_type.to_sym][:label] unless @subscription.legal_type.blank? %></span></p>
         <p class="w60 flex-container"><span>SIRET : </span><span class="text_value"><%= @subscription.siret %></span></p>
         <p class="w40 flex-container"><span>APE : </span><span class="text_value"><%= @subscription.ape %></span></p>
-        <p class="w100 flex-container"><span>Représentant légal : </span><span class="text_value"><%= @subscription.full_name %></span></p>
+        <p class="w60 flex-container"><span>Représentant légal : </span><span class="text_value"><%= @subscription.full_name %></span></p>
+        <p class="w40 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
         <% unless @subscription.is_rep? %>
-          <p class="w100 flex-container"><span>Représentant aux instances : </span><span class="text_value"><%= @subscription.full_rep_name %></span></p>
+          <p class="w60 flex-container"><span>Représentant aux instances : </span><span class="text_value"><%= @subscription.full_rep_name %></span></p>
+          <p class="w40 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.rep_role %></span></p>
         <% end %>
-        <p class="w100 flex-container"><span>Agissant en qualité de : </span><span class="text_value"><%= @subscription.is_rep? ? @subscription.role : @subscription.rep_role %></span></p>
         <p class="w100 flex-container"><span>Siège social : </span><span class="text_value"><%= address_fields[0] %></span></p>
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% end %>
@@ -143,3 +144,13 @@
   </footer>
   <input type="hidden" value="<%= @subscription.document_filename %>" id="subscription_doc_filename"/>
 </div>
+<% unless @subscription.crm_history.blank? %>
+  <div id="crm_history_modal" class="is-hidden pam">
+    <p class="mbm mt0"><em>Le <%= l Time.at(@subscription.last_crm_entry[:timestamp].to_i), format: :detailed %></em></p>
+    <ul>
+    <% @subscription.last_crm_entry[:statuses].each_pair do |ref, status| %>
+      <li><%= "#{t "crm.history.#{ref}"} : #{render_crm_status(status)}" %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

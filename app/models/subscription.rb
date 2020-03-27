@@ -73,6 +73,7 @@ class Subscription < ApplicationRecord
         self.region = r if codes.any? {|c| code.start_with?(c)}
       end
     end
+    self.is_rep = '1' if is_rep.nil?
   end
 
   def normalize_label
@@ -105,5 +106,11 @@ class Subscription < ApplicationRecord
 
   def sponsor_label
     sponsor.label if sponsor
+  end
+
+  def last_crm_entry
+    unless crm_history.blank?
+      {timestamp: crm_history.keys.sort.last, statuses: crm_history[crm_history.keys.sort.last]}
+    end
   end
 end

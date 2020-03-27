@@ -46,4 +46,12 @@ module SubscriptionsHelper
   def phase_label
     @subscription.persisted? && @subscription.declared? ? "souscription" : "déclaration d'intention"
   end
+
+  def render_crm_status(status)
+    if status
+      "OK" + (status.is_a?(Integer) ? " (#{status})" : '')
+    else
+      "KO"
+    end
+  end
 end

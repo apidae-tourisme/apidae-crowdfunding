@@ -54,6 +54,20 @@ fr:
       status:
         declared: "Déclarée"
         confirmed: "Confirmée"
+  crm:
+    history:
+      prospect_create: "Création prospect + contact principal"
+      prospect_update: "Mise à jour prospect + contact principal"
+      client_update: "Mise à jour client + contact principal"
+      opportunity_create: "Création opportunité"
+      opportunity_udpate: "Mise à jour opportunité"
+      rep_contact_create: "Création contact représentant"
+      rep_contact_custom_fields: "Champs personnalisés contact représentant"
+      contact_custom_fields: "Champs personnalisés contact principal"
+      customer_custom_fields: "Champs personnalisés client"
+      prospect_custom_fields: "Champs personnalisés prospect"
+      opportunity_attachment: "Fichier joint opportunité"
+      opportunity_custom_fields: "Champs personnalisés opportunité"
   time:
     formats:
       detailed: "%d/%m à %H:%M"

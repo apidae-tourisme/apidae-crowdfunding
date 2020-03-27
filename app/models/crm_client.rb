@@ -38,22 +38,30 @@ class CrmClient
   def self.add_or_update(subscription)
     history_entry = {}
     entity = lookup_entity(subscription)
-    entity_ref = entity.is_a?(Sellsy::Prospect) ? 'prospect' : 'customer'
+    rep_contact_id = nil
 
     if entity
+      entity_ref = entity.is_a?(Sellsy::Prospect) ? 'prospect' : 'customer'
       history_entry["#{entity_ref}_update"] = update_entity(entity, subscription) ? entity.id : false
     else
+      entity_ref = 'prospect'
       entity = create_prospect(subscription)
       history_entry['prospect_create'] = entity.id
       unless subscription.is_rep?
         rep_contact = init_rep_contact(subscription, entity.id)
+        rep_contact_id = rep_contact.id
         history_entry['rep_contact_create'] = rep_contact.create ? rep_contact.id : false
+        if rep_contact.id
+          history_entry["rep_contact_custom_fields"] =
+              Sellsy::CustomField.set_values(rep_contact, Sellsy::CustomField.new(*lookup_value(SELLSY_REFERENT_SOCIETAIRE, ['INST'])))
+        end
       end
     end
 
     history_entry["#{entity_ref}_custom_fields"] =
         Sellsy::CustomField.set_values(entity,
                                        Sellsy::CustomField.new(*lookup_value(SELLSY_TYPE_COLLEGE, college_type(subscription))),
+                                       Sellsy::CustomField.new(*lookup_value(SELLSY_CATEGORIE_SOCIETAIRE, category(subscription))),
                                        subscription.pp? ? nil : Sellsy::CustomField.new(*lookup_value(SELLSY_STATUT_JURIDIQUE, LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code])),
                                        subscription.pp? ? nil : Sellsy::CustomField.new(*lookup_value(SELLSY_SECTEUR_ACTIVITE, activity_domain(subscription)))
         )
@@ -62,11 +70,12 @@ class CrmClient
     unless entity_contact.contacts.blank?
       contact = Sellsy::Contact.new
       contact.id = entity_contact.contacts.values.first['peopleid']
+      rep_contact_id ||= contact.id
       history_entry["contact_custom_fields"] =
           Sellsy::CustomField.set_values(contact, Sellsy::CustomField.new(*lookup_value(SELLSY_REFERENT_SOCIETAIRE, rep_values(subscription))))
     end
 
-    opportunity = add_or_update_opportunity(entity, subscription, history_entry)
+    opportunity = add_or_update_opportunity(entity, subscription, history_entry, rep_contact_id)
 
     subscription.crm_history ||= {}
     subscription.crm_history[Time.current.to_i] = history_entry
@@ -87,7 +96,7 @@ class CrmClient
     entity.update
   end
 
-  def self.add_or_update_opportunity(entity, subscription, history_entry)
+  def self.add_or_update_opportunity(entity, subscription, history_entry, rep_contact_id)
     if subscription.opportunity_id
       opportunity = Sellsy::Opportunity.find(subscription.opportunity_id)
     else
@@ -103,6 +112,7 @@ class CrmClient
     opportunity.funnel_name = "Souscription Scic"
     opportunity.step_name = subscription.signed_at ? "Bulletin signé" : "Bulletin renseigné"
     opportunity.comments = subscription.comments
+    opportunity.contacts = [rep_contact_id.to_s] unless rep_contact_id.nil?
 
     result = subscription.opportunity_id ? opportunity.update : opportunity.create
     history_entry["opportunity_#{subscription.opportunity_id ? 'update' : 'create'}"] = result ? opportunity.id : false
@@ -112,8 +122,7 @@ class CrmClient
                                               Sellsy::CustomField.new(lookup_field(SELLSY_NB_PARTS), subscription.shares_count),
                                               Sellsy::CustomField.new(lookup_field(SELLSY_NUM_SOUSCRIPTION), subscription.id),
                                               subscription.payment_method ? Sellsy::CustomField.new(*lookup_value(SELLSY_MOYEN_PAIEMENT, payment_method_code(subscription))) : nil,
-                                              # Note : commented out for now - expects a numeric value with currency
-                                              # Sellsy::CustomField.new(lookup_field(SELLSY_MONTANT_LIBERE), (subscription.payments_count == 'half_payment' ? "Deux fois (50%)" : "Une fois"))
+                                              Sellsy::CustomField.new(*lookup_value(SELLSY_LIBERATION_MONTANT, subscription.payments_count == 'half_payment' ? "2" : "1"))
       )
       history_entry["opportunity_custom_fields"] = result
 
@@ -160,7 +169,12 @@ class CrmClient
   end
 
   def self.college_type(subscription)
-    CATEGORIES[subscription.category.to_sym][:crm_code] unless
+    CATEGORIES[subscription.category.to_sym][:college_code] unless
+        subscription.category.blank? || CATEGORIES[subscription.category.to_sym].blank?
+  end
+
+  def self.category(subscription)
+    CATEGORIES[subscription.category.to_sym][:category_code] unless
         subscription.category.blank? || CATEGORIES[subscription.category.to_sym].blank?
   end
 

@@ -27,11 +27,11 @@ rescue Exception => ex
 end
 
 SELLSY_STATUT_JURIDIQUE = "statutjuridique"
-SELLSY_MONTANT_LIBERE = "montantlibere"
-SELLSY_DATE_LIBERATION = "dateliberation"
+SELLSY_LIBERATION_MONTANT = "liberationmontant"
 SELLSY_TYPE_COLLEGE = "typecollege"
 SELLSY_SECTEUR_ACTIVITE = "secteur"
 SELLSY_REFERENT_SOCIETAIRE = "referentsocietaireliste"
 SELLSY_NB_PARTS = "nbrepartssouscrites"
 SELLSY_NUM_SOUSCRIPTION = "numsouscription"
 SELLSY_MOYEN_PAIEMENT = "moyenpaiement"
+SELLSY_CATEGORIE_SOCIETAIRE = "categoriesocietaire"

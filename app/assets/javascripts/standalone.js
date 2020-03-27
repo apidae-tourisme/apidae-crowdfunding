@@ -12,3 +12,4 @@
 //
 //= require rails-ujs
 //= require admin/common
+//= require van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria
