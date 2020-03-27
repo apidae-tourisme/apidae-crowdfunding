@@ -158,7 +158,7 @@ class CrmClient
     entity.name = subscription.public_label
     entity.contact = contact
     entity.address = address
-    entity.legal_type = LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code]
+    entity.legal_type = LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code] unless subscription.pp?
     [:structure_name, :category, :siret, :ape, :email, :website, :payment_method, :person_type].each do |field|
       entity.send("#{field}=", subscription.send(field))
     end
