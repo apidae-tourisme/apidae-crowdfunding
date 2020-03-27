@@ -11,14 +11,12 @@ class CrmClient
     end
 
     customers = Sellsy::Customer.search({'search' => search_params})
-    if customers.blank?
-      entity = lookup_prospect(subscription)
-    elsif customers.length == 1
-      entity = customers.first
-    else
+    if customers.length > 1
       entity = customers.find { |c| c.name.parameterize.include?(name_field(subscription)) }
+    else
+      entity = customers.first
     end
-    entity
+    entity || lookup_prospect(subscription)
   end
 
   def self.lookup_prospect(subscription)
@@ -38,7 +36,6 @@ class CrmClient
   def self.add_or_update(subscription)
     history_entry = {}
     entity = lookup_entity(subscription)
-    rep_contact_id = nil
 
     if entity
       entity_ref = entity.is_a?(Sellsy::Prospect) ? 'prospect' : 'customer'
@@ -49,7 +46,6 @@ class CrmClient
       history_entry['prospect_create'] = entity.id
       unless subscription.is_rep?
         rep_contact = init_rep_contact(subscription, entity.id)
-        rep_contact_id = rep_contact.id
         history_entry['rep_contact_create'] = rep_contact.create ? rep_contact.id : false
         if rep_contact.id
           history_entry["rep_contact_custom_fields"] =
@@ -70,12 +66,11 @@ class CrmClient
     unless entity_contact.contacts.blank?
       contact = Sellsy::Contact.new
       contact.id = entity_contact.contacts.values.first['peopleid']
-      rep_contact_id ||= contact.id
       history_entry["contact_custom_fields"] =
           Sellsy::CustomField.set_values(contact, Sellsy::CustomField.new(*lookup_value(SELLSY_REFERENT_SOCIETAIRE, rep_values(subscription))))
     end
 
-    opportunity = add_or_update_opportunity(entity, subscription, history_entry, rep_contact_id)
+    opportunity = add_or_update_opportunity(entity, subscription, history_entry, (entity_contact.contacts || {}).keys)
 
     subscription.crm_history ||= {}
     subscription.crm_history[Time.current.to_i] = history_entry
@@ -96,7 +91,7 @@ class CrmClient
     entity.update
   end
 
-  def self.add_or_update_opportunity(entity, subscription, history_entry, rep_contact_id)
+  def self.add_or_update_opportunity(entity, subscription, history_entry, contacts_ids)
     if subscription.opportunity_id
       opportunity = Sellsy::Opportunity.find(subscription.opportunity_id)
     else
@@ -112,7 +107,7 @@ class CrmClient
     opportunity.funnel_name = "Souscription Scic"
     opportunity.step_name = subscription.signed_at ? "Bulletin signé" : "Bulletin renseigné"
     opportunity.comments = subscription.comments
-    opportunity.contacts = [rep_contact_id.to_s] unless rep_contact_id.nil?
+    opportunity.contacts = contacts_ids
 
     result = subscription.opportunity_id ? opportunity.update : opportunity.create
     history_entry["opportunity_#{subscription.opportunity_id ? 'update' : 'create'}"] = result ? opportunity.id : false
@@ -163,7 +158,8 @@ class CrmClient
     entity.name = subscription.public_label
     entity.contact = contact
     entity.address = address
-    [:structure_name, :category, :siret, :ape, :legal_type, :email, :website, :payment_method, :person_type].each do |field|
+    entity.legal_type = LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code]
+    [:structure_name, :category, :siret, :ape, :email, :website, :payment_method, :person_type].each do |field|
       entity.send("#{field}=", subscription.send(field))
     end
   end

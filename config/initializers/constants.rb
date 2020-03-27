@@ -10,7 +10,7 @@ CATEGORIES = {
 
 LEGAL_TYPES = {
     association: {label: "Association", crm_code: 'ASSO'},
-    collectivite_territoriale: {label: "Collectivité territoriale (commune, Conseil Départemental, Région, etc.)", crm_code: 'AUT'},
+    collectivite_territoriale: {label: "Collectivité territoriale (commune, Conseil Départemental, Région, etc.)", crm_code: 'CT'},
     eurl: {label: "Entreprise Unipersonnelle à Responsabilité Limitée (EURL)", crm_code: 'EURL'},
     regie_autonome: {label: "Régie autonome", crm_code: 'RA'},
     epic: {label: "Régie personnalisée gestionnaire d'un Etablissement Public Industriel et Commercial (EPIC)", crm_code: 'EPIC'},

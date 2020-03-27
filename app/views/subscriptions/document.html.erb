@@ -28,20 +28,20 @@
         <p class="w20">M<sup>me</sup><%= chk(:title, 'Mme') %>M.<%= chk(:title, 'M.') %></p>
         <p class="w40 flex-container"><span>Nom : </span><span class="text_value"><%= @subscription.first_name %></span></p>
         <p class="w40 flex-container"><span>Prénom : </span><span class="text_value"><%= @subscription.last_name %></span></p>
-        <p class="w60 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
-        <p class="w40 flex-container"><span>Date de naissance : </span><span class="text_value"><%= l(Date.parse(@subscription.birth_date), format: :short) unless @subscription.birth_date.blank? %></span></p>
+        <p class="w70 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
+        <p class="w30 flex-container"><span>Date de naissance : </span><span class="text_value"><%= l(Date.parse(@subscription.birth_date), format: :short) unless @subscription.birth_date.blank? %></span></p>
         <p class="w100 flex-container"><span>Adresse : </span><span class="text_value"><%= address_fields[0] %></span></p>
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
       <% else %>
         <p class="w100 flex-container"><span>Raison sociale : </span><span class="text_value"><%= @subscription.structure_name %></span></p>
         <p class="w100 flex-container"><span>Forme juridique : </span><span class="text_value"><%= LEGAL_TYPES[@subscription.legal_type.to_sym][:label] unless @subscription.legal_type.blank? %></span></p>
-        <p class="w60 flex-container"><span>SIRET : </span><span class="text_value"><%= @subscription.siret %></span></p>
-        <p class="w40 flex-container"><span>APE : </span><span class="text_value"><%= @subscription.ape %></span></p>
-        <p class="w60 flex-container"><span>Représentant légal : </span><span class="text_value"><%= @subscription.full_name %></span></p>
-        <p class="w40 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
+        <p class="w70 flex-container"><span>SIRET : </span><span class="text_value"><%= @subscription.siret %></span></p>
+        <p class="w30 flex-container"><span>APE : </span><span class="text_value"><%= @subscription.ape %></span></p>
+        <p class="w70 flex-container"><span>Représentant légal : </span><span class="text_value"><%= @subscription.full_name %></span></p>
+        <p class="w30 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
         <% unless @subscription.is_rep? %>
-          <p class="w60 flex-container"><span>Représentant aux instances : </span><span class="text_value"><%= @subscription.full_rep_name %></span></p>
-          <p class="w40 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.rep_role %></span></p>
+          <p class="w70 flex-container"><span>Représentant aux instances : </span><span class="text_value"><%= @subscription.full_rep_name %></span></p>
+          <p class="w30 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.rep_role %></span></p>
         <% end %>
         <p class="w100 flex-container"><span>Siège social : </span><span class="text_value"><%= address_fields[0] %></span></p>
         <p class="w100 flex-container"><span class="text_value"><%= address_fields[1..-1].join(' ') %></span></p>
