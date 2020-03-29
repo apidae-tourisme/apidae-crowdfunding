@@ -29,21 +29,21 @@ function bindCategorySelector() {
 
 function bindPersonTypeFields() {
     document.querySelector("#person_type_pm").addEventListener("change", function() {
-        togglePersonType('pm');
+        togglePersonTypeInfos('pm');
         updateCategoryFields(document.querySelector("#category_selector"));
     });
     document.querySelector("#person_type_pp").addEventListener("change", function() {
-        togglePersonType('pp');
+        togglePersonTypeInfos('pp');
         updateCategoryFields(document.querySelector("#category_selector"));
     });
     if (document.querySelector("#person_type_pm:checked")) {
-        togglePersonType('pm');
+        togglePersonTypeInfos('pm');
     } else if (document.querySelector("#person_type_pp:checked")) {
-        togglePersonType('pp');
+        togglePersonTypeInfos('pp');
     }
 }
 
-function togglePersonType(personType) {
+function togglePersonTypeInfos(personType) {
     var infos = document.querySelector("#infos_fields"), otherType = personType === 'pp' ? 'pm' : 'pp';
     infos.classList.remove('person_type_' + otherType);
     infos.classList.add('person_type_' + personType);
@@ -68,6 +68,14 @@ function setAmountDesc(field) {
     }
 }
 
+function togglePersonType(personType) {
+    var otherType = personType === 'pp' ? 'pm' : 'pp';
+    document.querySelector("#person_type_" + otherType).checked = false;
+    document.querySelector("#person_type_" + otherType).removeAttribute("checked");
+    document.querySelector("#person_type_" + personType).checked = true;
+    document.querySelector("#person_type_" + personType).setAttribute("checked", "checked");
+}
+
 function updateCategoryFields(categorySelect) {
     var prevCategory = document.querySelector(".category_desc:not(.is-hidden)");
     if (prevCategory) {
@@ -88,8 +96,11 @@ function updateCategoryFields(categorySelect) {
 
     if (categorySelect.value === 'sr') {
         document.querySelector("#person_type_field").classList.remove('is-hidden');
+    } else if (categorySelect.value === 'sa') {
+        togglePersonType('pp');
     } else {
         document.querySelector("#person_type_field").classList.add('is-hidden');
+        togglePersonType('pm');
     }
 
     var structureFields = document.querySelectorAll("#infos .person_pm_only"),
@@ -105,7 +116,9 @@ function updateCategoryFields(categorySelect) {
             }
         }
         document.querySelector("#subscription_role").removeAttribute('required');
-        document.querySelector("label[for='subscription_role'] sup").remove();
+        if (document.querySelector("label[for='subscription_role'] sup")) {
+            document.querySelector("label[for='subscription_role'] sup").remove();
+        }
         for (var m = 0; m < personFields.length; m++) {
             personFields[m].classList.remove('is-hidden');
             inputs = personFields[m].querySelectorAll('input, select');

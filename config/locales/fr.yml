@@ -60,7 +60,7 @@ fr:
       prospect_update: "Mise à jour prospect + contact principal"
       client_update: "Mise à jour client + contact principal"
       opportunity_create: "Création opportunité"
-      opportunity_udpate: "Mise à jour opportunité"
+      opportunity_update: "Mise à jour opportunité"
       rep_contact_create: "Création contact représentant"
       rep_contact_custom_fields: "Champs personnalisés contact représentant"
       contact_custom_fields: "Champs personnalisés contact principal"

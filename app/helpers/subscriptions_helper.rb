@@ -11,7 +11,7 @@ module SubscriptionsHelper
         ['Italie', 'it'],
         ['Espagne', 'es'],
         ['Belgique', 'be'],
-        ['Royaume-Uni', 'uk']
+        ['Royaume-Uni', 'gb']
     ]
   end
 
