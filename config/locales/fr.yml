@@ -6,7 +6,7 @@ fr:
     it: Italie
     es: Espagne
     be: Belgique
-    uk: Royaume-Uni
+    gb: Royaume-Uni
   export:
     subscription:
       field:
@@ -43,7 +43,7 @@ fr:
         it: "Italie"
         es: "Espagne"
         be: "Belgique"
-        uk: "Royaume-Uni"
+        gb: "Royaume-Uni"
         before: "Avant le 16/03/2020"
         after: "Après le 16/03/2020"
         unavailable: "Ne sait pas"
