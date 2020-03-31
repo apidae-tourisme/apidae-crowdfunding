@@ -3,7 +3,7 @@ require 'open-uri'
 
 class CrmClient
   def self.lookup_entity(subscription)
-    if subscription.apidae_member_id
+    if !subscription.apidae_member_id.blank?
       search_params = {'ident' => subscription.apidae_member_id}
     else
       search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.email} :
@@ -11,22 +11,12 @@ class CrmClient
     end
 
     customers = Sellsy::Customer.search({'search' => search_params})
-    if customers.length > 1
-      entity = customers.find { |c| c.name.parameterize.include?(name_field(subscription)) }
-    else
-      entity = customers.first
-    end
-    entity || lookup_prospect(subscription)
+    customers.first || lookup_prospect(subscription)
   end
 
   def self.lookup_prospect(subscription)
-    prospects = Sellsy::Prospect.search({'contains' => subscription.email})
-    if prospects.blank?
-    elsif prospects.length == 1
-      prospects.first
-    else
-      prospects.find { |p| p.name.parameterize.include?(name_field(subscription)) }
-    end
+    prospects = Sellsy::Prospect.search({'search' => {'contains' => subscription.email}})
+    prospects.first
   end
 
   def self.name_field(subscription)
@@ -39,10 +29,10 @@ class CrmClient
 
     if entity
       entity_ref = entity.is_a?(Sellsy::Prospect) ? 'prospect' : 'customer'
-      history_entry["#{entity_ref}_update"] = update_entity(entity, subscription) ? entity.id : false
+      update_entity(entity, entity_ref, subscription, history_entry)
     else
       entity_ref = 'prospect'
-      entity = create_prospect(subscription)
+      entity = create_prospect(subscription, history_entry)
       history_entry['prospect_create'] = entity.id
       unless subscription.is_rep?
         rep_contact = init_rep_contact(subscription, entity.id)
@@ -79,16 +69,32 @@ class CrmClient
     subscription.save
   end
 
-  def self.create_prospect(subscription)
+  def self.create_prospect(subscription, history_entry)
     prospect = Sellsy::Prospect.new
-    populate_fields(prospect, subscription)
+    contact = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name, subscription.birth_date).first
+    populate_fields(prospect, subscription, contact || Sellsy::Contact.new)
     prospect.create
+    if contact && prospect.id
+      unless contact.third_ids.include?(prospect.id)
+        contact.third_ids += [prospect.id]
+      end
+      history_entry["contact_update"] = contact.update
+    end
     prospect
   end
 
-  def self.update_entity(entity, subscription)
-    populate_fields(entity, subscription)
-    entity.update
+  def self.update_entity(entity, entity_ref, subscription, history_entry)
+    contact = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name, subscription.birth_date).first
+    populate_fields(entity, subscription, contact || Sellsy::Contact.new)
+    result = entity.update
+    history_entry["#{entity_ref}_update"] = result ? entity.id : false
+    if contact
+      unless contact.third_ids.include?(entity.id)
+        contact.third_ids += [entity.id]
+      end
+      history_entry["contact_update"] = contact.update
+    end
+    result
   end
 
   def self.add_or_update_opportunity(entity, subscription, history_entry, contacts_ids)
@@ -142,12 +148,11 @@ class CrmClient
     [:rep_title, :rep_first_name, :rep_last_name, :rep_role, :rep_telephone, :rep_email].each do |field|
       contact.send("#{field.to_s.gsub('rep_', '')}=", subscription.send(field))
     end
-    contact.third_id = entity_id
+    contact.third_ids = [entity_id]
     contact
   end
 
-  def self.populate_fields(entity, subscription)
-    contact = Sellsy::Contact.new
+  def self.populate_fields(entity, subscription, contact)
     [:title, :first_name, :last_name, :role, :birth_date, :telephone, :email, :website].each do |field|
       contact.send("#{field}=", subscription.send(field))
     end
@@ -155,8 +160,10 @@ class CrmClient
     [:address, :postal_code, :town, :country].each do |field|
       address.send("#{field}=", subscription.send(field))
     end
+    tmp_contact = Sellsy::Contact.new
+    tmp_contact.name = contact.last_name
     entity.name = subscription.public_label
-    entity.contact = contact
+    entity.contact = contact.id ? tmp_contact : contact
     entity.address = address
     entity.legal_type = LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code] unless subscription.pp?
     [:structure_name, :category, :siret, :ape, :email, :website, :payment_method, :person_type].each do |field|

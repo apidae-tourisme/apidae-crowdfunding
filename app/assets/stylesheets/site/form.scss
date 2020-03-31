@@ -163,6 +163,14 @@
       max-height: 540px;
     }
 
+    &.person_type_pm.canvas_visible.is_confirmation:not(.rep_visible) {
+      max-height: 720px;
+
+      .is_rep_toggle {
+        padding-bottom: 130px;
+      }
+    }
+
     &.rep_visible {
       max-height: 840px;
     }
@@ -262,10 +270,22 @@
 
 .ie_browser {
   #subscription_form #infos_fields {
-    height: 650px;
+    height: 520px;
 
     &.person_type_pp {
       height: 540px;
+    }
+
+    &.person_type_pm.canvas_visible.is_confirmation:not(.rep_visible) {
+      height: 720px;
+
+      .is_rep_toggle {
+        padding-bottom: 130px;
+      }
+    }
+
+    &.rep_visible {
+      height: 840px;
     }
   }
 }

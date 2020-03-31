@@ -308,7 +308,7 @@ function toggleRepContactForm() {
 
 var signaturePad;
 function toggleSignaturePad() {
-    var onlineSigning = document.querySelector("#online_signing");
+    var onlineSigning = document.querySelector("#online_signing"), infosFields = document.querySelector("#infos_fields");
     if (onlineSigning) {
         var canvasWrapper = document.querySelector("#signing_canvas");
         if (onlineSigning.checked) {
@@ -318,9 +318,11 @@ function toggleSignaturePad() {
                 window.onresize = resizeCanvas;
                 resizeCanvas();
             }
+            infosFields.classList.add('canvas_visible');
         } else if(signaturePad) {
             signaturePad.clear();
             canvasWrapper.classList.add('is-hidden');
+            infosFields.classList.remove('canvas_visible');
         }
     }
 }

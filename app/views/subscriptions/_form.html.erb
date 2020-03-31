@@ -3,6 +3,7 @@
 <% end %>
 
 <% is_new = !@subscription.persisted? %>
+<% is_confirmation = @subscription.persisted? && @subscription.declared? %>
 <%= form_for(@subscription, html: {id: 'subscription_form'}) do |f| %>
   <div class="js-tabs">
     <ul class="js-tablist" data-existing-hx="h3">
@@ -103,7 +104,7 @@
           <%= f.hidden_field :apidae_member_id %>
         </div>
       <% end %>
-      <div id="infos_fields" class="flex-container--column mtl">
+      <div id="infos_fields" class="flex-container--column mtl <%= 'is_confirmation' if is_confirmation %>">
         <div class="flex-container mbs person_pm_only">
           <div class="txtright item-center w40 prs pls"><%= f.label :structure_name, 'Nom de la structure<sup>*</sup>'.html_safe %></div>
           <div class="w60">
@@ -130,7 +131,7 @@
           </div>
         </div>
         <%= render "contact_form", f: f, prefix: '', contact_title: 'Représentant légal', placeholder: 'Représentant légal' %>
-        <div class="flex-container mbs person_pm_only">
+        <div class="flex-container mbs person_pm_only is_rep_toggle">
           <div class="txtright item-center w40 prs pls"></div>
           <div class="w60 flex-container aic">
             <%= f.check_box :is_rep, {class: 'checkbox mrs', id: 'is_rep', onclick: 'toggleRepContactForm()'} %>
@@ -172,7 +173,7 @@
             <%= f.select(:sponsor_id, subscription_sponsors, {prompt: 'Facultatif'}, class: 'w100') %>
           </div>
         </div>
-        <% if @subscription.persisted? && @subscription.declared? %>
+        <% if is_confirmation %>
           <div class="flex-container mbs">
             <div class="txtright item-center w40 prs pls"><%= f.label :payment_method, 'Mode de règlement<sup>*</sup>'.html_safe %></div>
             <div class="w60 item-center">
@@ -198,7 +199,7 @@
             <%= f.text_area :comments, class: 'w100', rows: 3 %>
           </div>
         </div>
-        <% if @subscription.persisted? && @subscription.declared? %>
+        <% if is_confirmation %>
           <div class="flex-container mbs">
             <div class="txtright item-center w40 prs pls"><%= f.label :signing, 'Signature'.html_safe %></div>
             <div class="w60 flex-container aic">
@@ -232,7 +233,7 @@
           J'autorise Apidae Tourisme à communiquer ma prise de participation au capital sur l'ensemble de ses supports de communication
         </label>
       </div>
-      <% if @subscription.persisted? && @subscription.declared? %>
+      <% if is_confirmation %>
         <div class="flex-container mtl">
           <div class="txtright item-center u-big w15 prs"><%= f.check_box :ack_societaire, {class: 'checkbox', required: true} %></div>
           <label for="subscription_ack_societaire" class="item-fluid item-center txtleft lh reg">
@@ -326,7 +327,7 @@
 <% content_for :page_scripts do %>
   <%= javascript_include_tag 'tabs' %>
   <%= javascript_include_tag 'subscription' %>
-  <% if @subscription.persisted? && @subscription.declared? %>
+  <% if is_confirmation %>
     <script>
         document.addEventListener("DOMContentLoaded", function(event) {
             initSignatureFilePreview();

@@ -16,7 +16,7 @@ gem 'rubyzip', '~> 1.1.0'
 gem 'axlsx', '2.1.0.pre'
 gem 'axlsx_rails'
 gem 'humanize'
-gem 'sellsy-client', '0.5.0'
+gem 'sellsy-client', '0.6.0'
 # gem 'sellsy-client', path: '../sellsy-client'
 
 gem 'rack-cors'
