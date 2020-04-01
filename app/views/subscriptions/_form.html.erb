@@ -104,128 +104,131 @@
           <%= f.hidden_field :apidae_member_id %>
         </div>
       <% end %>
-      <div id="infos_fields" class="flex-container--column mtl <%= 'is_confirmation' if is_confirmation %>">
-        <div class="flex-container mbs person_pm_only">
-          <div class="txtright item-center w40 prs pls"><%= f.label :structure_name, 'Nom de la structure<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :structure_name, class: 'w100', required: true %>
-          </div>
-        </div>
-        <div class="flex-container mbs person_pm_only">
-          <div class="txtright item-center w40 prs pls"><%= f.label :siret, 'SIRET<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :siret, class: 'w100', required: true %>
-          </div>
-        </div>
-        <div class="flex-container mbs person_pm_only">
-          <div class="txtright item-center w40 prs pls"><%= f.label :ape, 'Code APE' %></div>
-          <div class="w60">
-            <%= f.text_field :ape, class: 'w100' %>
-          </div>
-        </div>
-        <div class="flex-container mbs person_pm_only">
-          <div class="txtright item-center w40 prs pls"><%= f.label :legal_type, 'Statut<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.select(:legal_type, legal_types, {prompt: 'Sélectionnez un statut'}, required: true, class: 'w100') %><br/>
-            <%= f.text_field :legal_type_desc, class: 'w100 is-hidden', placeholder: 'Précisez le statut', required: true, disabled: 'disabled' %>
-          </div>
-        </div>
-        <%= render "contact_form", f: f, prefix: '', contact_title: 'Représentant légal', placeholder: 'Représentant légal' %>
-        <div class="flex-container mbs person_pm_only is_rep_toggle">
-          <div class="txtright item-center w40 prs pls"></div>
-          <div class="w60 flex-container aic">
-            <%= f.check_box :is_rep, {class: 'checkbox mrs', id: 'is_rep', onclick: 'toggleRepContactForm()'} %>
-            <label for="is_rep" class="item-fluid ma0">Sera le représentant permanent dans les instances</label>
-          </div>
-        </div>
-        <div id="rep_contact_form" class="is-hidden">
-          <%= render "contact_form", f: f, prefix: 'rep_', contact_title: 'Représentant permanent dans les instances',
-                     placeholder: 'Représentant instances' %>
-        </div>
-
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :address, 'Adresse<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_area :address, class: 'w100', required: true, rows: 2 %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :postal_code, 'Code postal<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :postal_code, class: 'w100', required: true %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :town, 'Commune<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.text_field :town, class: 'w100', required: true %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :country, 'Pays<sup>*</sup>'.html_safe %></div>
-          <div class="w60">
-            <%= f.select(:country, subscription_countries, {prompt: 'Sélectionnez un pays'}, required: true, class: 'w100') %>
-          </div>
-        </div>
-        <div class="flex-container mbs">
-          <div class="txtright item-center w40 prs pls"><%= f.label :sponsor, 'Parrain' %></div>
-          <div class="w60">
-            <%= f.select(:sponsor_id, subscription_sponsors, {prompt: 'Facultatif'}, class: 'w100') %>
-          </div>
-        </div>
-        <% if is_confirmation %>
-          <div class="flex-container mbs">
-            <div class="txtright item-center w40 prs pls"><%= f.label :payment_method, 'Mode de règlement<sup>*</sup>'.html_safe %></div>
-            <div class="w60 item-center">
-              <%= f.radio_button(:payment_method, 'cheque', id: 'payment_cheque', class: 'radio', required: true) %>
-              <label for="payment_cheque">Chèque</label>
-              <%= f.radio_button(:payment_method, 'virement', id: 'payment_virement', class: 'mlm radio', required: true) %>
-              <label for="payment_virement">Virement</label>
+      <div id="infos_fields" class="grid-2 mtl">
+        <div>
+          <div class="flex-container mbs person_pm_only">
+            <div class="txtright item-center w40 prs pls"><%= f.label :structure_name, 'Nom de la structure<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.text_field :structure_name, class: 'w100', required: true %>
             </div>
           </div>
           <div class="flex-container mbs person_pm_only">
-            <div class="txtright item-center w40 prs pls"><%= f.label :payments_count, 'Libération du montant<sup>*</sup>'.html_safe %></div>
-            <div class="w60 item-center">
-              <%= f.radio_button(:payments_count, 'single_payment', id: 'single_payment', class: 'radio', required: true) %>
-              <label for="single_payment">En 1 fois</label>
-              <%= f.radio_button(:payments_count, 'half_payment', id: 'half_payment', class: 'mlm radio', required: true) %>
-              <label for="half_payment">En 2 fois (2 x 50%)</label>
+            <div class="txtright item-center w40 prs pls"><%= f.label :siret, 'SIRET<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.text_field :siret, class: 'w100', required: true %>
             </div>
           </div>
-        <% end %>
-        <div class="flex-container mbm">
-          <div class="txtright item-center w40 prs pls"><%= f.label :comments, 'Remarques / questions' %></div>
-          <div class="w60">
-            <%= f.text_area :comments, class: 'w100', rows: 3 %>
+          <div class="flex-container mbs person_pm_only">
+            <div class="txtright item-center w40 prs pls"><%= f.label :ape, 'Code APE' %></div>
+            <div class="w60">
+              <%= f.text_field :ape, class: 'w100' %>
+            </div>
+          </div>
+          <div class="flex-container mbs person_pm_only">
+            <div class="txtright item-center w40 prs pls"><%= f.label :legal_type, 'Statut<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.select(:legal_type, legal_types, {prompt: 'Sélectionnez un statut'}, required: true, class: 'w100') %><br/>
+              <%= f.text_field :legal_type_desc, class: 'w100 is-hidden', placeholder: 'Précisez le statut', required: true, disabled: 'disabled' %>
+            </div>
+          </div>
+          <%= render "contact_form", f: f, prefix: '', contact_title: 'Représentant légal', placeholder: 'Représentant légal' %>
+          <div class="flex-container mbs person_pm_only is_rep_toggle">
+            <div class="txtright item-center w40 prs pls"></div>
+            <div class="w60 flex-container aic">
+              <%= f.check_box :is_rep, {class: 'checkbox mrs', id: 'is_rep', onclick: 'toggleRepContactForm()'} %>
+              <label for="is_rep" class="item-fluid ma0">Sera le représentant permanent dans les instances</label>
+            </div>
+          </div>
+          <div id="rep_contact_form" class="is-hidden">
+            <%= render "contact_form", f: f, prefix: 'rep_', contact_title: 'Représentant permanent dans les instances',
+                       placeholder: 'Représentant instances' %>
           </div>
         </div>
-        <% if is_confirmation %>
+        <div>
           <div class="flex-container mbs">
-            <div class="txtright item-center w40 prs pls"><%= f.label :signing, 'Signature'.html_safe %></div>
-            <div class="w60 flex-container aic">
-              <%= f.check_box :signing, {class: 'checkbox mrs', id: 'online_signing', onclick: 'toggleSignaturePad()'} %>
-              <label for="online_signing" class="item-fluid ma0">J'accepte de signer mon bulletin de souscription en ligne</label>
-              <div id="signing_canvas" class="is-hidden mts txtcenter">
-                <div class="inbl">
-                  <canvas></canvas>
-                  <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
-                </div>
-                <div>
-                  <p class="item-fluid u-small item-center lh mbs">
-                    Utilisez la zone ci-dessus pour tracer votre signature.
-                    Vous pouvez également télécharger une image via le bouton ci-dessous.
-                  </p>
-                  <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="btn--small btn--inverse w100">
-                    Télécharger une signature
-                  </button>
-                </div>
-                <%= f.file_field :signature, accept: 'image/png,image/jpeg', class: 'is-hidden', id: 'signature_file' %>
-                <%= f.hidden_field :signature_data, id: 'signature_data' %>
-                <%= f.hidden_field :signed_at, id: 'subscription_signed_at' %>
-              </div>
+            <div class="txtright item-center w40 prs pls"><%= f.label :address, 'Adresse<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.text_area :address, class: 'w100', required: true, rows: 2 %>
             </div>
           </div>
-        <% end %>
+          <div class="flex-container mbs">
+            <div class="txtright item-center w40 prs pls"><%= f.label :postal_code, 'Code postal<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.text_field :postal_code, class: 'w100', required: true %>
+            </div>
+          </div>
+          <div class="flex-container mbs">
+            <div class="txtright item-center w40 prs pls"><%= f.label :town, 'Commune<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.text_field :town, class: 'w100', required: true %>
+            </div>
+          </div>
+          <div class="flex-container mbs">
+            <div class="txtright item-center w40 prs pls"><%= f.label :country, 'Pays<sup>*</sup>'.html_safe %></div>
+            <div class="w60">
+              <%= f.select(:country, subscription_countries, {prompt: 'Sélectionnez un pays'}, required: true, class: 'w100') %>
+            </div>
+          </div>
+          <div class="flex-container mbs">
+            <div class="txtright item-center w40 prs pls"><%= f.label :sponsor, 'Parrain' %></div>
+            <div class="w60">
+              <%= f.select(:sponsor_id, subscription_sponsors, {prompt: 'Facultatif'}, class: 'w100') %>
+            </div>
+          </div>
+          <% if is_confirmation %>
+            <div class="flex-container mbs">
+              <div class="txtright item-center w40 prs pls"><%= f.label :payment_method, 'Mode de règlement<sup>*</sup>'.html_safe %></div>
+              <div class="w60 item-center">
+                <%= f.radio_button(:payment_method, 'cheque', id: 'payment_cheque', class: 'radio', required: true) %>
+                <label for="payment_cheque">Chèque</label>
+                <%= f.radio_button(:payment_method, 'virement', id: 'payment_virement', class: 'mlm radio', required: true) %>
+                <label for="payment_virement">Virement</label>
+              </div>
+            </div>
+            <div class="flex-container mbs person_pm_only">
+              <div class="txtright item-center w40 prs pls"><%= f.label :payments_count, 'Libération du montant<sup>*</sup>'.html_safe %></div>
+              <div class="w60 item-center">
+                <%= f.radio_button(:payments_count, 'single_payment', id: 'single_payment', class: 'radio', required: true) %>
+                <label for="single_payment">En 1 fois</label>
+                <%= f.radio_button(:payments_count, 'half_payment', id: 'half_payment', class: 'mlm radio', required: true) %>
+                <label for="half_payment">En 2 fois (2 x 50%)</label>
+              </div>
+            </div>
+          <% end %>
+          <div class="flex-container mbm">
+            <div class="txtright item-center w40 prs pls"><%= f.label :comments, 'Remarques / questions' %></div>
+            <div class="w60">
+              <%= f.text_area :comments, class: 'w100', rows: 3 %>
+            </div>
+          </div>
+          <% if is_confirmation %>
+            <div class="flex-container mbs">
+              <div class="txtright item-center w40 prs pls"><%= f.label :signing, 'Signature'.html_safe %></div>
+              <div class="w60 flex-container aic">
+                <%= f.check_box :signing, {class: 'checkbox mrs', id: 'online_signing', onclick: 'toggleSignaturePad()'} %>
+                <label for="online_signing" class="item-fluid ma0">J'accepte de signer mon bulletin de souscription en ligne</label>
+                <div id="signing_canvas" class="is-hidden mts txtcenter">
+                  <div class="inbl">
+                    <canvas></canvas>
+                    <button type="button" onclick="clearPad()" class="mls btn--small btn--danger"><i class="fas fa-trash"></i></button>
+                  </div>
+                  <div>
+                    <p class="item-fluid u-small item-center lh mbs">
+                      Utilisez la zone ci-dessus pour tracer votre signature.
+                      Vous pouvez également télécharger une image via le bouton ci-dessous.
+                    </p>
+                    <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="btn--small btn--inverse w100">
+                      Télécharger une signature
+                    </button>
+                  </div>
+                  <%= f.file_field :signature, accept: 'image/png,image/jpeg', class: 'is-hidden', id: 'signature_file' %>
+                  <%= f.hidden_field :signature_data, id: 'signature_data' %>
+                  <%= f.hidden_field :signed_at, id: 'subscription_signed_at' %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs"><%= f.check_box :com_enabled, {class: 'checkbox'} %></div>

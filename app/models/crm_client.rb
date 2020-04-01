@@ -6,17 +6,19 @@ class CrmClient
     if !subscription.apidae_member_id.blank?
       search_params = {'ident' => subscription.apidae_member_id}
     else
-      search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.email} :
+      search_params = subscription.pp? ? {'type' => 'person', 'contains' => "#{subscription.first_name} #{subscription.last_name}"} :
                           {'type' => 'corporation', 'containssiret' => subscription.siret}
     end
 
     customers = Sellsy::Customer.search({'search' => search_params})
-    customers.first || lookup_prospect(subscription)
+    (subscription.pp? ? customers.find {|c| c.email == subscription.email} : customers.first) || lookup_prospect(subscription)
   end
 
   def self.lookup_prospect(subscription)
-    prospects = Sellsy::Prospect.search({'search' => {'containssiret' => subscription.siret}})
-    prospects.first
+    search_params = subscription.pp? ? {'type' => 'person', 'contains' => "#{subscription.first_name} #{subscription.last_name}"} :
+        {'type' => 'corporation', 'containssiret' => subscription.siret}
+    prospects = Sellsy::Prospect.search({'search' => search_params})
+    subscription.pp? ? prospects.find {|p| p.email == subscription.email} : prospects.first
   end
 
   def self.name_field(subscription)
@@ -71,7 +73,13 @@ class CrmClient
 
   def self.create_prospect(subscription, history_entry)
     prospect = Sellsy::Prospect.new
-    contact = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name, subscription.birth_date).first
+    if subscription.pp?
+      contact = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name, subscription.birth_date).first
+    else
+      results = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name)
+      contact = results.find {|c| c.email == subscription.email}
+    end
+
     populate_fields(prospect, subscription, contact || Sellsy::Contact.new)
     prospect.create
     if contact && prospect.id

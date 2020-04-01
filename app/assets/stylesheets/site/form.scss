@@ -157,24 +157,6 @@
   }
 
   #infos_fields {
-    max-height: 520px;
-
-    &.person_type_pp {
-      max-height: 540px;
-    }
-
-    &.person_type_pm.canvas_visible.is_confirmation:not(.rep_visible) {
-      max-height: 715px;
-
-      .is_rep_toggle {
-        padding-bottom: 130px;
-      }
-    }
-
-    &.rep_visible {
-      max-height: 840px;
-    }
-
     > .flex-container {
       max-width: 50%;
       width: 50%;
@@ -264,28 +246,6 @@
     #download_signature {
       text-overflow: ellipsis;
       overflow: hidden;
-    }
-  }
-}
-
-.ie_browser {
-  #subscription_form #infos_fields {
-    height: 520px;
-
-    &.person_type_pp {
-      height: 540px;
-    }
-
-    &.person_type_pm.canvas_visible.is_confirmation:not(.rep_visible) {
-      height: 715px;
-
-      .is_rep_toggle {
-        padding-bottom: 130px;
-      }
-    }
-
-    &.rep_visible {
-      height: 840px;
     }
   }
 }
