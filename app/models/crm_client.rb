@@ -15,7 +15,7 @@ class CrmClient
   end
 
   def self.lookup_prospect(subscription)
-    prospects = Sellsy::Prospect.search({'search' => {'contains' => subscription.email}})
+    prospects = Sellsy::Prospect.search({'search' => {'containssiret' => subscription.siret}})
     prospects.first
   end
 
