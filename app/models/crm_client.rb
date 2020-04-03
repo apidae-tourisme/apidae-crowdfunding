@@ -6,7 +6,7 @@ class CrmClient
     if !subscription.apidae_member_id.blank?
       search_params = {'ident' => subscription.apidae_member_id}
     else
-      search_params = subscription.pp? ? {'type' => 'person', 'contains' => "#{subscription.first_name} #{subscription.last_name}"} :
+      search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.last_name} :
                           {'type' => 'corporation', 'containssiret' => subscription.siret}
     end
 
@@ -15,7 +15,7 @@ class CrmClient
   end
 
   def self.lookup_prospect(subscription)
-    search_params = subscription.pp? ? {'type' => 'person', 'contains' => "#{subscription.first_name} #{subscription.last_name}"} :
+    search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.last_name} :
         {'type' => 'corporation', 'containssiret' => subscription.siret}
     prospects = Sellsy::Prospect.search({'search' => search_params})
     subscription.pp? ? prospects.find {|p| p.email == subscription.email} : prospects.first

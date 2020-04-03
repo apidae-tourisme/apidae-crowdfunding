@@ -26,8 +26,8 @@
     <div class="ptm pbm pll prl u-big flex-container">
       <% if @subscription.pp? %>
         <p class="w20">M<sup>me</sup><%= chk(:title, 'Mme') %>M.<%= chk(:title, 'M.') %></p>
-        <p class="w40 flex-container"><span>Nom : </span><span class="text_value"><%= @subscription.first_name %></span></p>
-        <p class="w40 flex-container"><span>Prénom : </span><span class="text_value"><%= @subscription.last_name %></span></p>
+        <p class="w40 flex-container"><span>Nom : </span><span class="text_value"><%= @subscription.last_name %></span></p>
+        <p class="w40 flex-container"><span>Prénom : </span><span class="text_value"><%= @subscription.first_name %></span></p>
         <p class="w70 flex-container"><span>Fonction : </span><span class="text_value"><%= @subscription.role %></span></p>
         <p class="w30 flex-container"><span>Date de naissance : </span><span class="text_value"><%= l(Date.parse(@subscription.birth_date), format: :short) unless @subscription.birth_date.blank? %></span></p>
         <p class="w100 flex-container"><span>Adresse : </span><span class="text_value"><%= address_fields[0] %></span></p>
