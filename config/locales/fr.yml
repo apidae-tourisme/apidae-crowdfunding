@@ -58,7 +58,7 @@ fr:
     history:
       prospect_create: "Création prospect + contact principal"
       prospect_update: "Mise à jour prospect + contact principal"
-      client_update: "Mise à jour client + contact principal"
+      customer_update: "Mise à jour client + contact principal"
       opportunity_create: "Création opportunité"
       opportunity_update: "Mise à jour opportunité"
       contact_update: "Mise à jour du contact"

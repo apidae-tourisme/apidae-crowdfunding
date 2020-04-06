@@ -168,10 +168,8 @@ class CrmClient
     [:address, :postal_code, :town, :country].each do |field|
       address.send("#{field}=", subscription.send(field))
     end
-    tmp_contact = Sellsy::Contact.new
-    tmp_contact.name = contact.last_name
     entity.name = subscription.public_label
-    entity.contact = contact.id ? tmp_contact : contact
+    entity.contact = contact if subscription.pp? || entity.id.nil?
     entity.address = address
     entity.legal_type = LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code] unless subscription.pp?
     [:structure_name, :category, :siret, :ape, :email, :website, :payment_method, :person_type].each do |field|
