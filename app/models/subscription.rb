@@ -74,6 +74,11 @@ class Subscription < ApplicationRecord
       end
     end
     self.is_rep = '1' if is_rep.nil?
+    self.siret = normalize_siret
+  end
+
+  def normalize_siret
+    siret.gsub(/\s/, '') unless siret.blank?
   end
 
   def normalize_label
@@ -94,6 +99,10 @@ class Subscription < ApplicationRecord
 
   def full_rep_name
     "#{rep_title} #{rep_first_name} #{rep_last_name}"
+  end
+
+  def emails
+    [email, rep_email].select {|e| !e.blank?}
   end
 
   def lpad(str)

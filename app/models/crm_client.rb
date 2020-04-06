@@ -3,22 +3,18 @@ require 'open-uri'
 
 class CrmClient
   def self.lookup_entity(subscription)
-    if !subscription.apidae_member_id.blank?
-      search_params = {'ident' => subscription.apidae_member_id}
-    else
-      search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.last_name} :
+    search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.last_name} :
                           {'type' => 'corporation', 'containssiret' => subscription.siret}
-    end
 
     customers = Sellsy::Customer.search({'search' => search_params})
-    (subscription.pp? ? customers.find {|c| c.email == subscription.email} : customers.first) || lookup_prospect(subscription)
+    customers.find {|c| c.email == subscription.email} || lookup_prospect(subscription)
   end
 
   def self.lookup_prospect(subscription)
     search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.last_name} :
         {'type' => 'corporation', 'containssiret' => subscription.siret}
     prospects = Sellsy::Prospect.search({'search' => search_params})
-    subscription.pp? ? prospects.find {|p| p.email == subscription.email} : prospects.first
+    prospects.find {|p| p.email == subscription.email}
   end
 
   def self.name_field(subscription)
@@ -54,15 +50,16 @@ class CrmClient
                                        subscription.pp? ? nil : Sellsy::CustomField.new(*lookup_value(SELLSY_SECTEUR_ACTIVITE, activity_domain(subscription)))
         )
 
-    entity_contact = (entity.class.to_s.constantize).find(entity.id)
-    unless entity_contact.contacts.blank?
+    entity_with_contacts = (entity.class.to_s.constantize).find(entity.id)
+    eligible_contacts = entity_with_contacts.contacts.blank? ? {} : entity_with_contacts.contacts.select {|k, v| subscription.emails.include?(v['email'])}
+    unless eligible_contacts.blank?
       contact = Sellsy::Contact.new
-      contact.id = entity_contact.contacts.values.first['peopleid']
+      contact.id = eligible_contacts.values.first['peopleid']
       history_entry["contact_custom_fields"] =
           Sellsy::CustomField.set_values(contact, Sellsy::CustomField.new(*lookup_value(SELLSY_REFERENT_SOCIETAIRE, rep_values(subscription))))
     end
 
-    opportunity = add_or_update_opportunity(entity, subscription, history_entry, (entity_contact.contacts || {}).keys)
+    opportunity = add_or_update_opportunity(entity, subscription, history_entry, eligible_contacts.keys)
 
     subscription.crm_history ||= {}
     subscription.crm_history[Time.current.to_i] = history_entry
