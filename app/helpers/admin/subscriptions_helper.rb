@@ -2,7 +2,7 @@ module Admin::SubscriptionsHelper
   def export_columns
     [:created_at, :status, :signed_at, :id, :label, :structure_name, :title, :first_name, :last_name, :category, :apidae_member_id,
      :amount, :siret, :legal_entity_type, :role, :address, :postal_code, :town, :country, :telephone, :email,
-     :website, :fund_deposit, :payment_method, :com_enabled, :sponsor_label]
+     :website, :fund_deposit, :payment_method, :com_enabled, :sponsor_label, :opportunity_link]
   end
 
   def export_values(subscription)

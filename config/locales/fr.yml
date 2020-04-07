@@ -36,6 +36,7 @@ fr:
         payment_method: "Mode de paiement"
         com_enabled: "Com autorisée"
         sponsor_label: "Parrain"
+        opportunity_link: "Opportunité Sellsy"
       value:
         fr: "France"
         ch: "Suisse"

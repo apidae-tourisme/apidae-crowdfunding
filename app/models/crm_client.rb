@@ -7,14 +7,15 @@ class CrmClient
                           {'type' => 'corporation', 'containssiret' => subscription.siret}
 
     customers = Sellsy::Customer.search({'search' => search_params})
-    customers.find {|c| c.email == subscription.email} || lookup_prospect(subscription)
+    (subscription.pp? ? customers.find {|c| c.email == subscription.email} : customers.find {|c| c.siret == subscription.siret}) || lookup_prospect(subscription)
   end
 
   def self.lookup_prospect(subscription)
     search_params = subscription.pp? ? {'type' => 'person', 'contains' => subscription.last_name} :
         {'type' => 'corporation', 'containssiret' => subscription.siret}
     prospects = Sellsy::Prospect.search({'search' => search_params})
-    prospects.find {|p| p.email == subscription.email}
+
+    (subscription.pp? ? prospects.find {|p| p.email == subscription.email} : prospects.find {|p| p.siret == subscription.siret})
   end
 
   def self.name_field(subscription)

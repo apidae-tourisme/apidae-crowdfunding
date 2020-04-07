@@ -122,4 +122,8 @@ class Subscription < ApplicationRecord
       {timestamp: crm_history.keys.sort.last, statuses: crm_history[crm_history.keys.sort.last]}
     end
   end
+
+  def opportunity_link
+    "https://www.sellsy.fr/prospection/opportunities/#{opportunity_id}" unless opportunity_id.blank?
+  end
 end
