@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'acteurs-coordinateurs-territoriaux', to: 'static#territories'
   get 'professionnels-prives', to: 'static#companies'
   get 'soutiens-du-reseau', to: 'static#supporters'
+  get 'faq', to: 'static#faq'
   get 'contact', to: 'static#contact'
   get 'mentions-legales', to: 'static#legal'
 

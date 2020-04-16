@@ -28,4 +28,7 @@ class StaticController < ApplicationController
 
   def howto
   end
+
+  def faq
+  end
 end
