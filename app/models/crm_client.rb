@@ -159,8 +159,10 @@ class CrmClient
   end
 
   def self.populate_fields(entity, subscription, contact)
-    [:title, :first_name, :last_name, :role, :birth_date, :telephone, :email, :website].each do |field|
-      contact.send("#{field}=", subscription.send(field))
+    if subscription.pp? || entity.id.nil? || contact.id.nil?
+      [:title, :first_name, :last_name, :role, :birth_date, :telephone, :email, :website].each do |field|
+        contact.send("#{field}=", subscription.send(field))
+      end
     end
     address = Sellsy::Address.new
     [:address, :postal_code, :town, :country].each do |field|

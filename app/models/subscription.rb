@@ -66,6 +66,7 @@ class Subscription < ApplicationRecord
   end
 
   def compute_fields
+    self.normalize_names
     self.label = normalize_label
     unless postal_code.blank?
       code = country == 'fr' ? lpad(postal_code) : (country.upcase + postal_code)
@@ -87,6 +88,16 @@ class Subscription < ApplicationRecord
     else
       'Déclaration anonyme'
     end
+  end
+
+  def normalize_names
+    [:first_name, :last_name, :rep_first_name, :rep_last_name].each do |n|
+      self.send("#{n}=", normalize_name(send(n))) unless send(n).blank?
+    end
+  end
+
+  def normalize_name(txt)
+    txt.split('-').map {|t| t.capitalize}.join('-')
   end
 
   def public_label
