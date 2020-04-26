@@ -1,6 +1,10 @@
-<div id="site_header" class="w100 mw1140p center flex-container">
-  <%= link_to image_tag('logo_apidae.svg', class: 'item-center'), '/' %>
-  <div class="txtright item-fluid lh">
-    <%= link_to 'Déconnexion', destroy_user_session_path, method: :delete, class: 'btn btn--outline btn--inverse' %>
+<header class="w100">
+  <div id="site_header" class="w100 mw1140p center flex-container">
+    <%= link_to image_tag('logo_apidae.svg', class: 'item-center'), '/' %>
+    <div class="txtright item-fluid lh">
+      <%= link_to 'Gestion du site', sibu.sites_path, class: 'btn btn--info' %>
+      <%= link_to 'Souscriptions', main_app.subs_path, class: 'btn btn--primary' %>
+      <%= link_to 'Déconnexion', main_app.destroy_user_session_path, method: :delete, class: 'btn btn--outline btn--inverse' %>
+    </div>
   </div>
-</div>
+</header>

@@ -20,9 +20,7 @@
 
 <body>
 <% if current_user %>
-  <header class="w100">
-    <%= render 'shared/admin_header' %>
-  </header>
+  <%= render 'shared/admin_header' %>
 <% end %>
 <div id="site_content" class="w100 mw1140p center pam">
   <div id="notifs"><%= render 'shared/notifications' %></div>

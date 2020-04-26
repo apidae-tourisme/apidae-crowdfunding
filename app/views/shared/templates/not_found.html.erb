@@ -1,0 +1,29 @@
+<% content_for :included_styles do %>
+  <style>
+    body {
+      background-color: white;
+      color: black;
+      text-align: center;
+      font-family: helvetica, verdana, arial, sans-serif;
+      margin: 0;
+    }
+
+    div.dialog {
+      width: 640px;
+      margin: 4em auto;
+    }
+
+    div.dialog p,
+    div.dialog a {
+      font-size: 24px;
+      margin: 3em auto;
+    }
+  </style>
+<% end %>
+
+<div class="dialog">
+  <img src="/logo_apidae.svg"/>
+
+  <p>La page que vous recherchez n'existe pas.</p>
+  <a href="/">Retour à l'accueil</a>
+</div>

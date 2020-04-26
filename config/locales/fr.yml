@@ -76,6 +76,7 @@ fr:
       hour: "%H:%M"
       doc: "%Y%d%m"
       signature: "Le %d/%m/%Y"
+      default: "%d/%m/%Y à %H:%M"
   date:
     formats:
       short: "%d/%m/%Y"

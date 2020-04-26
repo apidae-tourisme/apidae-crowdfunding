@@ -1,0 +1,22 @@
+<% content_for :included_scripts do %>
+  <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+          if (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > -1) {
+              document.body.classList.add('ie_browser');
+          }
+      });
+  </script>
+<% end %>
+<header class="w100">
+  <%= render 'shared/header' %>
+</header>
+<div id="site_content">
+  <section id="static_section" class="bg--primary">
+    <div id="page_wrapper">
+      <% @page.sections.each do |s| %>
+        <%= render_page_section s %>
+      <% end %>
+    </div>
+  </section>
+</div>
+<%= render 'shared/footer' %>

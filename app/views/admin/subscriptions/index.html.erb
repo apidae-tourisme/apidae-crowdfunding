@@ -38,21 +38,7 @@
 <% content_for :page_scripts do %>
   <script>
       document.addEventListener("DOMContentLoaded", function (event) {
-          var table = document.querySelector("#subscriptions_table");
-          if (table) {
-              datatable = new DataTable(table, {
-                  columns: [
-                      {select: 0, sort: "asc"},
-                      {select: 6, sortable: false}
-                  ],
-                  labels: {
-                      placeholder: "Rechercher...",
-                      perPage: "{select} résultats par page",
-                      noRows: "Aucun résultat",
-                      info: "Résultats {start} - {end} sur {rows}",
-                  }
-              });
-          }
+          initializeDatatable("#subscriptions_table", 0);
       });
   </script>
 <% end %>

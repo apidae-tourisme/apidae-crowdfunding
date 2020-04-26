@@ -24,6 +24,9 @@ Rails.application.routes.draw do
 
   get 'static/fonts'
 
+  mount Sibu::Engine, at: '/', as: 'site_display', constraints: lambda {|req| req.host != Rails.application.config.sibu[:host]}
+  mount Sibu::Engine, at: '/administration', constraints: lambda {|req| req.host == Rails.application.config.sibu[:host]}
+
   devise_for :users, path: 'administration', controllers: {omniauth_callbacks: 'users/omniauth_callbacks'},
              path_names: {sign_in: 'connexion', sign_out: 'deconnexion'}
 

@@ -1,6 +1,131 @@
+$sibu-color1 : #00B1C6 !default;
+$sibu-color2 : #00B1C6 !default;
+$sibu-color3 : #000000 !default;
+
 #alert, #notice {
   position: fixed;
   z-index: 99;
   bottom: 0;
   left: 0;
+}
+
+#site_content {
+  tbody {
+    font-size: 11px;
+
+    tr > td {
+      line-height: 1.1;
+
+      &:last-child {
+        a {
+          width: 42px;
+          padding: 1rem 1.1rem;
+        }
+      }
+    }
+  }
+
+  .dataTable-bottom, .dataTable-top {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .dataTable-selector {
+    padding-right: 2rem;
+  }
+
+  .dataTable-sorter {
+    &:before {
+      opacity: 0.6;
+      border-top-color: white;
+    }
+
+    &:after {
+      opacity: 0.6;
+      border-bottom-color: white;
+    }
+  }
+
+  .dataTable-table {
+    > thead > tr > th {
+      text-align: center;
+    }
+  }
+
+  .data_table td {
+    vertical-align: middle;
+  }
+
+  .sibu_view {
+    padding: 0;
+    font-family: "Montserrat", "Arial", "Helvetica Neue", sans-serif;
+
+    h2 {
+      padding-bottom: 2rem;
+      border-bottom: none;
+    }
+
+    table {
+      margin-bottom: 0;
+
+      tbody {
+        font-size: 13px;
+
+        td:not(:last-child) {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        td:last-child {
+          line-height: 1.2;
+
+          > a {
+            padding: 0.2rem 0.5rem;
+          }
+        }
+      }
+
+      td[colspan] {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .sibu_image {
+        margin: 0;
+      }
+    }
+
+    &#images .dataTable-wrapper {
+      width: 70%;
+      float: left;
+      padding-right: 1rem;
+
+      .dataTable-top {
+        padding-top: 0
+      }
+
+      .sibu_images {
+        float: none;
+        width: 100%;
+
+        td {
+          .sibu_image {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .sibu_edit_image {
+      margin: 0 0 2rem;
+      padding-left: 1rem;
+    }
+  }
+
+  &.sibu_site_content {
+    margin-top: 0;
+    padding: 0;
+    max-width: none;
+  }
 }

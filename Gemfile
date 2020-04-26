@@ -18,6 +18,8 @@ gem 'axlsx_rails'
 gem 'humanize'
 gem 'sellsy-client', '0.9.0'
 # gem 'sellsy-client', path: '../sellsy-client'
+# gem 'sibu', '1.0.0'
+gem 'sibu', path: '../sibu'
 
 gem 'rack-cors'
 

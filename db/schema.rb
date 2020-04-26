@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_075418) do
+ActiveRecord::Schema.define(version: 2020_04_25_215852) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,59 @@ ActiveRecord::Schema.define(version: 2020_02_28_075418) do
     t.integer "legal_entity_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sibu_documents", force: :cascade do |t|
+    t.integer "user_id"
+    t.text "file_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sibu_images", force: :cascade do |t|
+    t.text "metadata"
+    t.text "file_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+  end
+
+  create_table "sibu_pages", force: :cascade do |t|
+    t.string "name"
+    t.integer "site_id"
+    t.text "metadata"
+    t.string "path"
+    t.string "template"
+    t.jsonb "sections"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "custom_data"
+  end
+
+  create_table "sibu_site_templates", force: :cascade do |t|
+    t.string "name"
+    t.string "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "default_sections"
+    t.text "default_pages"
+    t.text "default_templates"
+    t.text "default_styles"
+    t.string "ref"
+  end
+
+  create_table "sibu_sites", force: :cascade do |t|
+    t.string "name"
+    t.integer "site_template_id"
+    t.text "metadata"
+    t.jsonb "sections"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.string "domain"
+    t.text "custom_data"
+    t.text "style_data"
+    t.string "version"
   end
 
   create_table "subscriptions", force: :cascade do |t|
