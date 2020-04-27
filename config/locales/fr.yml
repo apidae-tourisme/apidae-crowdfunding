@@ -70,6 +70,15 @@ fr:
       prospect_custom_fields: "Champs personnalisés prospect"
       opportunity_attachment: "Fichier joint opportunité"
       opportunity_custom_fields: "Champs personnalisés opportunité"
+  sibu:
+    section:
+      category:
+        custom: Autres
+        forms: Formulaires
+        mixed: Textes + Images
+        tables: Tableaux
+        texts: Textes
+        visuals: Images
   time:
     formats:
       detailed: "%d/%m à %H:%M"
