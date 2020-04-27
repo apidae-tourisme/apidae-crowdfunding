@@ -25,6 +25,9 @@
 .byebug_history
 /storage
 
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
 # CMS folders
 /public/uploads
 /public/documents
