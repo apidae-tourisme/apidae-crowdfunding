@@ -32,23 +32,25 @@
             <br/>
             <strong>Attention</strong> : les Sociétés Publiques Locales (SPL) ne sont pas autorisées à prendre de parts sociales dans une société mais les collectivités locales dont elles dépendent peuvent prendre des parts si elles le souhaitent.
           </p>
-          <div class="js-tabs mtl">
-            <ul class="js-tablist" data-existing-hx="h3">
+          <div class="categories_tabs">
+            <div class="js-tabs mtl">
+              <ul class="js-tablist" data-existing-hx="h3">
+                <% CATEGORIES.each_pair do |ref, cat| %>
+                  <li class="js-tablist__item">
+                    <a href="<%= "##{ref.to_s}" %>" class="js-tablist__link tab_<%= ref %>"><%= cat[:name] %></a>
+                  </li>
+                <% end %>
+              </ul>
               <% CATEGORIES.each_pair do |ref, cat| %>
-                <li class="js-tablist__item">
-                  <a href="<%= "##{ref.to_s}" %>" class="js-tablist__link tab_<%= ref %>"><%= cat[:name] %></a>
-                </li>
+                <div id="<%= ref.to_s %>" class="js-tabcontent bg--white pam">
+                  <h3 class="flex-container--row aic mbm"><i class="apidae-icon-chevronright txt--primary u-big prs"></i><%= cat[:name] %></h3>
+                  <p>
+                    <%= cat[:desc] %><br/>
+                    <strong>Nombre de parts minimum : <%= number_with_delimiter cat[:shares] %> parts soit <%= number_to_currency(cat[:amount], locale: :fr, precision: 0) %></strong>
+                  </p>
+                </div>
               <% end %>
-            </ul>
-            <% CATEGORIES.each_pair do |ref, cat| %>
-              <div id="<%= ref.to_s %>" class="js-tabcontent bg--white pam">
-                <h3 class="flex-container--row aic mbm"><i class="apidae-icon-chevronright txt--primary u-big prs"></i><%= cat[:name] %></h3>
-                <p>
-                  <%= cat[:desc] %><br/>
-                  <strong>Nombre de parts minimum : <%= number_with_delimiter cat[:shares] %> parts soit <%= number_to_currency(cat[:amount], locale: :fr, precision: 0) %></strong>
-                </p>
-              </div>
-            <% end %>
+            </div>
           </div>
 
           <p class="mtm">

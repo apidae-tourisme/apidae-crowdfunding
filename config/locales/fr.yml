@@ -79,6 +79,7 @@ fr:
         tables: Tableaux
         texts: Textes
         visuals: Images
+        links: Liens
   time:
     formats:
       detailed: "%d/%m à %H:%M"

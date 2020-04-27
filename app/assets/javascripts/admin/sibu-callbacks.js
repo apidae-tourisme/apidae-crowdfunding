@@ -41,6 +41,10 @@ function editContentSibuCallback() {
     stylePage();
 }
 
+function newSectionSibuCallback() {
+    van11yAccessibleTabPanelAria(document.querySelector(".sibu_sections div[data-sb-template='categories_tabs']"));
+}
+
 function editElementSibuCallback() {
     stylePage();
     initializeDatatable('#edit_panel .sibu_images', 0);
