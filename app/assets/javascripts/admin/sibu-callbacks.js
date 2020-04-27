@@ -14,7 +14,7 @@ function newImagesSibuCallback() {
 
 function indexPagesSibuCallback() {
     stylePage();
-    initializeDatatable('#pages table', 0);
+    initializeDatatable('#pages table', 3);
 }
 
 function newPagesSibuCallback() {
