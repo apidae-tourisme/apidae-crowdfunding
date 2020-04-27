@@ -122,8 +122,10 @@ $sibu-color3 : #000000 !default;
       padding-left: 1rem;
     }
   }
+}
 
-  &.sibu_site_content {
+.sibu_content_panel {
+  #site_content.sibu_site_content {
     margin-top: 0;
     padding: 0;
     max-width: none;

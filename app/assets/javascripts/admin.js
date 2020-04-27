@@ -1,2 +1,2 @@
 //= require rails-ujs
-//= require admin
+//= require admin-edit
