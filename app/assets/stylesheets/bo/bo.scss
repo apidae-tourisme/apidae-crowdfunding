@@ -137,4 +137,11 @@ $sibu-color3 : #000000 !default;
       margin-left: 0.5rem;
     }
   }
+
+  .sibu_sections_tabs {
+    [data-sb-template='title'], [data-sb-template='paragraph'] {
+      background-color: $color-primary;
+      color: white;
+    }
+  }
 }
