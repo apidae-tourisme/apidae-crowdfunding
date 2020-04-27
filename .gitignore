@@ -24,3 +24,7 @@
 
 .byebug_history
 /storage
+
+# CMS folders
+/public/uploads
+/public/documents
