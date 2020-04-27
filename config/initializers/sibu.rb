@@ -1,3 +1,5 @@
+SECTIONS_TABS = ['texts', 'links', 'custom']
+
 Rails.application.config.sibu = {
     title: 'Apidae - Souscrivez à la nouvelle structure',
     stylesheet: 'admin',
@@ -9,5 +11,6 @@ Rails.application.config.sibu = {
     current_user: 'current_user',
     host: 'localhost',
     not_found: 'shared/templates/not_found',
-    images: {large: 1600, medium: 800, small: 320}
+    images: {large: 1600, medium: 800, small: 320},
+    sections_ordering: Proc.new {|sections| sections.sort_by {|s| SECTIONS_TABS.index(s['category'])}}
 }
