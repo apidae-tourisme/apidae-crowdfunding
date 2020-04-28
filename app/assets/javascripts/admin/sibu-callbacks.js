@@ -39,10 +39,18 @@ function newSitesSibuCallback() {
 
 function editContentSibuCallback() {
     stylePage();
+    document.addEventListener("DOMContentLoaded", function (event) {
+        var tabsCount = document.querySelectorAll(".js-tablist > li").length,
+            tabsContents = document.querySelectorAll(".js-tabcontent");
+        if (tabsCount > tabsContents.length) {
+            for (var i = 0; i < tabsContents.length; i++) {
+                tabsContents[i].removeAttribute('aria-hidden');
+            }
+        }
+    });
 }
 
 function newSectionSibuCallback() {
-    van11yAccessibleTabPanelAria(document.querySelector(".sibu_sections div[data-sb-template='categories_tabs']"));
 }
 
 function editElementSibuCallback() {

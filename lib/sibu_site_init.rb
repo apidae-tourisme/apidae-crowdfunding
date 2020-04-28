@@ -17,5 +17,24 @@ site_template.update(
                                                          ]
         }
     ],
-    templates: {}
+    templates: {
+        categories_tabs: {
+            elements: [
+                {id: 'tabs', elements: [
+                  {id: 'tab_0', text: 'Onglet 1'},
+                  {id: 'tab_1', text: 'Onglet 2'}
+                ]},
+                {id: "contents", elements: [
+                    {id: "content_0", elements: [
+                        {id: "content_title", text: 'Titre onglet 1'},
+                        {id: "content_text", text: Sibu::DEFAULT_PARAGRAPH}
+                    ]},
+                    {id: "content_1", elements: [
+                        {id: "content_title", text: 'Titre onglet 2'},
+                        {id: "content_text", text: Sibu::DEFAULT_PARAGRAPH}
+                    ]}
+                ]}
+            ]
+        }
+    }
 )

@@ -9,6 +9,10 @@ $sibu-color3 : #000000 !default;
   left: 0;
 }
 
+.sibu_panel header.admin_header {
+  background-color: $color-muted;
+}
+
 #site_content {
   tbody {
     font-size: 11px;
@@ -142,6 +146,14 @@ $sibu-color3 : #000000 !default;
     [data-sb-template='title'], [data-sb-template='paragraph'] {
       background-color: $color-primary;
       color: white;
+    }
+  }
+
+  header {
+    top: 91px;
+
+    & + #site_content {
+      margin-top: calc(9rem + 91px);
     }
   }
 }

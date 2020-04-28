@@ -197,7 +197,7 @@ GEM
     shrine (2.19.4)
       content_disposition (~> 1.0)
       down (>= 4.1, < 6)
-    sibu (1.0.0)
+    sibu (1.0.1)
       image_processing (~> 0.4)
       mini_magick (~> 4.3)
       pg (~> 1.0)
@@ -249,7 +249,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sellsy-client (= 0.9.0)
   sentry-raven
-  sibu (= 1.0.0)
+  sibu (= 1.0.1)
   uglifier
 
 BUNDLED WITH

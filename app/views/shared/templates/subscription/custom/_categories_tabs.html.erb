@@ -1,25 +1,24 @@
 <div class="categories_tabs pam bg--white" <%= sibu_attrs %>>
   <div class="js-tabs">
-    <ul class="js-tablist" data-existing-hx="h3">
-      <% CATEGORIES.each_pair do |ref, cat| %>
-        <li class="js-tablist__item">
-          <a href="<%= "##{ref.to_s}" %>" class="js-tablist__link tab_<%= ref %>"><%= cat[:name] %></a>
-        </li>
+    <%= page.ul('tabs', class: 'js-tablist', 'data-existing-hx': 'h3') do |ul_elt, li_elts| %>
+      <% li_elts.each_with_index do |li_elt, i| %>
+        <%= page.li(li_elt, class: 'js-tablist__item', repeat: true) do |li_el| %>
+          <a href="<%= "#category_#{i}" %>" class="js-tablist__link tab_<%= "category_#{i}" %>"><%= li_el['text'] %></a>
+        <% end %>
       <% end %>
-    </ul>
-    <% CATEGORIES.each_pair do |ref, cat| %>
-      <div id="<%= ref.to_s %>" class="js-tabcontent bg--white pam">
-        <h3 class="flex-container--row aic mbm"><i class="apidae-icon-chevronright txt--primary u-big prs"></i><%= cat[:name] %></h3>
-        <p>
-          <%= cat[:desc] %><br/>
-          <strong>Nombre de parts minimum : <%= number_with_delimiter cat[:shares] %> parts soit <%= number_to_currency(cat[:amount], locale: :fr, precision: 0) %></strong>
-        </p>
-      </div>
+    <% end %>
+    <%= page.wrapper('contents') do |w_elt, content_elts| %>
+      <% content_elts.each_with_index do |content_elt, i| %>
+        <%= page.div(content_elt, id: "category_#{i}", class: 'js-tabcontent bg--white pam', repeat: true) do %>
+          <%= page.h3('content_title', class: 'flex-container--row aic mbm') do |title_elt| %>
+              <i class="apidae-icon-chevronright txt--primary u-big prs"></i><%= title_elt['text'] %>
+          <% end %>
+          <%= page.p('content_text') %>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>
 <% content_for :page_scripts do %>
-  <script>
-      van11yAccessibleTabPanelAria(document.querySelector("#site_content .categories_tabs"));
-  </script>
+  <%= javascript_include_tag 'tabs' %>
 <% end %>
