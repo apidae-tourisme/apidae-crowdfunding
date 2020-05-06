@@ -169,7 +169,7 @@ class CrmClient
       address.send("#{field}=", subscription.send(field))
     end
     entity.name = subscription.public_label
-    entity.contact = contact if subscription.pp? || entity.id.nil? || contact.id.nil?
+    entity.contact = contact if subscription.pp? || entity.id.nil?
     entity.address = address
     entity.legal_type = LEGAL_TYPES[subscription.legal_type.to_sym][:crm_code] unless subscription.pp?
     entity.email = subscription.email if entity.id.nil?
