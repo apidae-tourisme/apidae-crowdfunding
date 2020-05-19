@@ -90,11 +90,12 @@ class CrmClient
   end
 
   def self.update_entity(entity, entity_ref, subscription, history_entry)
-    contact = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name, subscription.birth_date).first
-    populate_fields(entity, subscription, contact || Sellsy::Contact.new)
+    contact = Sellsy::Contact.search(subscription.first_name + ' ' + subscription.last_name, subscription.birth_date).first || Sellsy::Contact.new
+    populate_fields(entity, subscription, contact)
     result = entity.update
+    result &&= contact.create if contact.id.nil?
     history_entry["#{entity_ref}_update"] = result ? entity.id : false
-    if contact
+    if contact && contact.id
       unless contact.third_ids.include?(entity.id)
         contact.third_ids += [entity.id]
       end
