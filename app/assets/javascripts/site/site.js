@@ -70,7 +70,7 @@ function initDataTable() {
 function initMap(mapWrapper) {
     var wrapperRect = mapWrapper.getBoundingClientRect();
     var width = wrapperRect.width, height = wrapperRect.height;
-    var scale = width > 480 ? 2600 : 1600;
+    var scale = width > 480 ? 3000 : 1000;
     var path = d3.geoPath();
     var projection = d3.geoConicConformal() // Lambert-93
         .center([2.454071, 46.279229]) // Center on France
@@ -246,8 +246,8 @@ function initRankingsChart(filter) {
                 rankingsChart = c3.generate({
                     bindto: '#rank_chart',
                     size: {
-                        height: 170,
-                        width: containerElt.innerWidth
+                        height: 200,
+                        width: 300
                     },
                     data: {
                         json: [],
@@ -277,16 +277,14 @@ function initRankingsChart(filter) {
                             }
                         },
                         y: {
-                            min: 0,
-                            max: 5,
-                            padding: 0
+                            inner: true
                         }
                     },
                     legend: {show: false},
                     interaction: {enabled: false},
                     bar: {
                         width: {
-                            ratio: 0.7
+                            ratio: 0.9
                         },
                         space: 0.1
                     },
@@ -325,13 +323,13 @@ function clearActiveCategory() {
 
 function alignLeftAxis() {
     var grp = document.querySelector("#rank_chart svg > g");
-    if (grp) {
-        if (window.innerWidth > 575) {
-            grp.setAttribute("transform", "translate(100.5,5.5)");
-        } else {
-            grp.setAttribute("transform", "translate(20,5.5)");
-        }
-    }
+    // if (grp) {
+    //     if (window.innerWidth > 575) {
+            grp.setAttribute("transform", "translate(0,0)");
+        // } else {
+        //     grp.setAttribute("transform", "translate(20,5.5)");
+        // }
+    // }
 }
 
 function initPieChart(filter) {

@@ -8,6 +8,7 @@ Rails.application.config.sibu = {
     content_panel: 'shared/admin_content',
     bottom_panel: 'shared/admin_footer',
     auth_filter: :authenticate_user!,
+    admin_filter: Proc.new {|usr| true},
     current_user: 'current_user',
     host: 'localhost',
     not_found: 'shared/templates/not_found',

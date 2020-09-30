@@ -58,6 +58,7 @@ class SubscriptionsController < ApplicationController
 
   def rankings
     @subscriptions = filtered_records(Subscription.all.by_subscriber).order("total DESC, sub_id ASC").limit(5)
+    @max_amount = @subscriptions.to_a.map {|s| s.total}.max
   end
 
   def proportions

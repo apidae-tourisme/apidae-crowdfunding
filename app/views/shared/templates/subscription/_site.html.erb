@@ -11,12 +11,65 @@
   <%= render 'shared/header' %>
 </header>
 <div id="site_content">
-  <section id="static_section" class="bg--primary">
+  <% if @page.home? %>
+    <div id="home_content">
+      <section id="home_data">
+        <div id="data_charts" class="w100 mw1140p center">
+          <div id="home_map"></div>
+          <div id="rank_chart_wrapper" class="txtleft ptl">
+            <p class="u-uppercase u-big ma0 lh"><strong class="u-bigger">TOP 5</strong><br/>des déclarations<br/>d'intention</p>
+            <p class="u-smaller">Classement selon une échelle non-linéaire</p>
+            <div id="rank_chart"></div>
+            <button class="js-modal btn btn--small mtm aic" data-modal-prefix-class="simple-animated"
+                    data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
+                    data-modal-title="Toutes les déclarations d'intention" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
+                    aria-haspopup="dialog" onclick="loadSubscriptions()">
+              <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Voir toutes les<br/>déclarations d'intention</span>
+            </button>
+          </div>
+          <div id="home_charts" class="txtcenter mts">
+            <p class="u-uppercase txt--white u-big w100 lh"><strong>Déclarations d'intention</strong> par catégorie</p>
+            <div id="pie_chart_wrapper" class="flex-container pts pbs">
+              <div id="pie_legend" class="flex-container--column w40 tiny-w100 small-w100 pls"></div>
+              <div class="w60 tiny-w100 small-w100 pas pll">
+                <div id="pie_chart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="home_figures" class="bg--primary">
+        <div class="w100 mw1140p center flex-container pam">
+          <div id="ratio_figure" class="w45">
+            <div class="fl" style="<%= "background: linear-gradient(90deg, #FFFFFF #{amount_ratio}%, transparent #{amount_ratio}%);" %>"></div>
+            <p>
+              <strong class="u-bigger"><span class="nbr"><%= total_amount %></span></strong><br/>engagés sur un objectif de <span class="nbr">650000</span>
+            </p>
+          </div>
+          <div class="w15">
+            <p><strong class="u-bigger"><%= subscriptions_count %></strong><br/>sur 250 sociétaires</p>
+          </div>
+          <div class="w25">
+            <p class="inbl txtleft mrm countdown"><strong class="u-bigger">31/10/2020</strong><br/>fin de la 2<sup>ème</sup> levée de fonds</p>
+          </div>
+          <div class="w15">
+            <a href="/souscrire" class="inbl btn btn--big btn--inverse">Je souscris</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  <% end %>
+  <section id="static_section" class="<%= @page.home? ? 'bg--white' : 'bg--primary' %>">
     <div id="page_wrapper" class="w100 mw1140p center">
       <% @page.sections.each do |s| %>
         <%= render_page_section s %>
       <% end %>
     </div>
   </section>
+  <% if @page.home? %>
+    <div id="all_subscriptions" class="is-hidden">
+      <div id="subscriptions_wrapper"></div>
+    </div>
+  <% end %>
 </div>
 <%= render 'shared/footer' %>

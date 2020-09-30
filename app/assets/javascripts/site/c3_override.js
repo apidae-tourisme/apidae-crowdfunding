@@ -1,6 +1,9 @@
 // Custom override to draw round corners in bar charts
+// Also overrides d3 linear scale
 c3.chart.internal.fn.generateDrawBar = function (barIndices, isSub) {
-    var $$ = this, getPoints = $$.generateGetBarPoints(barIndices, isSub);
+    var $$ = this;
+    $$.y = $$.d3.scaleLinear().domain([0, 1]).range([0, 280]);
+    var getPoints = $$.generateGetBarPoints(barIndices, isSub);
     return function (d, i) {
         var points = getPoints(d, i);
         // switch points since axis is rotated

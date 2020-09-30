@@ -1,7 +1,7 @@
 json.array! @subscriptions do |s|
   json.id s.sub_id
   json.label s.label
-  json.value Math.log(s.total, 10)
+  json.value Math.log(s.total, 10) / Math.log(@max_amount, 10)
   json.category s.category
   json.amount s.total
 end

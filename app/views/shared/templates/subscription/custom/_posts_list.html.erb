@@ -1,0 +1,17 @@
+<div class="bg--white ptl" <%= sibu_attrs %>>
+  <%= page.h2 'title', class: 'txtcenter' %>
+  <%= page.widget('items', PostsList, class: 'posts_list grid has-gutter mtm') do |w| %>
+    <% w.posts[0..2].each do |p| %>
+      <div>
+        <a href="<%= p[:url] %>" class="txtleft pas" target="_blank">
+          <img src="<%= p[:image] %>" class="w100" alt="">
+          <h4 class="mts lh"><%= p[:title] %></h4>
+          <p class="u-small lh">
+            <%= (p[:content_text] || '').truncate(200, separator: /\s/) %>
+          </p>
+          <p class="txtright u-bigger ma0"><i class="apidae-icon-chevronrightfilled txt--primary"></i></p>
+        </a>
+      </div>
+    <% end %>
+  <% end %>
+</div>

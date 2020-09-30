@@ -1,0 +1,19 @@
+<h2>Modifier le flux d'actualités</h2>
+<div id="edit_msg"></div>
+<div class="sibu_edit_form">
+  <%= form_tag(update_element_site_page_path(@site.id, @page.id), method: :patch, remote: true) do |f| %>
+    <div class="sibu_field">
+      <%= label_tag 'element[feed_url]', "URL du flux JSON" %>
+      <%= text_field_tag 'element[feed_url]', @element["feed_url"] %>
+    </div>
+    <%= hidden_field_tag 'element[id]', @element["id"] %>
+    <%= hidden_field_tag :element_id, @element_id %>
+    <%= hidden_field_tag :section_id, @section_id %>
+    <%= hidden_field_tag :entity, @entity_type %>
+    <%= hidden_field_tag :refresh, true %>
+    <div class="sibu_actions">
+      <%= submit_tag 'Valider' %>
+      <%= link_to 'Annuler', '#', onclick: 'cancelEdit(); return false;' %>
+    </div>
+  <% end %>
+</div>
