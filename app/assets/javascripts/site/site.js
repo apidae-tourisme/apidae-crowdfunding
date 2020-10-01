@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     if (mapWrapper) {
         initMap(mapWrapper);
     }
-    var chartsWrapper = document.querySelector("#home_charts");
+    var chartsWrapper = document.querySelector("#data_charts");
     if (chartsWrapper) {
         initRankingsChart();
         initPieChart();
@@ -332,6 +332,11 @@ function alignLeftAxis() {
     // }
 }
 
+function styleLabels() {
+    d3.select("#pie_chart").selectAll('.c3-chart-arc > text')
+        .html(function(d) { return d.value > 0 ? ('<tspan dx="0" dy="0">' + d.value + '</tspan><tspan dx="' + (d.value > 1 ? '-1.3em' : '-1em') + '" dy="1em">' + ' membre' + (d.value > 1 ? 's' : '') + '</tspan>') : '';});
+}
+
 function initPieChart(filter) {
     var ajax = new XMLHttpRequest();
     ajax.open("GET", "/souscriptions/proportions.json" + (filter ? ("?filter=" + filter) : ""), true);
@@ -349,32 +354,35 @@ function initPieChart(filter) {
                 pieChart = c3.generate({
                     bindto: '#pie_chart',
                     size: {
-                        height: 280
+                        height: 220
                     },
                     data: {
                         json: pieData.subscriptions,
-                        type: 'pie',
+                        type: 'donut',
                         color: function(color, d) {
                             return (typeof d === 'string') ? colorsByCategory[d] : color;
                         }
                     },
                     legend: {show: false},
                     interaction: {enabled: false},
-                    pie: {
+                    donut: {
                         label: {
                             format: function (value, ratio, id) {
-                                return value + ' membre' + (value > 1 ? 's' : '');
+                                return value;
                             }
-                        }
-                    }
+                        },
+                        width: 50
+                    },
+                    onresize: styleLabels,
+                    onrendered: styleLabels
                 });
                 d3.select('#pie_legend').selectAll('div.legend_item')
                     .data(Object.keys(pieData.subscriptions)).enter().append('div')
-                    .attr('class', 'legend_item flex-container--column')
+                    .attr('class', 'legend_item')
                     .html(function (id) {
                         return '<button type="button" class="flex-container--column ' + id + '" style="border-left-color: ' + colorsByCategory[id] + ';" onclick="toggleRankFilter(\'' + id + '\', this)">' +
                             '<span class="fw500" style="color: ' + colorsByCategory[id] + ';">' + formatAmount(pieData.amounts[id]) + '</span>' +
-                            '<span class="txt--white">' + labelsByCategory[id] + '</span></button>';
+                            '<span class="fw500">' + labelsByCategory[id] + '</span></button>';
                     })
                     .on('mouseover', function (id) {
                         if (pieChart) pieChart.focus(id);

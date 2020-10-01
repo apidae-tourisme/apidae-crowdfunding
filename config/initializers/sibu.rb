@@ -1,4 +1,4 @@
-SECTIONS_TABS = ['texts', 'links', 'custom']
+SECTIONS_TABS = ['texts', 'links', 'grids', 'custom']
 
 Rails.application.config.sibu = {
     title: 'Apidae - Souscrivez à la nouvelle structure',
@@ -13,5 +13,6 @@ Rails.application.config.sibu = {
     host: 'localhost',
     not_found: 'shared/templates/not_found',
     images: {large: 1600, medium: 800, small: 320},
+    section_form: 'shared/sibu/section_form',
     sections_ordering: Proc.new {|sections| sections.sort_by {|s| SECTIONS_TABS.index(s['category'])}}
 }

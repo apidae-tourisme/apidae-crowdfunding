@@ -1,0 +1,32 @@
+<div class="steps_container ptm pbm pll prl bg--white" <%= sibu_attrs %>>
+  <div class="txtcenter">
+    <%= image_tag 'bee.png', class: 'title_img prvs' %><%= page.h2('title', class: 'mts mbm inbl') %>
+  </div>
+  <%= page.h4('subtitle', class: 'mts mbs txtcenter') %>
+  <ul class="steps_wrapper grid" data-tabs>
+    <% each_element('steps') do |step| %>
+      <%= page.li(step, class: 'step', repeat: true) do %>
+        <div class="bg--info flex-container aic jcc txt--white">
+          <%= page.h5('label', class: 'h4-like lh ma0') %>
+        </div>
+        <div class="step_link center txtcenter">
+          <%= page.link('link', class: 'flex-container h4-like lh') %>
+        </div>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+<% content_for :page_scripts do %>
+  <% if action_name == 'show' %>
+    <script>
+        var tabs;
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var firstStep = document.querySelector(".steps_container .steps_wrapper > li:first-child a");
+            if (firstStep) {
+              firstStep.setAttribute('data-tabby-default', '');
+              tabs = new Tabby('.steps_container .steps_wrapper');
+            }
+        });
+    </script>
+  <% end %>
+<% end %>

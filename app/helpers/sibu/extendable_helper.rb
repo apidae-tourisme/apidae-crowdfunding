@@ -11,5 +11,9 @@ module Sibu
     def subscriptions_count
       Subscription.count
     end
+
+    def colors_cycle
+      cycle('danger', 'primary', 'warning', name: 'colors')
+    end
   end
 end

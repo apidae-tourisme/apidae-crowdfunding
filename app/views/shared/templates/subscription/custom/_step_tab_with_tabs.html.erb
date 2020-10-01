@@ -1,0 +1,31 @@
+<div class="step_tab_with_tabs bg--white pal" <%= sibu_attrs %>>
+  <div class="pas">
+    <%= page.p('intro') %>
+    <div class="inner_tabs">
+      <%= page.ul('tabs', 'data-tabs': '') do |ul_elt, li_elts| %>
+        <% li_elts.each_with_index do |li_elt, i| %>
+          <%= page.li(li_elt, class: 'inner_tab_link', repeat: true) do |li_el| %>
+            <a href="<%= "##{sibu_section['id']}_#{i}" %>" <%= 'data-tabby-default' if i == 0 %>><%= li_el['text'] %></a>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= page.wrapper('contents') do |w_elt, content_elts| %>
+        <% content_elts.each_with_index do |content_elt, i| %>
+          <%= page.div(content_elt, id: "#{sibu_section['id']}_#{i}", class: 'pam inner_tab_content', repeat: true) do %>
+            <%= page.h3('title', class: 'mbs') %>
+            <%= page.p('text') %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+    <%= page.p('details', class: 'mtm') %>
+  </div>
+</div>
+<% content_for :page_scripts do %>
+  <script>
+    var innerTabs;
+    document.addEventListener("DOMContentLoaded", function(event) {
+      innerTabs = new Tabby(".step_tab_with_tabs [data-tabs]");
+    });
+  </script>
+<% end %>

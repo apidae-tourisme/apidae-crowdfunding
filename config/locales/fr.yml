@@ -80,6 +80,7 @@ fr:
         texts: Textes
         visuals: Images
         links: Liens
+        grids: Grilles
   time:
     formats:
       detailed: "%d/%m à %H:%M"

@@ -51,11 +51,19 @@ function editContentSibuCallback() {
 }
 
 function newSectionSibuCallback() {
+    // var tabs = document.querySelectorAll(".sibu_sections_tabs [data-tabs]");
+    // for (var i = 0; i < tabs.length; i++) {
+        try {
+            new Tabby(".sibu_sections_tabs .step_tab_with_tabs [data-tabs]");
+        } catch (e) {
+            console.error('skipping invalid tab init');
+        }
+    // }
 }
 
 function editElementSibuCallback() {
     stylePage();
-    initializeDatatable('#edit_panel .sibu_images', 0);
+    // initializeDatatable('#edit_panel .sibu_images', 0);
 }
 
 function stylePage() {

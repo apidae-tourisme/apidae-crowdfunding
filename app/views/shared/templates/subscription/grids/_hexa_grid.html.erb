@@ -1,0 +1,23 @@
+<div class="hexa_grid bg--white pam" <%= sibu_attrs %>>
+  <div class="txtcenter">
+    <%= image_tag 'bee.png', class: 'title_img prvs' %><%= page.h2('title', class: 'mts mbm inbl') %>
+  </div>
+  <div class="grid has-gutter-xl">
+    <% each_element('links') do |link_elt| %>
+      <div>
+        <%= page.link(link_elt, repeat: true, class: 'txtcenter pam') do |elt| %>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 117.74 133.15" style="width: 80%;">
+            <g>
+              <clipPath id="hexa_mask">
+                <path class="cls-1" d="M117.74,94.71V38.38a10.23,10.23,0,0,0-5.1-8.75L64,1.38a10.07,10.07,0,0,0-10.18,0L5.1,29.54A10.23,10.23,0,0,0,0,38.3V94.76a10.23,10.23,0,0,0,5.1,8.75L53.8,131.77a10.07,10.07,0,0,0,10.18,0l48.7-28.16a10.36,10.36,0,0,0,5-8.89"/>
+              </clipPath>
+            </g>
+            <%= page.svg_image('image', 'width' => '134', 'height' => '134', 'clip-path' => 'url(#hexa_mask)') %>
+          </svg>
+          <h3 class="lh u-uppercase mts mbs h4-like"><%= elt['text'] %></h3>
+          <i class="u-biggest apidae-icon-chevronrightfilled txt--<%= colors_cycle %> tiny-hidden small-hidden"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
