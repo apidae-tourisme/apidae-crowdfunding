@@ -84,6 +84,16 @@ site_template.update(
                     ]}
                 ]}
             ]
+        },
+        hexa_steps: {
+            elements: [
+                {id: 'title', text: Sibu::DEFAULT_TEXT},
+                {id: 'steps', elements: [
+                    {id: 'step1', text: Sibu::DEFAULT_TEXT},
+                    {id: 'step2', text: Sibu::DEFAULT_TEXT}
+                ]},
+                {id: 'link', text: Sibu::DEFAULT_TEXT, value: '#'}
+            ]
         }
     }
 )

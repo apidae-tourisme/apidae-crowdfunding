@@ -5,10 +5,15 @@
     & + #site_content {
       margin-top: 0;
     }
+
+    .vsep {
+      display: none;
+    }
   }
 
   div#site_header {
     flex-wrap: wrap;
+    flex-direction: row;
     height: auto;
 
     & > :first-child {
@@ -24,14 +29,44 @@
       order: 3;
       font-size: 12px;
       margin-top: 1rem;
+      width: 50%;
+      padding: 0 1rem;
+
+      &:nth-child(6) {
+        flex: 1 1 0%;
+      }
 
       &:nth-child(2) {
-        flex: 1 1 0%;
+        width: 100%;
       }
     }
 
     & > #ratio_figure {
       flex: auto;
+    }
+  }
+
+  #site_content section#home_data {
+    #rank_chart_wrapper, #pie_chart_container {
+      display: block;
+      position: initial;
+      float: left;
+      width: 50%;
+      padding: 2rem;
+      margin: 0;
+    }
+
+    #data_charts #home_map {
+      min-height: auto;
+    }
+  }
+
+  #timeline_container {
+    clear: both;
+    padding-top: 2rem;
+
+    #timeline_steps {
+      display: none;
     }
   }
 }
@@ -57,8 +92,14 @@
   }
 
   #site_content #home_data > * > :last-child {
-    height: calc(1140px - 15rem) !important;
+    height: calc(720px - 15rem) !important;
     min-height: auto;
+  }
+
+  #site_content section#home_data {
+    #rank_chart_wrapper, #pie_chart_container {
+      width: 100%;
+    }
   }
 
   #home_figures > div {
@@ -74,6 +115,16 @@
   section#home_phases {
     .grid-4 > div {
       margin-bottom: 2rem;
+
+      &:not(:last-child):after {
+        display: none;
+      }
+    }
+  }
+
+  .hexa_steps {
+    .grid > div {
+      margin-bottom: 1rem !important;
 
       &:not(:last-child):after {
         display: none;

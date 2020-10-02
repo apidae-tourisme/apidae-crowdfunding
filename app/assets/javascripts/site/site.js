@@ -70,7 +70,7 @@ function initDataTable() {
 function initMap(mapWrapper) {
     var wrapperRect = mapWrapper.getBoundingClientRect();
     var width = wrapperRect.width, height = wrapperRect.height;
-    var scale = width > 480 ? 3000 : 1000;
+    var scale = width > 480 ? 3000 : 1500;
     var path = d3.geoPath();
     var projection = d3.geoConicConformal() // Lambert-93
         .center([2.454071, 46.279229]) // Center on France

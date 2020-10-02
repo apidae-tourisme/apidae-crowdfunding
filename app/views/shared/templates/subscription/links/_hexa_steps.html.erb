@@ -1,0 +1,15 @@
+<div class="hexa_steps bg--warning ptm pbm" <%= sibu_attrs %>>
+  <%= page.h2('title', class: 'txtcenter mbl') %>
+  <div class="grid txt--inverse">
+    <% each_element('steps') do |step_elt| %>
+      <div>
+        <div class="pam">
+          <%= page.p(step_elt, repeat: true, class: 'txtcenter w75 center lh plm prm pbs') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="txtcenter mtm mbm">
+    <%= page.link('link', class: 'btn btn--big btn--danger') %>
+  </div>
+</div>

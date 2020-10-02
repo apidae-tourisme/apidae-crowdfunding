@@ -116,10 +116,6 @@ header {
       margin-bottom: 1rem;
     }
   }
-
-  .step_tab_with_tabs > div {
-    box-shadow: 0 3px 5px rgba(50, 50, 50, 0.5);
-  }
 }
 
 #home_data {
@@ -441,6 +437,39 @@ header {
   }
 }
 
+.hexa_steps {
+  .grid > div {
+    position: relative;
+
+    &:not(:last-child):after {
+      content: "";
+      position: absolute;
+      width: 60%;
+      height: 64px;
+      background-image: url(asset_path('dots_transition.svg'));
+      background-repeat: no-repeat;
+      background-size: 100% auto;
+      background-position: center;
+      top: -25px;
+      left: 70%;
+      z-index: 3;
+    }
+
+    & > div > div {
+      height: 150px;
+      background-image: url(asset_path('hexa_white.svg'));
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: auto 100%;
+      padding: 3.5rem 3rem;
+    }
+  }
+
+  > div > div:last-child {
+    margin-bottom: -64px;
+  }
+}
+
 #home_why, .hexa_grid, .posts_list {
   a {
     text-decoration: none;
@@ -563,6 +592,20 @@ header {
 
     &[role="tablist"] {
       border: none;
+
+      [role="tab"] {
+        border: none;
+        margin: 0;
+        padding: 0;
+
+        [aria-selected="true"] {
+          border: none;
+        }
+
+        &:hover:not([aria-selected="true"]) {
+          background-color: inherit;
+        }
+      }
     }
 
     .bg--info {
@@ -581,11 +624,7 @@ header {
     width: 80px;
     text-align: center;
     color: white;
-    background-image: url('<%= asset_path 'hexa_blue.svg' %>');
-    background-size: auto 80px;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    padding-top: 30px;
+    padding: 30px 0 0 0;
 
     a {
       color: white;
@@ -593,10 +632,22 @@ header {
       align-content: center;
       justify-content: center;
       height: 80px;
+      display: flex;
+      background-image: url('<%= asset_path 'hexa_blue.svg' %>');
+      background-size: auto 80px;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+
+      &[aria-selected="true"] {
+        background-image: url('<%= asset_path 'hexa_yellow.svg' %>');
+        background-color: transparent;
+      }
     }
 
     &:hover {
-      background-image: url('<%= asset_path 'hexa_yellow.svg' %>');
+      a {
+        background-image: url('<%= asset_path 'hexa_yellow.svg' %>');
+      }
 
       &:before {
         color: $color-warning;
@@ -615,7 +666,17 @@ header {
   }
 }
 
+.step_tab {
+  & > div {
+    box-shadow: 0 3px 5px rgba(50, 50, 50, 0.5);
+  }
+}
+
 .step_tab_with_tabs {
+  & > div {
+    box-shadow: 0 3px 5px rgba(50, 50, 50, 0.5);
+  }
+
   [data-tabs] {
     margin: 0;
     padding: 0;
@@ -625,20 +686,23 @@ header {
     list-style-type: none;
     text-align: center;
     line-height: 1;
-    justify-content: space-evenly;
+    justify-content: space-between;
   }
 
   .inner_tab_link {
+    display: inherit;
+    flex: 1 1 0%;
+
     > a {
       text-decoration: none;
       display: flex;
       justify-content: center;
-      flex-direction: column;
-      height: 62px;
+      align-content: center;
+      width: 100%;
       cursor: pointer;
       font-size: 1.4rem;
       font-weight: 500;
-      padding: 1rem 0.5rem;
+      padding: 1.5rem;
       color: $tabs-color;
       opacity: 0.6;
       transition: .25s;
@@ -647,7 +711,7 @@ header {
 
       &:focus {
         color: $white;
-        background-color: $color-primary;
+        background-color: $color-warning;
         outline: 0;
       }
 
@@ -659,13 +723,14 @@ header {
 
   .inner_tab_link [aria-selected="true"] {
     color: $white;
-    background-color: $color-primary;
+    background-color: $color-warning;
     outline: 0;
     opacity: 1;
+    border: none;
   }
 
   .inner_tab_content {
-    border: 2px solid $color-primary;
+    border: 2px solid $color-warning;
 
     h3 {
       align-items: center;
