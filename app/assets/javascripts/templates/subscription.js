@@ -8,4 +8,4 @@
 //= require d3/dist/d3
 //= require c3/c3
 //= require site/c3_override
-//= require site/site
+//= require templates/site

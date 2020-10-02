@@ -10,6 +10,6 @@ module StaticHelper
   end
 
   def amount_ratio
-    [100, (@total / 650000.0).round(2) * 100].min.to_i
+    [100, (Subscription.sum(:amount).to_i / 650000.0).round(2) * 100].min.to_i
   end
 end

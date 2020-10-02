@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'static#home'
   get 'accueil', to: 'static#home'
   get 'souscrire', to: 'subscriptions#new'
   get 'comment-souscrire', to: 'static#howto'
@@ -38,6 +39,4 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  root to: 'static#home'
 end

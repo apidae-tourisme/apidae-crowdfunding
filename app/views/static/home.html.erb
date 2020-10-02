@@ -1,5 +1,58 @@
 <div id="home_content">
-
+  <section id="home_data">
+    <div id="data_bg" class="w100 grid-2">
+      <div class="bg--white"></div>
+      <div class="bg--inverse"></div>
+    </div>
+    <div id="data_charts" class="w100 mw1140p center grid-2">
+      <div class="plm prm">
+        <div id="home_map"></div>
+      </div>
+      <div class="pam">
+        <div id="home_charts">
+          <div id="rank_chart_wrapper" class="txtcenter">
+            <p class="u-uppercase txt--white u-big ma0 lh"><strong>TOP 5</strong> des déclarations d'intention</p>
+            <p class="u-smaller txt--white"><em>Classement selon une échelle non-linéaire</em></p>
+            <div id="rank_chart"></div>
+            <button class="js-modal btn flex-container--row mtm" data-modal-prefix-class="simple-animated"
+                    data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
+                    data-modal-title="Toutes les déclarations d'intention" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
+                    aria-haspopup="dialog" onclick="loadSubscriptions()">
+              <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Voir toutes les déclarations d'intention</span>
+            </button>
+          </div>
+          <div class="txtcenter mts">
+            <p class="u-uppercase txt--white u-big w100 lh"><strong>Déclarations d'intention</strong> par catégorie</p>
+            <div id="pie_chart_wrapper" class="flex-container pts pbs">
+              <div id="pie_legend" class="flex-container--column w40 tiny-w100 small-w100 pls"></div>
+              <div class="w60 tiny-w100 small-w100 pas pll">
+                <div id="pie_chart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="home_figures" class="bg--primary">
+    <div class="w100 mw1140p center flex-container pam">
+      <div id="ratio_figure" class="w45">
+        <div class="fl" style="<%= "background: linear-gradient(90deg, #FFFFFF #{amount_ratio}%, transparent #{amount_ratio}%);" %>"></div>
+        <p>
+          <strong class="u-bigger"><span class="nbr"><%= @total %></span></strong><br/>engagés sur un objectif de <span class="nbr">650000</span>
+        </p>
+      </div>
+      <div class="w15">
+        <p><strong class="u-bigger"><%= @count %></strong><br/>sur 250 sociétaires</p>
+      </div>
+      <div class="w25">
+        <p class="inbl txtleft mrm countdown"><strong class="u-bigger">31/10/2020</strong><br/>fin de la 2<sup>ème</sup> levée de fonds</p>
+      </div>
+      <div class="w15">
+        <a href="/souscrire" class="inbl btn btn--big btn--inverse">Je souscris</a>
+      </div>
+    </div>
+  </section>
   <section id="home_video" class="bg--white">
     <video playsinline controls poster="https://static.souscription.apidae-tourisme.com/apidae-souscription-preview.png">
       <source src="https://static.souscription.apidae-tourisme.com/apidae-souscription.mp4" type="video/mp4">
