@@ -365,7 +365,7 @@ function initPieChart(filter) {
                     pie: {
                         label: {
                             format: function (value, ratio, id) {
-                                return value + ' membre' + (value > 1 ? 's' : '');
+                                return value;
                             }
                         }
                     }
