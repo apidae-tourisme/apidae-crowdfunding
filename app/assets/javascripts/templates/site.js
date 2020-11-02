@@ -334,7 +334,7 @@ function alignLeftAxis() {
 
 function styleLabels() {
     d3.select("#pie_chart").selectAll('.c3-chart-arc > text')
-        .html(function(d) { return d.value > 0 ? ('<tspan dx="0" dy="0">' + d.value + '</tspan><tspan dx="' + (d.value > 1 ? '-1.3em' : '-1em') + '" dy="1em">' + ' membre' + (d.value > 1 ? 's' : '') + '</tspan>') : '';});
+        .html(function(d) { return d.value > 0 ? ('<tspan dx="0" dy="0">' + d.value + '</tspan>') : '';});
 }
 
 function initPieChart(filter) {
