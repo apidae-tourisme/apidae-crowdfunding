@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   get 'souscrire', to: 'subscriptions#new'
-  get 'comment-souscrire', to: redirect('static#howto')
+  get 'comment-souscrire', to: redirect('/pourquoi-souscrire')
 
   resources :subscriptions, only: [:index, :new, :create, :edit, :update, :show], path: 'souscriptions' do
     get :confirm, on: :member, path: 'confirmation'
