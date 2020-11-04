@@ -1,33 +1,20 @@
-<% if @page %>
-  <div id="site_header" class="w100 mw1140p center flex-container aic">
-    <%= link_to image_tag('logo_apidae.svg', class: 'item-center'), '/' %>
-    <div id="ratio_figure" class="pll">
-      <div class="fl" style="<%= "background: linear-gradient(0deg, #74C5EA #{amount_ratio}%, transparent #{amount_ratio}%);" %>"></div>
-      <p class="ma0 lh">
-        <strong class="u-bigger"><span class="nbr txt--info"><%= total_amount %></span></strong><br/>engagés sur un objectif de <span class="nbr">650000</span>
-      </p>
-    </div>
-    <div class="vsep"></div>
-    <div>
-      <p class="lh ma0"><strong class="u-bigger txt--success"><%= subscriptions_count %></strong><br/>sur 250 sociétaires</p>
-    </div>
-    <div class="vsep"></div>
-    <div>
-      <p class="lh ma0">
-        <strong class="u-bigger txt--danger">08/12/2020</strong><br/>fin de la 2<sup>ème</sup> levée de fonds
-      </p>
-    </div>
-    <a href="/souscrire" class="btn btn--big btn--inverse mlm mrs">Devenir<br/>sociétaire</a>
+<div id="site_header" class="w100 mw1140p center flex-container aic">
+  <%= link_to image_tag('logo_apidae.svg', class: 'item-center'), '/' %>
+  <div id="ratio_figure" class="pll">
+    <div class="fl" style="<%= "background: linear-gradient(0deg, #74C5EA #{amount_ratio}%, transparent #{amount_ratio}%);" %>"></div>
+    <p class="ma0 lh">
+      <strong class="u-bigger"><span class="nbr txt--info"><%= total_amount %></span></strong><br/>engagés sur un objectif de <span class="nbr">650000</span>
+    </p>
   </div>
-<% else %>
-  <div id="site_header" class="w100 mw1140p center flex-container">
-    <%= link_to image_tag('logo_apidae.svg', class: 'item-center'), '/' %>
-    <a href="/#home_why">Pourquoi souscrire ?</a>
-    <a href="/comment-souscrire">Comment souscrire ?</a>
-    <a href="/souscrire" class="btn btn--inverse medium-hidden large-hidden">Je souscris</a>
-    <div class="txtright item-fluid lh small-hidden tiny-hidden">
-      <p class="inbl txtcenter mrm countdown"><strong class="u-big txt--danger"><i class="fas fa-hourglass-half prvs"></i>08/12/2020</strong><br/>fin de la 2<sup>ème</sup> levée de fonds</p>
-      <a href="/souscrire" class="inbl btn btn--big btn--inverse">Je souscris</a>
-    </div>
+  <div class="vsep"></div>
+  <div>
+    <p class="lh ma0"><strong class="u-bigger txt--success"><%= subscriptions_count %></strong><br/>sur 250 sociétaires</p>
   </div>
-<% end %>
+  <div class="vsep"></div>
+  <div>
+    <p class="lh ma0">
+      <strong class="u-bigger txt--danger">08/12/2020</strong><br/>fin de la 2<sup>ème</sup> levée de fonds
+    </p>
+  </div>
+  <a href="/souscrire" class="btn btn--big btn--inverse mlm mrs">Devenir<br/>sociétaire</a>
+</div>
