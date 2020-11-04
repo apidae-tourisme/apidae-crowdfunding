@@ -45,16 +45,16 @@
                 <span class="nbr u-bigger u-bold"><%= total_amount %></span>
               </div>
               <div id="timeline_steps" class="flex-container w100 fw500">
-                <div class="flex-container lh u-uppercase">Jan<br/>2020</div>
-                <div class="flex-container u-uppercase">Fév</div>
-                <div class="flex-container u-uppercase">Mar</div>
+                <div class="flex-container lh u-uppercase">Mar<br/>2020</div>
                 <div class="flex-container u-uppercase">Avr</div>
                 <div class="flex-container u-uppercase">Mai</div>
                 <div class="flex-container u-uppercase">Juin</div>
                 <div class="flex-container u-uppercase">Juil</div>
                 <div class="flex-container u-uppercase">Aou</div>
                 <div class="flex-container u-uppercase">Sep</div>
-                <div class="flex-container u-uppercase active">Oct</div>
+                <div class="flex-container u-uppercase">Oct</div>
+                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 11 %>">Nov</div>
+                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 12 %>">Déc</div>
               </div>
             </div>
             <p class="u-uppercase lh pls"><strong>Objectif :<br/>650 000€</strong></p>
