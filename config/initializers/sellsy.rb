@@ -8,7 +8,7 @@ begin
     config.user_secret = Rails.application.config.sellsy_user_secret
   end
 
-  resp = Sellsy::CustomField.all
+  resp = Sellsy::CustomField.all(50)
   SELLSY_CUSTOM_FIELDS = Hash[
       resp.values.map do |ref|
         [
