@@ -9,7 +9,7 @@ module Sibu
     end
 
     def subscriptions_count
-      Subscription.count
+      Subscription.by_subscriber.to_a.count
     end
 
     def colors_cycle
