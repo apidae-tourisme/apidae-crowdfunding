@@ -1,7 +1,7 @@
 module Sibu
   module ExtendableHelper
     def amount_ratio
-      [100, (total_amount / 750000.0).round(2) * 100].min.to_i
+      [100, (total_amount / 700000.0).round(2) * 100].min.to_i
     end
 
     def total_amount
