@@ -38,7 +38,7 @@ module ApidaeCrowdfunding
     config.active_storage.service = :local
 
     # Change default order to prevent catch-all routes from catching AS routes (see https://github.com/rails/rails/issues/31228#issuecomment-479631062)
-    config.railties_order = [:all, :main_app]
+    config.railties_order = [ActiveStorage::Engine, :main_app, :all]
 
     config.sender_email = ''
     config.subscriptions_admins = []
