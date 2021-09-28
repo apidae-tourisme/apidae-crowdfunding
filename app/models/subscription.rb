@@ -69,6 +69,7 @@ class Subscription < ApplicationRecord
     self.normalize_names
     self.label = normalize_label
     unless postal_code.blank?
+      self.postal_code = postal_code.strip
       code = country == 'fr' ? lpad(postal_code) : (country.upcase + postal_code)
       REGIONS.each_pair do |r, codes|
         self.region = r if codes.any? {|c| code.start_with?(c)}
