@@ -6,7 +6,7 @@
   Vous pouvez télécharger votre bulletin de souscription en suivant <a href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>" target="_blank">ce lien</a>.<br/>
   <br/>
   <% if @subscription.payment_method == 'cheque' %>
-    Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, 11B Quai Perrache, 69002 Lyon<br/>
+    Merci de libeller votre chèque à l’ordre de Apidae Tourisme Scic SA et de l’envoyer avec une copie de ce bulletin à : Apidae Tourisme, Now Coworking, 35 rue de Marseille, 69007 Lyon<br/>
   <% else %>
     Merci de réaliser votre virement sur le compte de Apidae Tourisme Scic SA (<a href="https://souscription.apidae-tourisme.com/rib-scic-sa-apidae-tourisme.pdf" target="_blank">télécharger le RIB</a>) en précisant comme intitulé de virement « Souscription n°XXX » X étant le n° de souscription présent sur votre bulletin.<br/>
   <% end %>
