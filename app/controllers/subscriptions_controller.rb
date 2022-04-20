@@ -57,7 +57,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def rankings
-    @subscriptions = filtered_records(Subscription.all.by_subscriber).order("total DESC, sub_id ASC").limit(5)
+    @subscriptions = filtered_records(Subscription.all.by_subscriber).order("sub_id DESC").limit(5)
     @max_amount = @subscriptions.to_a.map {|s| s.total}.max
   end
 
