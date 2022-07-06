@@ -16,13 +16,18 @@ class PostsList
       cache_key = @feed_url.split('/')[-3..-1].join('_')
       items = Rails.cache.read(cache_key)
       if items.nil? || force_refresh
-        response = ''
-        open(@feed_url) { |f|
-          f.each_line {|line| response += line unless line.nil?}
-        }
-        resp_data = JSON.parse(response, symbolize_names: true)
-        items = resp_data[:items]
-        Rails.cache.write(cache_key, items)
+        begin
+          response = ''
+          open(@feed_url) { |f|
+            f.each_line {|line| response += line unless line.nil?}
+          }
+          resp_data = JSON.parse(response, symbolize_names: true)
+          items = resp_data[:items]
+          Rails.cache.write(cache_key, items)
+        rescue Exception => ex
+          Rails.logger.error "Could not retrieve posts list: #{ex.message}"
+          items = []
+        end
       end
     end
     items
