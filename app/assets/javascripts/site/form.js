@@ -88,11 +88,11 @@ function updateCategoryFields(categorySelect) {
     document.querySelector("#infos_fields").setAttribute("data-category", categorySelect.value);
 
     document.querySelector("#category_min").innerHTML = newCategory.querySelector("p:last-child").innerHTML;
-    if (categorySelect.value === 'at' || categorySelect.value === 'ct') {
-        document.querySelector("#spl_alert").classList.remove('is-hidden');
-    } else {
-        document.querySelector("#spl_alert").classList.add('is-hidden');
-    }
+    // if (categorySelect.value === 'at' || categorySelect.value === 'ct') {
+    //     document.querySelector("#spl_alert").classList.remove('is-hidden');
+    // } else {
+    //     document.querySelector("#spl_alert").classList.add('is-hidden');
+    // }
 
     if (categorySelect.value === 'sr') {
         document.querySelector("#person_type_field").classList.remove('is-hidden');
