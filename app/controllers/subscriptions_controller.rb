@@ -70,7 +70,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def regions
-    @amounts_by_region = Hash[Subscription.all.select("region, SUM(amount) AS total").group(:region)
+    subs = params[:category].blank? ? Subscription.all : Subscription.where(category: params[:category])
+    @amounts_by_region = Hash[subs.select("region, SUM(amount) AS total").group(:region)
                                     .map {|s| [s.region, s.total]}]
     render json: @amounts_by_region
   end

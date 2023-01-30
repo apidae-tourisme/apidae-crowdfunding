@@ -1,6 +1,14 @@
-$sibu-color1 : #00B1C6 !default;
-$sibu-color2 : #00B1C6 !default;
+$sibu-color1 : #0089ce !default;
+$sibu-color2 : #002474 !default;
 $sibu-color3 : #000000 !default;
+
+header {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid $gray-700;
+  background-color: $white;
+}
 
 #alert, #notice {
   position: fixed;
@@ -14,6 +22,8 @@ $sibu-color3 : #000000 !default;
 }
 
 #site_content {
+  margin-top: 9rem;
+
   tbody {
     font-size: 11px;
 
@@ -62,7 +72,7 @@ $sibu-color3 : #000000 !default;
 
   .sibu_view {
     padding: 0;
-    font-family: "Montserrat", "Arial", "Helvetica Neue", sans-serif;
+    font-family: "Niramit", "Arial", "Helvetica Neue", sans-serif;
 
     h2 {
       padding-bottom: 2rem;

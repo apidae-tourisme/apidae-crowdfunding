@@ -1,11 +1,14 @@
 @import 'admin';
 
-body.sibu_edit_content > div.sibu_content_panel {
+body.sibu_edit_content > div.sibu_content_panel, body.sibu_edit_content > div > div.sibu_content_panel {
   top: 0;
-  padding-top: 91px;
 
   #edit_panel {
     max-height: calc(100% - 91px);
+  }
+
+  .edit_content {
+    padding-top: 180px;
   }
 }
 
@@ -14,6 +17,10 @@ body.sibu_edit_content > div.sibu_content_panel {
     margin-top: 0;
     padding: 0;
     max-width: none;
+
+    .home_content, .generic_content {
+      margin-top: 0;
+    }
   }
 
   .edit_mode_actions {
@@ -41,9 +48,5 @@ body.sibu_edit_content > div.sibu_content_panel {
 
   header {
     top: 91px;
-
-    //& + #site_content {
-    //  margin-top: calc(9rem + 91px);
-    //}
   }
 }

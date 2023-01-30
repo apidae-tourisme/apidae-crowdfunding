@@ -1,20 +1,12 @@
-<div id="site_header" class="w100 mw1140p center flex-container aic">
-  <%= link_to image_tag('logo_apidae.png', class: 'item-center'), '/' %>
-  <div id="ratio_figure" class="pll">
-    <div class="fl" style="<%= "background: linear-gradient(0deg, #74C5EA #{amount_ratio}%, transparent #{amount_ratio}%);" %>"></div>
-    <p class="ma0 lh">
-      <strong class="u-bigger"><span class="nbr txt--info"><%= total_amount %></span></strong><br/>engagés sur un objectif de <span class="nbr">677800</span>
-    </p>
+<% if controller_name == 'pages' %>
+  <div id="site_header" class="w100 mw1140p center flex-container aic" <%= sibu_attrs('header') %>>
+    <%= link_to image_tag('logo_apidae.png', class: 'item-center'), '/' %>
+    <%= site.p('header_title', class: 'h3-like lh') %>
+    <a href="/devenir-societaire" class="apidae_btn_solid mlm mrs">Devenir sociétaire</a>
   </div>
-  <div class="vsep"></div>
-  <div>
-    <p class="lh ma0"><strong class="u-bigger txt--success"><%= subscriptions_count %></strong><br/>sur 250 sociétaires</p>
+<% else %>
+  <div id="site_header" class="w100 mw1140p center flex-container aic">
+    <%= link_to image_tag('logo_apidae.png', class: 'item-center'), '/' %>
+    <a href="/devenir-societaire" class="apidae_btn_solid mlm mrs">Devenir sociétaire</a>
   </div>
-  <div class="vsep"></div>
-  <div>
-    <p class="lh ma0">
-      <strong class="u-bigger txt--danger">31/12/2022</strong><br/>fin de la 5<sup>ème</sup> levée de fonds
-    </p>
-  </div>
-  <a href="/devenir-societaire" class="btn btn--big btn--inverse mlm mrs">Devenir<br/>sociétaire</a>
-</div>
+<% end %>

@@ -13,7 +13,7 @@
         <h1 class="txtcenter txt--white mtl mbl h2-like">Merci pour votre déclaration</h1>
         <div id="confirmation_content" class="bg--white">
           <h3 class="flex-container--row">
-            <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Confirmation de ma déclaration d'intention</span>
+            <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span>Confirmation de ma déclaration d'intention</span>
           </h3>
           <p class="txtcenter mtl">
             Merci pour votre déclaration. Une confirmation vous a été envoyée par mail.<br/><br/>
@@ -29,7 +29,7 @@
         <h1 class="txtcenter txt--white mtl mbl h2-like">Merci pour votre souscription !</h1>
         <div id="confirmation_content" class="bg--white">
           <h3 class="flex-container--row">
-            <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Confirmation de ma souscription</span>
+            <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span>Confirmation de ma souscription</span>
           </h3>
           <p class="txtcenter mtl">
             Merci pour votre souscription. Une confirmation vous a été envoyée par mail.<br/>
@@ -40,17 +40,16 @@
             <% end %>
             <br/>
             <br/>
-            <a class="btn btn--inverse" target="_blank" href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>">Télécharger votre bulletin de souscription</a><br/>
             <br/>
-            <a class="btn btn--primary" href="/" target="_blank">Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !</a>
+            <a class="apidae_btn_solid" target="_blank" href="https://print.souscription.apidae-tourisme.com/souscription?path=<%= CGI.escape(document_subscription_url(@subscription, host: Rails.application.default_url_options[:host])) %>">Télécharger votre bulletin de souscription</a><br/>
+            <br/>
+            <br/>
+            <br/>
+            <a class="apidae_btn_outline" href="/" target="_blank">Vérifiez si vous êtes dans le top 5 des déclarations d’intention et partagez la bonne nouvelle !</a>
           </p>
         </div>
       <% end %>
       <div class="flex-container--row mtm jcc">
-        <a class="twitter-share-button" target="_blank"
-           href="https://twitter.com/intent/tweet?text=<%= CGI.escape("Je soutiens @ApidaeTourisme") %>&url=<%= CGI.escape(share_subscription_url(@subscription)) %>"
-           data-size="large">
-          Partager sur Twitter</a>
         <div class="fb-share-button mls" data-href="<%= share_subscription_url(@subscription) %>" data-layout="button" data-size="large">
           <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=<%= CGI.escape(share_subscription_url(@subscription)) %>&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Partager sur Facebook</a>
         </div>

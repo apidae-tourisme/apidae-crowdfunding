@@ -11,7 +11,7 @@
       <% content_elts.each_with_index do |content_elt, i| %>
         <%= page.div(content_elt, id: "category_#{i}", class: 'js-tabcontent bg--white pam', repeat: true) do %>
           <%= page.h3('content_title', class: 'flex-container--row aic mbm') do |title_elt| %>
-              <i class="apidae-icon-chevronright txt--primary u-big prs"></i><%= title_elt['text'] %>
+              <i class="fas fa-chevron-circle-right txt--primary u-big prs"></i><%= title_elt['text'] %>
           <% end %>
           <%= page.p('content_text') %>
         <% end %>

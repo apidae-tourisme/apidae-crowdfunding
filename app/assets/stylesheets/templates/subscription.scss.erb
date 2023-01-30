@@ -1,6 +1,6 @@
 @import "fonts/fa";
-@import "fonts/montserrat";
-@import "fonts/apidae";
+@import "fonts/niramit";
+@import "fonts/rebrand";
 @import "knacss/knacss";
 @import "accessible-autocomplete/dist/accessible-autocomplete.min";
 @import "vanilla-datatables/dist/vanilla-dataTables.min";
@@ -71,18 +71,16 @@ header {
   margin: 0;
 }
 
-#site_content {
-  margin-top: 9rem;
+.sibu_site_content {
+  background-color: $gray-200;
 
-  &.home_content {
+  .home_content {
+    margin-top: 9rem;
     padding-bottom: 5rem;
-    background-image: url(<%= asset_path('hexa_bg.svg') %>);
-    background-repeat: no-repeat;
-    background-position: bottom right;
-    background-size: 35% auto;
   }
 
-  &.generic_content {
+  .generic_content {
+    margin-top: 9rem;
     position: relative;
 
     &:before {
@@ -98,10 +96,6 @@ header {
     }
 
     .page_content {
-      background-image: url(<%= asset_path('bee_bg.svg') %>);
-      background-repeat: no-repeat;
-      background-position: left 20px;
-      background-size: 100% auto;
       position: relative;
       z-index: 1;
     }
@@ -169,7 +163,7 @@ header {
 
       @each $level in $map_levels {
         &.level_#{$level} {
-          fill: lighten($color-warning, percentage((8 - $level) / 24));
+          fill: lighten($color-info, percentage((8 - $level) / 16));
         }
       }
 
@@ -337,13 +331,13 @@ header {
           }
 
           &.active {
-            &.mo { background-color: #F97E7E; }
-            &.ct { background-color: #74C5EA; }
-            &.at { background-color: #FFC302; }
-            &.sr { background-color: #FB71A7; }
-            &.fs { background-color: #9D9D9C; }
-            &.sa { background-color: #BDD07B; }
-            &.sp { background-color: #00B1C6; }
+            &.mo { background-color: #C7EAC4; }
+            &.ct { background-color: #BCE1CD; }
+            &.at { background-color: #D7ECE1; }
+            &.sr { background-color: #FEF6B9; }
+            &.fs { background-color: #F46754; }
+            &.sa { background-color: #168AC8; }
+            &.sp { background-color: #645E51; }
 
             span:first-child {
               color: white !important;
@@ -432,10 +426,6 @@ header {
       position: absolute;
       width: 60%;
       height: 64px;
-      background-image: url(asset_path('dots_transition.svg'));
-      background-repeat: no-repeat;
-      background-size: 100% auto;
-      background-position: center;
       top: -25px;
       left: 70%;
       z-index: 3;
@@ -456,10 +446,6 @@ header {
       position: absolute;
       width: 60%;
       height: 64px;
-      background-image: url(asset_path('dots_transition.svg'));
-      background-repeat: no-repeat;
-      background-size: 100% auto;
-      background-position: center;
       top: -25px;
       left: 70%;
       z-index: 3;
@@ -502,10 +488,7 @@ header {
 #new_subscription, #edit_subscription, #confirm_subscription, #static_section, #widget_creation {
 
   #form_wrapper, #confirmation_wrapper, #faq_wrapper, #page_wrapper {
-    background-image: url(<%= asset_path('bee_bg.svg') %>);
-    background-repeat: no-repeat;
-    background-position: left 20px;
-    background-size: 100% auto;
+    background-color: $gray-200;
   }
 }
 

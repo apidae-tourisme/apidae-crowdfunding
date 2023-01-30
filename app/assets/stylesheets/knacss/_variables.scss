@@ -1,27 +1,27 @@
 // KNACSS variables overrides
 
-$font-family-base      : "Montserrat", "Arial", "Helvetica Neue", sans-serif; // system font stack
-$font-family-headings  : "Montserrat", "Arial", "Helvetica Neue", sans-serif; // font for h1, h2.. h6
+$font-family-base      : "Niramit", "Arial", "Helvetica Neue", sans-serif; // system font stack
+$font-family-headings  : "Rebrand", "Arial", "Helvetica Neue", sans-serif; // font for h1, h2.. h6
 
 // Color names
 $white    : #fff;
 $gray-100 : #fffbf4;
-$gray-200 : #f9f4e2;
+$gray-200 : #faf8f2;
 $gray-300 : #e1dcca;
 $gray-400 : #e1dcca;
-$gray-500 : #C1B79F;
+$gray-500 : #aaa294;
 $gray-600 : #A19884;
 $gray-700 : #7F7763;
-$gray-800 : #746A55;
+$gray-800 : #665f51;
 $gray-900 : #756a55;
 $black    : #000;
 
-$blue-300   : #74C5EA;
-$blue-500   : #00B1C6;
-$green-500  : #BDD07B;
-$orange-500 : #FFC302;
-$red-500    : #F97E7E;
-$yellow-500 : #F7E337;
+$blue-300   : #0089ce;
+$blue-500   : #002474;
+$green-500  : #a1d59d;
+$orange-500 : #f9df4c;
+$red-500    : #f46754;
+$yellow-500 : #f9df4c;
 
 // Semantic colors
 $color-brand    : $green-500;
@@ -30,14 +30,14 @@ $color-success  : $green-500;
 $color-info     : $blue-300;
 $color-warning  : $orange-500;
 $color-danger   : $red-500;
-$color-inverse  : $black;
+$color-inverse  : $gray-800;
 $color-ghost    : transparent;
 $color-muted    : $gray-200;
 
-$color-base      : $black;
+$color-base      : $gray-800;
 $background-base : $white;
-$link-color            : $black;
-$link-color-hover      : $black;
+$link-color            : $gray-800;
+$link-color-hover      : $gray-200;
 
 // Components: buttons, badges, alerts color variants list
 // Convention is: name - background-color - color - border

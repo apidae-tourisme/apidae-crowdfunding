@@ -1,11 +1,11 @@
 const colorsByCategory = {
-    mo: '#F97E7E',
-    ct: '#74C5EA',
-    at: '#FFC302',
-    sr: '#FB71A7',
-    fs: '#9D9D9C',
-    sa: '#BDD07B',
-    sp: '#00B1C6'
+    mo: '#C7EAC4',
+    ct: '#BCE1CD',
+    at: '#D7ECE1',
+    sr: '#FEF6B9',
+    fs: '#F46754',
+    sa: '#168AC8',
+    sp: '#645E51'
 };
 
 const labelsByCategory = {
@@ -30,8 +30,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     var chartsWrapper = document.querySelector("#data_charts");
     if (chartsWrapper) {
-        initRankingsChart();
-        initPieChart();
+        renderCharts();
     }
     initNumbersFormatter();
 });
@@ -135,7 +134,7 @@ function initMap(mapWrapper) {
     });
 
     function focusOnRegion(d) {
-        if (activeRegion === d.properties.reference) return resetMapZoom();
+        if (activeRegion === d.properties.reference) return resetMapZoomAndRenderCharts();
         var previousElts = document.querySelectorAll(".map_region.active");
         for (var i = 0; i < previousElts.length; i++) {
             previousElts[i].classList.remove('active');
@@ -169,30 +168,45 @@ function initMap(mapWrapper) {
                 .html('<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>');
             mapWrapper.classList.remove('zooming');
             clearActiveCategory();
-            initPieChart(d.properties.reference);
-            initRankingsChart(d.properties.reference);
+            renderCharts(d.properties.reference);
         }, 750);
     }
+}
 
-    function subscriptionCount(ref, subscriptions) {
-        return (subscriptions[ref] || 0) / 100;
-    }
+function subscriptionCount(ref, subscriptions) {
+    return (subscriptions[ref] || 0) / 100;
+}
 
-    function subscriptionLevel(ref, subscriptions) {
-        return countLevel(subscriptionCount(ref, subscriptions));
-    }
+function subscriptionLevel(ref, subscriptions) {
+    console.log('subscription ' + ref + ' level: ' + countLevel(subscriptionCount(ref, subscriptions)));
+    return countLevel(subscriptionCount(ref, subscriptions));
+}
 
-    function countLevel(subscriptionsCount) {
-        var levels = [0, 5, 10, 25, 50, 100, 150, 200, 300, 1000000];
-        for (var i = 0; i < levels.length - 1; i++) {
-            if (subscriptionsCount >= levels[i] && subscriptionsCount < levels[i + 1]) {
-                return "level_" + i;
-            }
+function countLevel(subscriptionsCount) {
+    var levels = [0, 5, 10, 25, 50, 100, 150, 200, 300, 1000000];
+    for (var i = 0; i < levels.length - 1; i++) {
+        if (subscriptionsCount >= levels[i] && subscriptionsCount < levels[i + 1]) {
+            return "level_" + i;
         }
     }
 }
 
-function resetMapZoom(filter) {
+function updateMap(filter) {
+    const cat = typeof filter === 'undefined' ? '' : filter;
+    d3.json('/souscriptions/regions.json?category=' + cat).then(function(subscriptionsData) {
+        mapFeatures.each(function() {
+            const elt = d3.select(this), region = elt.datum().properties.reference;
+            elt.select(".region_path").attr("class", "region_path " + subscriptionLevel(region, subscriptionsData));
+        });
+        textFeatures.each(function() {
+            const elt = d3.select(this), region = elt.datum().properties.reference;
+            const count = subscriptionCount(region, subscriptionsData);
+            elt.select(".region_label").html(count  > 0 ? ('<tspan class="map_text" x="0" y="0">' + formatAmount(count * 100) + '</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>') : '');
+        });
+    }, function(err) {console.error("regions data retrieval error")});
+}
+
+function resetMapZoomAndRenderCharts(filter) {
     var mapWrapper = document.querySelector("#home_map");
     mapWrapper.classList.add('zooming');
     mapFeatures.transition()
@@ -209,24 +223,29 @@ function resetMapZoom(filter) {
         }
         activeRegion = '';
         document.querySelector("#home_map").classList.remove('zoomed', 'zooming');
-        initPieChart(filter);
-        initRankingsChart(filter);
+        renderCharts(filter);
     }, 750);
+}
+
+function renderCharts(filter) {
+    initPieChart(filter);
+    initRankingsChart(filter);
+    if (mapFeatures) {
+        updateMap(filter);
+    }
 }
 
 function toggleRankFilter(filter, btn) {
     if (!btn.classList.contains('active')) {
         if (document.querySelector("#home_map").classList.contains('zoomed')) {
-            resetMapZoom(filter);
+            resetMapZoomAndRenderCharts(filter);
         } else {
-            initRankingsChart(filter);
-            initPieChart(filter);
+            renderCharts(filter);
         }
         clearActiveCategory();
         btn.classList.add('active');
     } else {
-        initRankingsChart();
-        initPieChart();
+        renderCharts();
         btn.classList.remove('active');
     }
 }

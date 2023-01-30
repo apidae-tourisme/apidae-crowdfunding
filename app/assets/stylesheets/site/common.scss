@@ -1,3 +1,5 @@
+$apidae_blue: #168AC8;
+
 .bg {
   @each $name, $background-color, $color, $border in $variants-list {
     &--#{$name} {
@@ -111,3 +113,25 @@ a.no_udl {
 .flex-container--column {
   -ms-flex-direction: column;
 }
+
+.apidae_btn {
+  &_outline {
+    font-size: 14px;
+    padding: 16px 24px;
+    border-radius: 24px;
+    border: 1px solid $apidae_blue;
+    background: none;
+    color: $apidae_blue;
+  }
+
+  &_solid {
+    font-size: 14px;
+    padding: 20px 32px;
+    border-radius: 32px;
+    background: $apidae_blue;
+    background: linear-gradient(90deg, rgb(0, 107, 199) 50%, rgb(0, 170, 255) 100%);
+    color: $white;
+    text-decoration: none;
+  }
+}
+

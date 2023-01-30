@@ -10,14 +10,14 @@
               sub_path(s, 'subscription[com_enabled]': (s.com_enabled ? '0' : '1')),
               method: :patch, remote: true,
               data: {confirm: "#{s.com_enabled ? 'Anonymiser' : 'Rendre publique'} cette déclaration ?"},
-              class: "btn btn--primary",
+              class: "btn btn--info",
               title: (s.com_enabled ? 'Anonymiser' : 'Rendre publique') %>
   <%= link_to "<i class=\"fas u-bigger fa-file-alt\"></i>".html_safe, document_subscription_path(s),
-              target: '_blank', class: 'btn btn--warning' %>
+              target: '_blank', class: 'btn btn--info' %>
   <%= link_to "<i class=\"fas u-bigger fa-envelope\"></i>".html_safe, send_mail_sub_path(s, mailer_action: s.confirmed? ? 'confirm_subscription' : 'declare_subscription'),
               method: :post, remote: true,
               data: {confirm: "Envoyer à nouveau la confirmation #{s.confirmed? ? "de souscription" : "de déclaration d'intention"} ?"},
-              class: 'btn btn--success' %>
+              class: 'btn btn--info' %>
   <%= link_to "<i class=\"fas u-bigger fa-pen-square\"></i>".html_safe, edit_subscription_url(s),
-              target: '_blank', class: 'btn btn--inverse', disabled: s.confirmed? %>
+              target: '_blank', class: 'btn btn--info', disabled: s.confirmed? %>
 </td>

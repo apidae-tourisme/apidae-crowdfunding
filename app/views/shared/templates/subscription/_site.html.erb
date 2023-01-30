@@ -10,7 +10,7 @@
 <header class="w100">
   <%= render 'shared/header' %>
 </header>
-<div id="site_content" class="<%= @page.home? ? 'home_content' : 'generic_content' %>">
+<div class="<%= @page.home? ? 'home_content' : 'generic_content' %>">
   <% if @page.home? %>
     <div>
       <section id="home_data">
@@ -24,7 +24,7 @@
                     data-modal-content-id="all_subscriptions" data-modal-describedby-id="modal_description"
                     data-modal-title="Toutes les déclarations d'intention" data-modal-close-text="Fermer" data-modal-close-title="Fermer la fenêtre"
                     aria-haspopup="dialog" onclick="loadSubscriptions()">
-              <i class="u-bigger apidae-icon-chevronrightfilled prs"></i><span>Voir tous les sociétaires</span>
+              <i class="u-bigger fas fa-chevron-circle-right prs"></i><span>Voir tous les sociétaires</span>
             </button>
           </div>
           <div id="pie_chart_container" class="txtleft mtl plm pbm">
@@ -33,34 +33,6 @@
               <div id="pie_chart"></div>
               <div id="pie_legend" class="flex-container--column"></div>
             </div>
-          </div>
-        </div>
-      </section>
-      <section id="timeline_container" class="mtm">
-        <div class="w100 mw1140p center plm prm">
-          <p class="u-uppercase u-big mbm lh"><strong>Montant total</strong> des déclarations d'intention</p>
-          <div id="timeline_wrapper" class="flex-container">
-            <div class="item-fluid">
-              <div class="bg--info txtcenter txt--white">
-                <span class="nbr u-bigger u-bold"><%= total_amount %></span>
-              </div>
-              <div id="timeline_steps" class="flex-container w100 fw500">
-                <div class="flex-container lh u-uppercase">Déc.<br/>2021</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 1 %>">Jan.<br/>2022</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 2 %>">Fév</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 3 %>">Mar</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 4 %>">Avr</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 5 %>">Mai</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 6 %>">Juin</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 7 %>">Juil</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 8 %>">Aou</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 9 %>">Sep</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 10 %>">Oct</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 11 %>">Nov</div>
-                <div class="flex-container u-uppercase <%= 'active' if Date.today.month == 12 %>">Déc.<br/>2022</div>
-              </div>
-            </div>
-            <p class="u-uppercase lh pls"><strong>Objectif :<br/>677 800€</strong></p>
           </div>
         </div>
       </section>

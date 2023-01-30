@@ -3,10 +3,10 @@ site_template = Sibu::SiteTemplate.find_or_create_by(name: "Apidae - Souscriptio
 site_template.update(
     path: "templates/subscription",
     ref: "subscription",
-    primary_font: "Montserrat",
-    secondary_font: "Montserrat",
-    primary_color: "#00B1C6",
-    secondary_color: "#F97E7E",
+    primary_font: "Niramit",
+    secondary_font: "Niramit",
+    primary_color: "#0089ce",
+    secondary_color: "#f46754",
     sections: [],
     pages: [
         {

@@ -1,5 +1,5 @@
 <h3 class="flex-container--row mtl">
-  <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Code d'intégration</span>
+  <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span>Code d'intégration</span>
 </h3>
 <% snippet = capture do %>
   <script src="<%= subscription_url(id: @subscription.id, format: :js) %>" async></script>
@@ -10,7 +10,7 @@
     <code id="widget_integration_code" class="u-small"><%= raw escape_once snippet %></code>
   </div>
   <div>
-    <button class="btn btn--inverse" onclick="copyCode()"><i class="fas fa-copy prvs"></i>Copier</button>
+    <button class="apidae_btn_outline" onclick="copyCode()"><i class="fas fa-copy prvs"></i>Copier</button>
   </div>
   <p class="lh ptvs">
     <small>

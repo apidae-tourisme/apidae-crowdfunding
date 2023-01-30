@@ -5,7 +5,7 @@
 <% end %>
 <%= button_to 'Mettre à jour'.html_safe, sync_crm_sub_path(@subscription), remote: true, method: :get,
             data: {confirm: 'Enregistrer la souscription dans la base GRC ?', disable_with: 'En cours...'},
-              id: 'sync_crm_link', class: 'bg--warning pas' %>
+              id: 'sync_crm_link', class: 'bg--danger pas' %>
 <% unless @subscription.crm_history.blank? %>
   <button class="js-modal bg--primary pas mtm" data-modal-prefix-class="simple-animated"
           data-modal-content-id="crm_history_modal" data-modal-describedby-id="crm_history_description"

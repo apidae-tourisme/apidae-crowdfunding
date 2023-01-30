@@ -1,4 +1,4 @@
-<section id="new_subscription" class="bg--primary">
+<section id="new_subscription">
   <div id="form_wrapper">
     <div class="w100 mw1140p center pam">
       <h1 class="txtcenter txt--white mtl mbl h2-like">Je prends des parts au capital</h1>
@@ -6,3 +6,8 @@
     </div>
   </div>
 </section>
+<% content_for :page_scripts do %>
+  <script>
+      var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', ' €']}).format('$,');
+  </script>
+<% end %>

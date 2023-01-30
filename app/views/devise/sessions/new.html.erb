@@ -1,6 +1,6 @@
 <div id="auth_wrapper" class="txtcenter mtl">
   <div class="w300p center">
-    <%= image_tag 'logo_apidae.svg', class: 'w100', alt: 'logo apidae' %>
+    <%= image_tag 'logo_apidae_center.png', class: 'w100', alt: 'logo apidae' %>
     <div class="bg--primary pam big">
 
       <h2 class="txtcenter">Connexion</h2>
@@ -8,7 +8,7 @@
       <p class="mts mbm u-small">Veuillez vous authentifier pour continuer.</p>
       <%- resource_class.omniauth_providers.each do |provider| %>
         <%= link_to "Authentification",
-                    omniauth_authorize_path(resource_name, provider), id: 'auth_button', class: 'btn btn--big btn--warning mbm' %><br />
+                    omniauth_authorize_path(resource_name, provider), id: 'auth_button', class: 'btn apidae_btn_solid mbm' %><br />
       <% end -%>
     </div>
   </div>

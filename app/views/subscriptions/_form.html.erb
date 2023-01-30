@@ -24,7 +24,7 @@
     </ul>
     <div id="type" class="<%= is_new ? 'js-tabcontent' : 'is-hidden' %> bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Type de sociétaire</span>
+        <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span>Type de sociétaire</span>
       </h3>
       <div class="flex-container mtl">
         <div class="txtright item-center u-big w15 prs">Je suis</div>
@@ -60,12 +60,12 @@
         <i class="fas fa-info-circle prvs"></i>Les statuts de Apidae Tourisme Scic SA à capital variable sont consultables via <a href="/statuts-apidae-tourisme-scic-sa-v3.pdf" target="_blank">ce lien</a>.
       </div>
       <div class="txtright mtl">
-        <button type="button" class="btn btn--warning" onclick="nextStep('type')">Suivant</button>
+        <button type="button" class="apidae_btn_outline" onclick="nextStep('type')">Suivant</button>
       </div>
     </div>
     <div id="montant" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span><%= is_new ? 'Déclaration du montant' : 'Montant déclaré' %></span>
+        <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span><%= is_new ? 'Déclaration du montant' : 'Montant déclaré' %></span>
       </h3>
       <div class="flex-container mtl aic">
         <div class="txtright item-center u-big w40 prs">
@@ -86,20 +86,20 @@
         </div>
       <% end %>
       <div class="txtright mtl">
-        <button type="button" class="btn btn--primary mrm" onclick="prevStep('montant')">Précédent</button>
-        <button type="button" class="btn btn--warning" onclick="nextStep('montant')">Suivant</button>
+        <button type="button" class="apidae_btn_outline mrm" onclick="prevStep('montant')">Précédent</button>
+        <button type="button" class="apidae_btn_outline" onclick="nextStep('montant')">Suivant</button>
       </div>
     </div>
 
     <div id="infos" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span><%= is_new ? 'Mes informations' : 'Informations déjà fournies' %></span>
+        <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span><%= is_new ? 'Mes informations' : 'Informations déjà fournies' %></span>
       </h3>
       <% if is_new %>
         <div class="flex-container mtm person_pm_only bg--primary pts pbs plm prm">
           <p class="w100 lh mbs txtleft">Si vous êtes membre du réseau Apidae, vous pouvez utiliser la recherche ci-dessous pour pré-remplir
             certains champs du formulaire.</p>
-          <div class="txtright item-center w50p prm u-bigger"><i class="apidae-icon-search txt--warning u-bigger"></i></div>
+          <div class="txtright item-center w50p prm u-bigger"><i class="fas fa-search txt--warning"></i></div>
           <div class="lookup_container item-fluid"></div>
           <%= f.hidden_field :apidae_member_id %>
         </div>
@@ -217,7 +217,7 @@
                       Utilisez la zone ci-dessus pour tracer votre signature.
                       Vous pouvez également télécharger une image via le bouton ci-dessous.
                     </p>
-                    <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="btn--small btn--inverse w100">
+                    <button type="button" id="download_signature" onclick="document.querySelector('#signature_file').click();" class="apidae_btn_outline w100">
                       Télécharger une signature
                     </button>
                   </div>
@@ -303,24 +303,24 @@
           </label>
         </div>
         <div class="txtright mtl">
-          <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
-          <button type="button" class="btn btn--warning" onclick="copySignature(); nextStep('infos')">Suivant</button>
+          <button type="button" class="apidae_btn_outline mrm" onclick="prevStep('infos')">Précédent</button>
+          <button type="button" class="apidae_btn_outline" onclick="copySignature(); nextStep('infos')">Suivant</button>
         </div>
       <% else %>
         <div class="txtright mtl">
-          <button type="button" class="btn btn--primary mrm" onclick="prevStep('infos')">Précédent</button>
-          <button type="button" class="btn btn--warning" onclick="nextStep('infos')">Suivant</button>
+          <button type="button" class="apidae_btn_outline mrm" onclick="prevStep('infos')">Précédent</button>
+          <button type="button" class="apidae_btn_outline" onclick="nextStep('infos')">Suivant</button>
         </div>
       <% end %>
     </div>
     <div id="validation" class="js-tabcontent bg--white">
       <h3 class="flex-container--row">
-        <i class="apidae-icon-chevronrightfilled txt--warning u-big prvs"></i><span>Validation de ma <%= phase_label %></span>
+        <i class="fas fa-chevron-circle-right txt--warning u-big prvs"></i><span>Validation de ma <%= phase_label %></span>
       </h3>
       <div id="validation_msg" class="mtl txtcenter"></div>
       <div class="mtm mbs txtcenter">
-        <button type="button" class="btn btn--primary mrm" onclick="prevStep('validation')">Précédent</button>
-        <%= f.submit "Confirmer", class: 'btn btn--warning', data: { disable_with: "Transmission..." } %>
+        <button type="button" class="apidae_btn_outline mrm" onclick="prevStep('validation')">Précédent</button>
+        <%= f.submit "Confirmer", class: 'apidae_btn_solid', data: { disable_with: "Transmission..." } %>
       </div>
     </div>
   </div>

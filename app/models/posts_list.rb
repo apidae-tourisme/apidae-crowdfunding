@@ -8,9 +8,9 @@ class PostsList
   def posts(force_refresh = false)
     if @feed_url.blank?
       items = [
-          {title: 'Article 1', url: '#', image: '/logo_apidae.svg', content_text: 'Contenu article 1'},
-          {title: 'Article 2', url: '#', image: '/logo_apidae.svg', content_text: 'Contenu article 2'},
-          {title: 'Article 3', url: '#', image: '/logo_apidae.svg', content_text: 'Contenu article 3'}
+          {title: 'Article 1', url: '#', image: '/logo_apidae_h.png', content_text: 'Contenu article 1'},
+          {title: 'Article 2', url: '#', image: '/logo_apidae_h.png', content_text: 'Contenu article 2'},
+          {title: 'Article 3', url: '#', image: '/logo_apidae_h.png', content_text: 'Contenu article 3'}
       ]
     else
       cache_key = @feed_url.split('/')[-3..-1].join('_')
