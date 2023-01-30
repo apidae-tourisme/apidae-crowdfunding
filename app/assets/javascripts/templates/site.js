@@ -178,7 +178,6 @@ function subscriptionCount(ref, subscriptions) {
 }
 
 function subscriptionLevel(ref, subscriptions) {
-    console.log('subscription ' + ref + ' level: ' + countLevel(subscriptionCount(ref, subscriptions)));
     return countLevel(subscriptionCount(ref, subscriptions));
 }
 

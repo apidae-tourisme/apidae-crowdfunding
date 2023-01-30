@@ -7,7 +7,9 @@ site_template.update(
     secondary_font: "Niramit",
     primary_color: "#0089ce",
     secondary_color: "#f46754",
-    sections: [],
+    sections: [
+      {id: 'header', elements: [{id: 'header_title', text: Sibu::DEFAULT_TEXT}]}
+    ],
     pages: [
         {
             name: "Page générique", path: "", sections: [
