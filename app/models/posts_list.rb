@@ -21,7 +21,7 @@ class PostsList
           open(@feed_url) { |f|
             f.each_line {|line| response += line unless line.nil?}
           }
-          items = JSON.parse(response, symbolize_names: true)
+          items = JSON.parse(response)
           Rails.cache.write(cache_key, items)
         rescue Exception => ex
           Rails.logger.error "Could not retrieve posts list: #{ex.message}"
