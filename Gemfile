@@ -10,7 +10,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'omniauth'
 # 1.3.1 specified as 1.4.0 is broken for now
-gem 'omniauth-oauth2', '1.3.1'
+gem 'omniauth-oauth2', '1.8.0'
 
 gem 'rubyzip', '~> 1.1.0'
 gem 'axlsx', '2.1.0.pre'
