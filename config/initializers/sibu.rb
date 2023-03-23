@@ -1,7 +1,7 @@
 SECTIONS_TABS = ['texts', 'links', 'grids', 'custom']
 
 Rails.application.config.sibu = {
-    title: 'Apidae - Souscrivez à la nouvelle structure',
+    title: 'Souscription Apidae',
     stylesheet: 'admin',
     javascript: 'admin',
     top_panel: 'shared/admin_header',

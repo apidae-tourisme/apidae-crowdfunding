@@ -88,10 +88,10 @@ function initMap(mapWrapper) {
         .attr('width', 100)
         .attr('height', 100)
         .append("image")
-        .attr("xlink:href", "eu_flag.png")
-        .attr('width', width > 480 ? 25 : 20)
-        .attr('height', 100)
-        .attr('x', width > 480 ? 35 : 70)
+        .attr("xlink:href", "/eu_flag.png")
+        .attr('width', 50)
+        .attr('height', 60)
+        .attr('x', width > 480 ? 50 : 70)
         .attr('y', width > 480 ? -10 : 10);
     var promises = [
         d3.json('/data/regions.json'),
@@ -104,7 +104,7 @@ function initMap(mapWrapper) {
         var subscriptionsData = values[1];
 
         mapFeatures = regionsWrapper
-            .selectAll("path")
+            .selectAll(".map_region")
             .data(regionsData.features)
             .enter().append("g").attr("class", function(d) {return "map_region " + d.properties.reference;});
 
@@ -125,7 +125,9 @@ function initMap(mapWrapper) {
             .html(function (d) {
                 var count = subscriptionCount(d.properties.reference, subscriptionsData);
                 return count  > 0 ? ('<tspan class="map_text" x="0" y="0">' + formatAmount(count * 100) + '</tspan><tspan class="map_text" x="0" dy="1em">déclarés</tspan>') : '';
-            }).on("click", focusOnRegion);
+            }).on("click", focusOnRegion)
+            .on("mouseover", function(d) { document.querySelector("#" + d.properties.reference).classList.add("hovered"); })
+            .on("mouseout", function(d) { document.querySelector("#" + d.properties.reference).classList.remove("hovered"); });
 
         d3.selectAll("text.region_label").attr("transform", function (d, i) {
             var bbox = document.querySelector("#" + d.properties.reference).getBBox();
@@ -165,7 +167,8 @@ function initMap(mapWrapper) {
                 .append("text")
                 .attr("transform", textTransform)
                 .attr("class", "region_label")
-                .html('<tspan class="zoomed_text" x="0" y="0" dy="-1.4em">' + d.properties.nom + '</tspan>');
+                .html('<tspan class="zoomed_text" x="0" y="0" dy="-0.3em">' + d.properties.nom + '</tspan>')
+                .on("click", focusOnRegion);
             mapWrapper.classList.remove('zooming');
             clearActiveCategory();
             renderCharts(d.properties.reference);

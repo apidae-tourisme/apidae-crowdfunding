@@ -2,7 +2,7 @@
   header {
     position: initial;
 
-    & + #site_content {
+    & + .sibu_site_content {
       margin-top: 0;
     }
 
@@ -17,7 +17,6 @@
     height: auto;
 
     & > :first-child {
-      width: calc(100% - 180px);
       padding-left: 1rem;
     }
 
@@ -46,7 +45,16 @@
     }
   }
 
-  #site_content section#home_data {
+  .sibu_site_content .home_content {
+    margin-top: 14rem !important;
+  }
+
+  .sibu_site_content .page_content {
+    clear: both;
+    padding-top: 2rem;
+  }
+
+  .sibu_site_content section#home_data {
     #rank_chart_wrapper, #pie_chart_container {
       display: block;
       position: initial;
@@ -76,7 +84,6 @@
     flex-wrap: wrap;
 
     > a {
-      width: 25% !important;
       margin: auto !important;
     }
 
@@ -86,17 +93,17 @@
     }
   }
 
-  #site_content #home_data > * > :first-child {
+  .sibu_site_content #home_data > * > :first-child {
     height: calc(530px - 15rem) !important;
     min-height: auto;
   }
 
-  #site_content #home_data > * > :last-child {
+  .sibu_site_content #home_data > * > :last-child {
     height: calc(720px - 15rem) !important;
     min-height: auto;
   }
 
-  #site_content section#home_data {
+  .sibu_site_content section#home_data {
     #rank_chart_wrapper, #pie_chart_container {
       width: 100%;
     }
