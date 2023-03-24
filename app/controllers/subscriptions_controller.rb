@@ -63,16 +63,18 @@ class SubscriptionsController < ApplicationController
 
   def proportions
     default_map = Hash[CATEGORIES.keys.map {|cat| [cat.to_s, 0]}]
-    records = (params[:filter].blank? || CATEGORIES.keys.include?(params[:filter].to_sym)) ? Subscription.all.by_subscriber : filtered_records(Subscription.by_subscriber)
+    records = filtered_records(Subscription.by_subscriber)
     @members_by_category = default_map.merge(Hash[records.to_a.group_by {|s| s.category }.map {|cat, subs| [cat, subs.length]}])
     @amount_by_category = default_map.merge(Hash[records.to_a.group_by {|s| s.category }.map {|cat, subs| [cat, subs.sum {|s| s.total}]}])
     render json: {subscriptions: @members_by_category, amounts: @amount_by_category}
   end
 
   def regions
+    region_field = "COALESCE(NULLIF(region, ''), 'autres')"
     subs = params[:category].blank? ? Subscription.all : Subscription.where(category: params[:category])
-    @amounts_by_region = Hash[subs.select("region, SUM(amount) AS total").group(:region)
-                                    .map {|s| [s.region, s.total]}]
+    subs = subs.where("#{region_field} = ?", params[:region]) unless params[:region].blank?
+    @amounts_by_region = Hash[subs.select("#{region_field} AS region_ref, SUM(amount) AS total").group(region_field)
+                                    .map {|s| [s.region_ref, s.total]}]
     render json: @amounts_by_region
   end
 
@@ -99,8 +101,10 @@ class SubscriptionsController < ApplicationController
 
   def filtered_records(records)
     unless params[:filter].blank?
-      filter_type = CATEGORIES.keys.include?(params[:filter].to_sym) ? 'category' : 'region'
-      records = records.where("#{filter_type} = ?", params[:filter])
+      records = records.where("category = ?", params[:filter])
+    end
+    unless params[:region].blank?
+      records = records.where("COALESCE(NULLIF(region, ''), 'autres') = ?", params[:region])
     end
     records
   end

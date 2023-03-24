@@ -20,7 +20,7 @@ const labelsByCategory = {
 
 var datatable;
 var rankingsChart, rankingsData, pieChart, pieData;
-var mapFeatures, textFeatures, activeRegion;
+var mapFeatures, textFeatures, activeRegion = '', activeCategory = '';
 var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', ' €']}).format('$,');
 
 document.addEventListener("DOMContentLoaded", function (event) {
@@ -85,19 +85,19 @@ function initMap(mapWrapper) {
         .append('pattern')
         .attr('id', 'flag')
         .attr('patternUnits', 'userSpaceOnUse')
-        .attr('width', 100)
-        .attr('height', 100)
+        .attr('width', width > 480 ? 100 : 200)
+        .attr('height', width > 480 ? 100 : 200)
         .append("image")
         .attr("xlink:href", "/eu_flag.png")
-        .attr('width', 50)
-        .attr('height', 60)
-        .attr('x', width > 480 ? 50 : 70)
-        .attr('y', width > 480 ? -10 : 10);
+        .attr('width', width > 480 ? 35 : 15)
+        .attr('height', width > 480 ? 60 : 50)
+        .attr('x', width > 480 ? 62 : 92)
+        .attr('y', width > 480 ? -5 : 40);
     var promises = [
         d3.json('/data/regions.json'),
         d3.json('/souscriptions/regions.json')
     ];
-    activeRegion = d3.select(null);
+    activeRegion = '';
 
     Promise.all(promises).then(function (values) {
         var regionsData = values[0];
@@ -152,7 +152,7 @@ function initMap(mapWrapper) {
             dy = bounds[1][1] - bounds[0][1],
             x = (bounds[0][0] + bounds[1][0]) / 2,
             y = (bounds[0][1] + bounds[1][1]) / 2,
-            scale = .9 / Math.max(dx / width, dy / height),
+            scale = (activeRegion === 'polynesie-francaise' ? 0.2 : 0.7) / Math.max(dx / width, dy / height),
             translate = [width / 2 - scale * x, height / 2 - scale * y];
 
         mapWrapper.classList.add('zoomed', 'zooming');
@@ -167,7 +167,7 @@ function initMap(mapWrapper) {
                 .append("text")
                 .attr("transform", textTransform)
                 .attr("class", "region_label")
-                .html('<tspan class="zoomed_text" x="0" y="0" dy="-0.3em">' + d.properties.nom + '</tspan>')
+                .html('<tspan class="zoomed_text" x="0" y="0" dy="' + (activeRegion === "autres" ? "-1.5em" : "-1.5em") + '" dx="' + (activeRegion === "autres" ? "0.5em" : "") + '">' + d.properties.nom + '</tspan>')
                 .on("click", focusOnRegion);
             mapWrapper.classList.remove('zooming');
             clearActiveCategory();
@@ -208,7 +208,7 @@ function updateMap(filter) {
     }, function(err) {console.error("regions data retrieval error")});
 }
 
-function resetMapZoomAndRenderCharts(filter) {
+function resetMapZoomAndRenderCharts() {
     var mapWrapper = document.querySelector("#home_map");
     mapWrapper.classList.add('zooming');
     mapFeatures.transition()
@@ -225,36 +225,38 @@ function resetMapZoomAndRenderCharts(filter) {
         }
         activeRegion = '';
         document.querySelector("#home_map").classList.remove('zoomed', 'zooming');
-        renderCharts(filter);
+        renderCharts();
     }, 750);
 }
 
-function renderCharts(filter) {
-    initPieChart(filter);
-    initRankingsChart(filter);
+function renderCharts() {
+    initPieChart(activeCategory);
+    initRankingsChart(activeCategory);
     if (mapFeatures) {
-        updateMap(filter);
+        updateMap(activeCategory);
     }
 }
 
 function toggleRankFilter(filter, btn) {
     if (!btn.classList.contains('active')) {
-        if (document.querySelector("#home_map").classList.contains('zoomed')) {
-            resetMapZoomAndRenderCharts(filter);
-        } else {
-            renderCharts(filter);
-        }
+        activeCategory = filter;
+        // if (document.querySelector("#home_map").classList.contains('zoomed')) {
+        //     resetMapZoomAndRenderCharts(filter);
+        // } else {
+        //     renderCharts();
+        // }
         clearActiveCategory();
         btn.classList.add('active');
     } else {
-        renderCharts();
+        activeCategory = '';
         btn.classList.remove('active');
     }
+    renderCharts();
 }
 
 function initRankingsChart(filter) {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/souscriptions/rankings.json" + (filter ? ("?filter=" + filter) : ""), true);
+    ajax.open("GET", "/souscriptions/rankings.json?filter=" + filter + "&region=" + activeRegion, true);
     ajax.onload = function () {
         var containerElt = document.querySelector('#rank_chart');
         var resp = ajax.responseText;
@@ -360,7 +362,7 @@ function styleLabels() {
 
 function initPieChart(filter) {
     var ajax = new XMLHttpRequest();
-    ajax.open("GET", "/souscriptions/proportions.json" + (filter ? ("?filter=" + filter) : ""), true);
+    ajax.open("GET", "/souscriptions/proportions.json?filter=" + filter + "&region=" + activeRegion, true);
     ajax.onload = function () {
         var resp = ajax.responseText;
         pieData = JSON.parse(resp);

@@ -128,11 +128,11 @@ header {
     svg {
       .map_region:hover path, .map_region path.hovered {
         cursor: pointer;
-        stroke-width: 3px;
       }
 
-      .map_region:not(.autres):hover path {
+      .map_region:not(.autres):hover path, .map_region:not(.autres) path.hovered {
         filter: drop-shadow(0px 3px 3px rgba(0, 0, 0, 0.4));
+        stroke-width: 3px;
       }
 
       .map_region:hover text {
@@ -174,6 +174,7 @@ header {
       }
 
       &#autres {
+        stroke-width: 0;
         fill: url(#flag);
       }
     }
