@@ -170,7 +170,6 @@ function initMap(mapWrapper) {
                 .html('<tspan class="zoomed_text" x="0" y="0" dy="' + (activeRegion === "autres" ? "-1.5em" : "-1.5em") + '" dx="' + (activeRegion === "autres" ? "0.5em" : "") + '">' + d.properties.nom + '</tspan>')
                 .on("click", focusOnRegion);
             mapWrapper.classList.remove('zooming');
-            clearActiveCategory();
             renderCharts(d.properties.reference);
         }, 750);
     }
@@ -240,11 +239,6 @@ function renderCharts() {
 function toggleRankFilter(filter, btn) {
     if (!btn.classList.contains('active')) {
         activeCategory = filter;
-        // if (document.querySelector("#home_map").classList.contains('zoomed')) {
-        //     resetMapZoomAndRenderCharts(filter);
-        // } else {
-        //     renderCharts();
-        // }
         clearActiveCategory();
         btn.classList.add('active');
     } else {
