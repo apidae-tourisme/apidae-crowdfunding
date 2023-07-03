@@ -110,19 +110,24 @@ class SubscriptionsController < ApplicationController
   end
 
   def handle_subscription_save(new_sub, error_action)
+    Rails.logger.info "Handling subscription save"
     unless @subscription.signature_data.blank?
       encoded_signature = @subscription.signature_data.split(",")[1]
       unless encoded_signature.blank?
         decoded_signature = Base64.decode64(encoded_signature)
         @subscription.signature.attach(io: StringIO.new(decoded_signature), filename: 'signature.png')
+        Rails.logger.info "Subscription signature attached"
       end
     end
     if @subscription.save
+      Rails.logger.info "Subscription saved"
       if new_sub
         SubscriptionsMailer.declare_subscription(@subscription).deliver_now
+        Rails.logger.info "New sub - declare subscription sent"
         redirect_to confirm_subscription_url(@subscription)
       elsif @subscription.confirm!
         SubscriptionsMailer.confirm_subscription(@subscription).deliver_now
+        Rails.logger.info "New sub - confirm subscription sent"
         redirect_to confirm_subscription_url(@subscription)
       else
         flash.now[:alert] = "Une erreur s'est produite lors de la confirmation de la souscription."
