@@ -1,4 +1,5 @@
 var steps = ['type', 'montant', 'infos', 'validation'];
+var formatAmount = d3.formatLocale({decimal: ',', thousands: ' ', grouping: [3], currency: ['', ' €']}).format('$,');
 
 document.addEventListener("DOMContentLoaded", function(event) {
     disableNextSteps();
